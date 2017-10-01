@@ -11,14 +11,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="my-view3">
+<dom-module id="sum-view3">
   <template>
     <style include="shared-styles">
-      :host {
+       :host {
         display: block;
 
         padding: 10px;
       }
+
     </style>
 
     <div class="card">
@@ -30,10 +31,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   <script>
-    class MyView3 extends Polymer.Element {
-      static get is() { return 'my-view3'; }
+    class SumView3 extends Polymer.Element {
+      static get is() { return 'sum-view3'; }
     }
 
-    window.customElements.define(MyView3.is, MyView3);
+    window.customElements.define(SumView3.is, SumView3);
   </script>
 </dom-module>
