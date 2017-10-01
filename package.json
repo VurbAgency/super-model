@@ -1,0 +1,11 @@
+{
+  "name": "super-model",
+  "version": "0.0.1",
+  "description": "SuperModel",
+  "scripts": {
+    "test": "cd https; polymer test",
+    "serve": "firebase serve"
+  },
+  "author": "Vurb BV",
+  "license": "UNLICENSED"
+}
