@@ -19,12 +19,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="sum-icons.html">
 
-<link rel="lazy-import" href="sum-story.html">
-<link rel="lazy-import" href="sum-variables.html">
-<link rel="lazy-import" href="sum-overview.html">
+<!-- <link rel="lazy-import" href="sum-models.html"> -->
 <link rel="lazy-import" href="sum-view404.html">
 
 <dom-module id="sum-app">
@@ -73,40 +72,39 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     </style>
 
+    <firebase-app project-id="super-model" auth-domain="super-model.firebaseapp.com" database-url="https://super-model.firebaseio.com" api-key="AIzaSyBvp5CqnZOdxDv5rfHFOktCoqRwAvQdo6A" storage-bucket="super-model.appspot.com" messaging-sender-id="1028550716132">
+    </firebase-app>
+
     <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>
     <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
 
-    <app-drawer-layout fullbleed narrow="{{narrow}}">
-      <!-- Drawer content -->
-      <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
-        <app-toolbar>Menu</app-toolbar>
-        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="story" href="[[rootPath]]story">Story</a>
-          <a name="variables" href="[[rootPath]]variables">Variables</a>
-          <a name="overview" href="[[rootPath]]overview">Overview</a>
-        </iron-selector>
-      </app-drawer>
+    <!-- <app-drawer-layout fullbleed narrow="{{narrow}}"> -->
+    <!-- Drawer content -->
+    <!-- <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
+      <app-toolbar>Menu</app-toolbar>
+      <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+        <a name="models" href="[[rootPath]]models">Models</a>
+      </iron-selector>
+    </app-drawer> -->
 
-      <!-- Main content -->
-      <app-header-layout has-scrolling-region>
+    <!-- Main content -->
+    <!-- <app-header-layout has-scrolling-region>
 
-        <app-header slot="header" condenses reveals effects="waterfall">
-          <app-toolbar>
-            <paper-icon-button icon="sum-icons:menu" drawer-toggle></paper-icon-button>
-            <div main-title>
-              <img src="[[rootPath]]images/super-model-logo.svg" alt=""> SuperModel
-            </div>
-          </app-toolbar>
-        </app-header>
+      <app-header slot="header" condenses reveals effects="waterfall">
+        <app-toolbar>
+          <paper-icon-button icon="sum-icons:menu" drawer-toggle></paper-icon-button>
+          <div main-title>
+            <img src="[[rootPath]]images/super-model-logo.svg" alt=""> SuperModel
+          </div>
+        </app-toolbar>
+      </app-header> -->
 
-        <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
-          <sum-story name="story"></sum-story>
-          <sum-variables name="variables"></sum-variables>
-          <sum-overview name="overview"></sum-overview>
-          <sum-view404 name="view404"></sum-view404>
-        </iron-pages>
-      </app-header-layout>
-    </app-drawer-layout>
+    <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
+      <sum-models name="models" route="{{subroute}}"></sum-models>
+      <sum-view404 name=" view404 "></sum-view404>
+    </iron-pages>
+    <!-- </app-header-layout>
+    </app-drawer-layout> -->
   </template>
 
   <script>
@@ -140,9 +138,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.page = page || 'story';
 
         // Close a non-persistent drawer when the page & route are changed.
-        if (!this.$.drawer.persistent) {
-          this.$.drawer.close();
-        }
+        // if (!this.$.drawer.persistent) {
+        //   this.$.drawer.close();
+        // }
       }
 
       _pageChanged(page) {

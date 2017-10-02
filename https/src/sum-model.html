@@ -1,6 +1,10 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
 
+<link rel="import" href="sum-story.html">
+<link rel="import" href="sum-variables.html">
+<link rel="import" href="sum-overview.html">
+
 <dom-module id="sum-model">
   <template>
     <style>
@@ -11,6 +15,8 @@
     </style>
 
     <firebase-document path="/model-one/testdata" data="{{data}}"></firebase-document>
+
+    [[modelId]]
 
   </template>
 
@@ -36,7 +42,9 @@
        */
       static get properties() {
         return {
-
+          modelId: {
+            type: String
+          }
         };
       }
 

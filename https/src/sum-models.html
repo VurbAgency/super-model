@@ -1,0 +1,106 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-query.html">
+
+<link rel="import" href="sum-model.html">
+
+<dom-module id="sum-models">
+  <template>
+    <style>
+       :host {
+        display: block
+      }
+
+    </style>
+
+    <app-route route="{{route}}" pattern="[[rootPath]]:modelId" data="{{routeData}}" tail="{{subroute}}"></app-route>
+
+    <template is="dom-if" if="[[routeData.modelId]]">
+
+      <sum-model model-id="[[routeData.modelId]]" route="{{subroute}}"></sum-model>
+
+    </template>
+
+    <template is="dom-if" if="[[!routeData.modelId]]">
+
+      <firebase-query id="modelsQuery" path="/models" data="{{models}}"></firebase-query>
+
+      No modelId, create one in the database and open it in the URL to start editing.
+
+      <ul>
+        <template is="dom-repeat" items="{{models}}">
+
+          <li>Model {{item.$key}}
+            <paper-button on-tap="openModel">Open</paper-button>
+          </li>
+
+        </template>
+      </ul>
+
+    </template>
+
+  </template>
+
+  <script>
+    /**
+     * `sum-model` Description
+     *
+     * @summary ShortDescription.
+     * @customElement
+     * @polymer
+     * @extends {Polymer.Element}
+     */
+    class SumModels extends Polymer.Element {
+      /**
+       * String providing the tag name to register the element under.
+       */
+      static get is() {
+        return 'sum-models';
+      }
+
+      /**
+       * Object describing property-related metadata used by Polymer features
+       */
+      static get properties() {
+        return {
+          route: Object,
+          routeData: Object,
+          subroute: Object,
+          models: Object
+        };
+      }
+
+      /**
+       * Instance of the element is created/upgraded. Use: initializing state,
+       * set up event listeners, create shadow dom.
+       * @constructor
+       */
+      constructor() {
+        super();
+      }
+
+      /**
+       * Use for one-time configuration of your component after local DOM is initialized. 
+       */
+      ready() {
+        super.ready();
+
+        Polymer.RenderStatus.afterNextRender(this, function () {
+
+        });
+      }
+
+      /**
+      * Change the route to a specific model's ID
+      */
+      openModel(e) {
+        console.log(e, e.model.__data.item.$key)
+        var modelId = e.model.__data.item.$key
+        this.set('routeData.modelId', modelId)
+      }
+
+    }
+
+    window.customElements.define(SumModels.is, SumModels);
+  </script>
+</dom-module>
