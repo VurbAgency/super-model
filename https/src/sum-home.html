@@ -1,0 +1,74 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="sum-home">
+  <template>
+    <style>
+       :host {
+        display: block;
+        text-align: center;
+        padding: 1em;
+      }
+
+    </style>
+
+    <img src="../images/super-model-logo.svg" alt="Logo">
+
+    <h1>SuperModel</h1>
+
+    <p>Business models for product super heroes</p>
+
+    <p>To use SuperModel, please request a login.</p>
+
+  </template>
+
+  <script>
+    /**
+     * `sum-home` Description
+     *
+     * @summary ShortDescription.
+     * @customElement
+     * @polymer
+     * @extends {Polymer.Element}
+     */
+    class SumHome extends Polymer.Element {
+      /**
+       * String providing the tag name to register the element under.
+       */
+      static get is() {
+        return 'sum-home';
+      }
+
+      /**
+       * Object describing property-related metadata used by Polymer features
+       */
+      static get properties() {
+        return {
+
+        };
+      }
+
+      /**
+       * Instance of the element is created/upgraded. Use: initializing state,
+       * set up event listeners, create shadow dom.
+       * @constructor
+       */
+      constructor() {
+        super();
+      }
+
+      /**
+       * Use for one-time configuration of your component after local DOM is initialized. 
+       */
+      ready() {
+        super.ready();
+
+        Polymer.RenderStatus.afterNextRender(this, function () {
+
+        });
+      }
+
+    }
+
+    window.customElements.define(SumHome.is, SumHome);
+  </script>
+</dom-module>

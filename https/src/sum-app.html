@@ -25,6 +25,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <!-- <link rel="lazy-import" href="sum-models.html"> -->
 <link rel="lazy-import" href="sum-view404.html">
+<link rel="lazy-import" href="sum-home.html">
 
 <dom-module id="sum-app">
   <template>
@@ -100,8 +101,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </app-header> -->
 
     <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
+      <sum-home name="home"></sum-home>
       <sum-models name="models" route="{{subroute}}"></sum-models>
-      <sum-view404 name=" view404 "></sum-view404>
+      <sum-view404 name="view404"></sum-view404>
     </iron-pages>
     <!-- </app-header-layout>
     </app-drawer-layout> -->
@@ -135,7 +137,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _routePageChanged(page) {
         // If no page was found in the route data, page will be an empty string.
         // Deault to 'view1' in that case.
-        this.page = page || 'story';
+        this.page = page || 'home';
 
         // Close a non-persistent drawer when the page & route are changed.
         // if (!this.$.drawer.persistent) {
