@@ -1,5 +1,13 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/effects/waterfall.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tab.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 
 <link rel="import" href="sum-story.html">
 <link rel="import" href="sum-variables.html">
@@ -12,11 +20,65 @@
         display: block
       }
 
+      app-header {
+        color: #fff;
+        background-color: var(--app-primary-color);
+      }
+
+      app-header paper-icon-button {
+        --paper-icon-button-ink-color: white;
+      }
+
+      [main-title] img {
+        max-height: 24px;
+      }
+
+      paper-tab>a {
+        color: inherit;
+        text-decoration: inherit;
+        height: auto !important;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
     </style>
+
+    <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
 
     <firebase-document path="/model-one/testdata" data="{{data}}"></firebase-document>
 
-    [[modelId]]
+    <app-header-layout>
+      <app-header slot="header" condenses reveals effects="waterfall">
+        <app-toolbar>
+          <div main-title>
+            <!-- <img src="/images/super-model-logo.svg" alt="">  -->
+            SuperModel
+          </div>
+        </app-toolbar>
+        <paper-tabs selected="[[page]]" attr-for-selected="name">
+          <paper-tab name="story" link>
+            <a href="[[route.prefix]]/story">Story</a>
+          </paper-tab>
+          <paper-tab name="variables" link>
+            <a href="[[route.prefix]]/variables">Variables</a>
+          </paper-tab>
+          <paper-tab name="overview" link>
+            <a href="[[route.prefix]]/overview">Overview</a>
+          </paper-tab>
+        </paper-tabs>
+      </app-header>
+      <div>
+
+        <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
+          <sum-story name="story"></sum-story>
+          <sum-variables name="variables"></sum-variables>
+          <sum-overview name="overview"></sum-overview>
+        </iron-pages>
+
+        [[modelId]]
+
+      </div>
+    </app-header-layout>
 
   </template>
 
@@ -44,8 +106,24 @@
         return {
           modelId: {
             type: String
-          }
+          },
+          route: Object,
+          routeData: Object,
+          page: String,
+          subroute: Object
         };
+      }
+
+      static get observers() {
+        return [
+          '_routePageChanged(routeData.page)',
+        ];
+      }
+
+      _routePageChanged(page) {
+        // If no page was found in the route data, page will be an empty string.
+        // Deault to 'view1' in that case.
+        this.page = page || 'story'
       }
 
       /**

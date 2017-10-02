@@ -30,8 +30,8 @@
       <ul>
         <template is="dom-repeat" items="{{models}}">
 
-          <li>Model {{item.$key}}
-            <paper-button on-tap="openModel">Open</paper-button>
+          <li>
+            <a href="[[route.prefix]]/[[item.$key]]/"> Model {{item.$key}}</a>
           </li>
 
         </template>
@@ -88,15 +88,6 @@
         Polymer.RenderStatus.afterNextRender(this, function () {
 
         });
-      }
-
-      /**
-      * Change the route to a specific model's ID
-      */
-      openModel(e) {
-        console.log(e, e.model.__data.item.$key)
-        var modelId = e.model.__data.item.$key
-        this.set('routeData.modelId', modelId)
       }
 
     }
