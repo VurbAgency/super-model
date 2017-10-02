@@ -9,9 +9,12 @@
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 
+<script src="calculations.js"></script>
+
 <link rel="import" href="sum-story.html">
 <link rel="import" href="sum-variables.html">
 <link rel="import" href="sum-overview.html">
+<link rel="import" href="sum-calculated.html">
 
 <dom-module id="sum-model">
   <template>
@@ -55,12 +58,15 @@
             SuperModel [[modelId]]
           </div>
         </app-toolbar>
-        <paper-tabs selected="[[page]]" attr-for-selected="name">
+        <paper-tabs sticky selected="[[page]]" attr-for-selected="name">
           <paper-tab name="story" link>
             <a href="[[route.prefix]]/story">Story</a>
           </paper-tab>
           <paper-tab name="variables" link>
             <a href="[[route.prefix]]/variables">Variables</a>
+          </paper-tab>
+          <paper-tab name="calculated" link>
+            <a href="[[route.prefix]]/calculated">Calculated</a>
           </paper-tab>
           <paper-tab name="overview" link>
             <a href="[[route.prefix]]/overview">Overview</a>
@@ -70,9 +76,10 @@
       <div>
 
         <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
-          <sum-story name="story" data="{{data}}"></sum-story>
-          <sum-variables name="variables" data="{{data}}"></sum-variables>
-          <sum-overview name="overview" data="{{data}}"></sum-overview>
+          <sum-story name="story" data="{{data}}" calculated="[[calculated]]"></sum-story>
+          <sum-variables name="variables" data="{{data}}" calculated="[[calculated]]"></sum-variables>
+          <sum-overview name="overview" data="{{data}}" calculated="[[calculated]]"></sum-overview>
+          <sum-calculated name="calculated" data="{{data}}" calculated="[[calculated]]"></sum-calculated>
         </iron-pages>
 
       </div>
@@ -89,7 +96,7 @@
      * @polymer
      * @extends {Polymer.Element}
      */
-    class SumModel extends Polymer.Element {
+    class SumModel extends superModelCalculationsElementMixin(Polymer.Element) {
       /**
        * String providing the tag name to register the element under.
        */

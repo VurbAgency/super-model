@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 
-<dom-module id="sum-variables">
+<dom-module id="sum-calculated">
   <template>
     <style>
        :host {
@@ -39,11 +39,28 @@
 
       <h3>Growth</h3>
       <paper-input value="{{data.netNewCustomersStart}}" type="number" label="Net New Customers first month"></paper-input>
-
+      <div class="number">
+        <h4>netNewCustomers(month)</h4>
+        <pre>{{printJson(calculated.netNewCustomers)}}</pre>
+      </div>
       <paper-input value="{{data.growthRate}}" type="number" label="Growth rate month to month"></paper-input>
       <paper-input value="{{data.retentionRateSixMonths}}" type="number" label="Retention rate at 6 months"></paper-input>
-
-
+      <div class="number">
+        <h4>retainedCustomers(month)</h4>
+        <pre>{{printJson(calculated.retainedCustomers)}}</pre>
+      </div>
+      <div class="number">
+        <h4>retainedCustomersCohort(month)</h4>
+        <pre>{{printJson(calculated.retainedCustomersCohort)}}</pre>
+      </div>
+      <div class="number">
+        <h4>totalCustomers(month)</h4>
+        <pre>{{printJson(calculated.totalCustomers)}}</pre>
+      </div>
+      <div class="number">
+        <h4>defaultRetention(month)</h4>
+        <pre>{{printJson(calculated.defaultRetention)}}</pre>
+      </div>
 
       <h3>Revenue</h3>
       <paper-input value="{{data.pricePerMonthT1}}" type="number" label="Price per month Tier 1"></paper-input>
@@ -52,11 +69,33 @@
       <paper-input value="{{data.pricePercentT1}}" type="number" label="Price percent tier 1"></paper-input>
       <paper-input value="{{data.pricePercentT2}}" type="number" label="Price percent tier 2"></paper-input>
       <paper-input value="{{data.pricePercentT3}}" type="number" label="Price percent tier 3"></paper-input>
-
+      <div class="number">
+        <h4>totalRevenueT1(month)</h4>
+        <pre>1: {{totalRevenueT1(1)}}</pre>
+      </div>
+      <div class="number">
+        <h4>totalRevenueT2(month)</h4>
+        <pre>1: {{totalRevenueT2(1)}}</pre>
+      </div>
+      <div class="number">
+        <h4>totalRevenueT3(month)</h4>
+        <pre>1: {{totalRevenueT3(1)}}</pre>
+      </div>
+      <div class="number">
+        <h4>totalRevenue(month)</h4>
+        <pre>1: {{totalRevenue(1)}}</pre>
+      </div>
 
       <h3>LTV analysis</h3>
       <paper-input value="{{data.discountRate}}" type="number" label="discountRate"></paper-input>
-
+      <div class="number">
+        <h4>averageCustomerGrossMargin()</h4>
+        <pre>{{averageCustomerGrossMargin()}}</pre>
+      </div>
+      <div class="number">
+        <h4>lifeTimeValue()</h4>
+        <pre>{{lifeTimeValue()}}</pre>
+      </div>
 
       <h3>Cost of goods sold</h3>
       <paper-input value="{{data.costInitialTech}}" type="number" label="costInitialTech"></paper-input>
@@ -68,7 +107,18 @@
       <paper-input value="{{data.costMonthlyTech}}" type="number" label="costMonthlyTech"></paper-input>
       <paper-input value="{{data.staffDeliveryOtherHumans}}" type="number" label="staffDeliveryOtherHumans"></paper-input>
       <paper-input value="{{data.staffDeliveryOtherHumanPrice}}" type="number" label="staffDeliveryOtherHumanPrice"></paper-input>
-
+      <div class="number">
+        <h4>staffDeliveryTotalHumans()</h4>
+        <pre>{{staffDeliveryTotalHumans()}}</pre>
+      </div>
+      <div class="number">
+        <h4>cogs(month) </h4>
+        <pre>1: cogs(1)</pre>
+      </div>
+      <div class="number">
+        <h4>grossMargin(month)</h4>
+        <pre>1: {{grossMargin(1)}}</pre>
+      </div>
 
       <h3>Operating costs</h3>
       <paper-input value="{{data.costMarketingPercentage}}" type="number" label="costMarketingPercentage"></paper-input>
@@ -81,7 +131,22 @@
       <paper-input value="{{data.staffOperatingOtherHumans}}" type="number" label="staffOperatingOtherHumans"></paper-input>
       <paper-input value="{{data.StaffOperatingOtherHumanPrice}}" type="number" label="StaffOperatingOtherHumanPrice"></paper-input>
       <paper-input value="{{data.costOfficePerHuman}}" type="number" label="costOfficePerHuman"></paper-input>
-
+      <div class="number">
+        <h4>staffOperatingTotalHumans()</h4>
+        <pre>{{staffOperatingTotalHumans}}</pre>
+      </div>
+      <div class="number">
+        <h4>totalOperatingCosts(month)</h4>
+        <pre>1: {{totalOperatingCosts(1)}}</pre>
+      </div>
+      <div class="number">
+        <h4>totalOperatingMargin(month)</h4>
+        <pre>1: {{totalOperatingMargin(1)}}</pre>
+      </div>
+      <div class="number">
+        <h4>netOperatingMargin(month)</h4>
+        <pre>1: {{netOperatingMargin(1)}}</pre>
+      </div>
     </section>
 
     <!-- <section>
@@ -93,19 +158,19 @@
 
   <script>
     /**
-     * `sum-variables` Description
+     * `sum-calculated` Description
      *
      * @summary ShortDescription.
      * @customElement
      * @polymer
      * @extends {Polymer.Element}
      */
-    class SumVariables extends Polymer.Element {
+    class SumCalculated extends Polymer.Element {
       /**
        * String providing the tag name to register the element under.
        */
       static get is() {
-        return 'sum-variables';
+        return 'sum-calculated';
       }
 
       /**
@@ -143,6 +208,6 @@
 
     }
 
-    window.customElements.define(SumVariables.is, SumVariables);
+    window.customElements.define(SumCalculated.is, SumCalculated);
   </script>
 </dom-module>
