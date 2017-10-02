@@ -43,7 +43,6 @@
             type: Object,
             value: {
               columns: [
-                ['No data yet']
               ]
             }
           }
@@ -75,12 +74,15 @@
       }
 
       _dataChanged(dataEvent) {
-        console.log(this.data)
+        if (!this.data['1']['1']) {
+          return console.error('Cannot draw graph with no data', this.data)
+        }
         this.drawGraph(this.data)
         // window.setTimeout(() => { this.drawGraph(this.data) }, 1000)
       }
 
       drawGraph(data) {
+
         var graphData = {
 
           xs: {},
@@ -114,7 +116,6 @@
 
 
         }
-        console.log(graphData)
 
         this.set('graphData', graphData)
       }

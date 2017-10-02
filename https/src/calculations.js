@@ -23,14 +23,17 @@ superModelCalculationsElementMixin = function (superClass) {
         calculated: {
           type: Object
         }
-      };
+      }
     }
 
     static get observers() {
-      return ['_dataChanged(data.*)'];
+      return ['_dataChanged(data.*)']
     }
 
     _dataChanged(dataEvent) {
+      if (!this.data.averageCustomerLifespan) {
+        return null
+      }
       this._updateCalculated(this.data)
     }
 
@@ -123,26 +126,3 @@ superModelCalculationsElementMixin = function (superClass) {
     }
   }
 }
-
-/*
-retainedCustomers
-retainedCustomersCohort
-totalCustomers
-defaultRetention
-totalRevenueT1
-totalRevenueT2
-totalRevenueT3
-totalRevenue
-averageCustomerGrossMargin
-lifeTimeValue
-staffDeliveryTotalHumans
-cogs
-grossMargin
-staffOperatingTotalHumans
-totalOperatingCosts
-totalOperatingMargin
-netOperatingMargin
-*/
-
-
-
