@@ -52,7 +52,7 @@
         <app-toolbar>
           <div main-title>
             <!-- <img src="/images/super-model-logo.svg" alt="">  -->
-            SuperModel
+            SuperModel [[modelId]]
           </div>
         </app-toolbar>
         <paper-tabs selected="[[page]]" attr-for-selected="name">
@@ -70,12 +70,10 @@
       <div>
 
         <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
-          <sum-story name="story"></sum-story>
-          <sum-variables name="variables"></sum-variables>
-          <sum-overview name="overview"></sum-overview>
+          <sum-story name="story" data="{{data}}"></sum-story>
+          <sum-variables name="variables" data="{{data}}"></sum-variables>
+          <sum-overview name="overview" data="{{data}}"></sum-overview>
         </iron-pages>
-
-        [[modelId]]
 
       </div>
     </app-header-layout>
