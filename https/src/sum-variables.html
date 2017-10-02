@@ -1,9 +1,10 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="shared-styles.html">
 
 <dom-module id="sum-variables">
   <template>
-    <style>
+    <style include="shared-styles">
        :host {
         display: block
       }
@@ -33,7 +34,7 @@
 
     </style>
 
-    <section>
+    <section class="card">
       <h2>All the variables</h2>
       <p>Tweak these and see the models change</p>
 

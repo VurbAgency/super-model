@@ -1,0 +1,126 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/granite-c3/granite-c3.html">
+
+<dom-module id="sum-cohort">
+  <template>
+    <style>
+       :host {
+        display: flex;
+      }
+
+    </style>
+
+    <granite-c3 data="{{graphData}}" axis='{"x": { "max": 12 }}'></granite-c3>
+
+  </template>
+
+  <script>
+    /**
+     * `sum-cohort` Description
+     *
+     * @summary ShortDescription.
+     * @customElement
+     * @polymer
+     * @extends {Polymer.Element}
+     */
+    class SumCohort extends Polymer.Element {
+      /**
+       * String providing the tag name to register the element under.
+       */
+      static get is() {
+        return 'sum-cohort';
+      }
+
+      /**
+       * Object describing property-related metadata used by Polymer features
+       */
+      static get properties() {
+        return {
+          data: {
+            type: Object
+          },
+          graphData: {
+            type: Object,
+            value: {
+              columns: [
+                ['No data yet']
+              ]
+            }
+          }
+        };
+      }
+
+      /**
+       * Instance of the element is created/upgraded. Use: initializing state,
+       * set up event listeners, create shadow dom.
+       * @constructor
+       */
+      constructor() {
+        super();
+      }
+
+      /**
+       * Use for one-time configuration of your component after local DOM is initialized. 
+       */
+      ready() {
+        super.ready();
+
+        Polymer.RenderStatus.afterNextRender(this, function () {
+
+        });
+      }
+
+      static get observers() {
+        return ['_dataChanged(data.*)'];
+      }
+
+      _dataChanged(dataEvent) {
+        console.log(this.data)
+        this.drawGraph(this.data)
+        // window.setTimeout(() => { this.drawGraph(this.data) }, 1000)
+      }
+
+      drawGraph(data) {
+        var graphData = {
+
+          xs: {},
+          columns: [],
+          names: [],
+          type: 'area-spline',
+          groups: [[]]
+
+        }
+
+        for (var cohortMonth in data) {
+
+          var cohort = data[cohortMonth]
+          var xName = 'Cohort ' + cohortMonth
+          var yName = cohortMonth + 'y'
+          var cohortX = []
+          cohortX.push(xName)
+          var cohortY = []
+          cohortY.push(yName)
+
+          graphData.groups[0].push(xName)
+          graphData.xs[xName] = yName
+
+          for (var month in cohort) {
+            cohortX.push(cohort[month])
+            cohortY.push(month)
+          }
+
+          graphData.columns.push(cohortX)
+          graphData.columns.push(cohortY)
+
+
+        }
+        console.log(graphData)
+
+        this.set('graphData', graphData)
+      }
+
+    }
+
+    window.customElements.define(SumCohort.is, SumCohort);
+  </script>
+</dom-module>
