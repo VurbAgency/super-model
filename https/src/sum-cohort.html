@@ -10,7 +10,9 @@
 
     </style>
 
-    <granite-c3 data="{{graphData}}" axis='{"x": { "max": 12 }}'></granite-c3>
+    <template is="dom-if" if="[[graphData]]" restamp>
+      <granite-c3 data="{{graphData}}" axis='{"x": { "max": 12 }}'></granite-c3>
+    </template>
 
   </template>
 
@@ -41,10 +43,7 @@
           },
           graphData: {
             type: Object,
-            value: {
-              columns: [
-              ]
-            }
+            value: null
           }
         };
       }
@@ -105,6 +104,7 @@
 
           graphData.groups[0].push(xName)
           graphData.xs[xName] = yName
+          graphData.names.push(xName)
 
           for (var month in cohort) {
             cohortX.push(cohort[month])
