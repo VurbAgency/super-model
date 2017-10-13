@@ -50,7 +50,7 @@ function _calculateStaffOperatingOtherHumansRatio(staffOperatingOtherHumanPrice,
 
 function _calculateCostOfficePerHuman(staffOperatingTotalHumans, costOfficePerHuman) {
   staffOperatingTotalHumans = Number(staffOperatingTotalHumans); costOfficePerHuman = Number(costOfficePerHuman);
-  var costOfficePerHuman = (staffOperatingTotalHumans / 12) * costOfficePerHuman;
+  var costOfficePerHuman = staffOperatingTotalHumans * costOfficePerHuman;
   return _fillArrayWithSameNumber(costOfficePerHuman, 12);
 }
 function _calculateCostTotalOperating(costMarketingPercentage, staffSuccessHumans, staffProductHumans, costSupplies, costSoftware, staffOperatingOtherHumans, costOfficePerHuman ) {
@@ -60,6 +60,6 @@ function _calculateTotalOperatingMargin(totalRevenue, cogs, costTotalOperating) 
   return totalRevenue.map((a, i) => a - cogs[i]  - costTotalOperating[i]);
 }
 function _calculateNetOperatingMargin(totalOperatingMargin, totalRevenue) {
-  return totalRevenue.map((a, i) => a / totalRevenue[i]);    
+  return totalOperatingMargin.map((a, i) => a / totalRevenue[i]);    
 }
 // END Operating costs
