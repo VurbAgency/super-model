@@ -1,0 +1,126 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/chart-elements/chart-line.html">
+
+<dom-module id="sum-lines-graph">
+  <template>
+    <style>
+       :host {
+        display: block;
+      }
+
+      chart-line {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+
+    <chart-line data="[[graphData]]" options="[[options]]" on-iron-resize="_handleResize"></chart-line>
+
+  </template>
+
+  <script>
+    /**
+     * `sum-lines-graph` Description
+     *
+     * @summary ShortDescription.
+     * @customElement
+     * @polymer
+     * @extends {Polymer.Element}
+     */
+    class SumLinesGraph extends Polymer.Element {
+      /**
+       * String providing the tag name to register the element under.
+       */
+      static get is() {
+        return 'sum-lines-graph';
+      }
+
+      /**
+       * Object describing property-related metadata used by Polymer features
+       */
+      static get properties() {
+        return {
+          data: {
+            type: Object
+          },
+          labels: {
+            type: Array
+          },
+          options: {
+            type: Object
+          },
+          rgbColors: {
+            type: Array
+          },
+          graphData: {
+            type: Object,
+            value: {}
+          },          
+        };
+      }
+
+      /**
+       * Instance of the element is created/upgraded. Use: initializing state,
+       * set up event listeners, create shadow dom.
+       * @constructor
+       */
+      constructor() {
+        super();
+      }
+      
+      static get observers() {
+        return [
+          '_handleGraphParametersChanged(data.*, labels.*, rgbColors.*)',
+        ];
+      }
+
+      _handleGraphParametersChanged(dataChanged, labels, rgbColorsChanged) {
+        var data = dataChanged.base;
+        var labels = this.labels;
+        var rgbColors = this.rgbColors;
+        if(!labels || !data || !rgbColors) return;
+
+        var datasets = [];
+        for (var i = 0; i < data.length; i++) { 
+          if (i==0) {
+            datasets[0] = { 
+              label: labels[i], 
+              data: data[i],
+              backgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",0.2)",
+              borderColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
+              borderWidth: 1,
+              pointBackgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
+              pointBorderColor: "#fff",
+              pointHoverBackgroundColor: "#fff",
+              pointHoverBorderColor: "rgba(" + rgbColors[i].red + ", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)"
+            };
+          }
+          else {
+            datasets.push(
+              { 
+                label: labels[i], 
+                data: data[i],
+                backgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",0.2)",
+                borderColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
+                borderWidth: 1,
+                pointBackgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
+                pointBorderColor: "#fff",
+                pointHoverBackgroundColor: "#fff",
+                pointHoverBorderColor: "rgba(" + rgbColors[i].red + ", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)"      
+              }
+            )
+          }
+        }  
+        this.set('graphData.datasets', datasets)
+        this.set('graphData.labels', labels)
+      }
+
+      // Library automatic resize is broken. This method calls resize whenever iron-resize is fired.
+      _handleResize(){
+        this.shadowRoot.querySelector("chart-line").resize()
+      }
+    }
+
+    window.customElements.define(SumLinesGraph.is, SumLinesGraph);
+  </script>
+</dom-module>
