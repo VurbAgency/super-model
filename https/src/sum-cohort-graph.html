@@ -1,0 +1,138 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="sum-lines-graph.html">
+
+<dom-module id="sum-cohort-graph">
+  <template>
+    <style>
+       :host {
+        display: block;
+        padding: 10px;
+      }
+
+      sum-lines-graph {
+        width: var(--graph-width, 800px);
+        height: var(--graph-height, 800px);
+      }      
+    </style>
+      
+    <sum-lines-graph 
+      data="[[dataToPlot]]"
+      x-axis-labels="[[xAxisLabels]]"
+      legend-labels="[[cohortLabels]]"      
+      options="[[options]]"
+      rgb-colors="[[rgbColors]]"
+    ></sum-lines-graph>      
+  
+  </template>
+  <script>
+    class SumCohortGraph extends Polymer.Element {
+      static get is() { return 'sum-cohort-graph'; }
+      static get properties() {
+        return {
+          calculated: {
+            type: Object
+          },
+          xAxisLabels: {
+            type: Array,
+            computed: "_getXAxisLabels(calculated.*)"
+          },
+          cohortLabels: {
+            type: Array,
+            computed: "_getCohortLabels(calculated.*)"
+          },          
+          dataToPlot: {
+            type: Array,
+            computed: "_getCalculatedCohortValues(calculated.*)"
+          },
+
+          options: {
+            type: Object,
+            value: {
+              responsive: true,
+              title:{
+                display:true,
+                text:"Cohorts overview"
+              },                                
+              scales: {
+                xAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Month'
+                  }
+                }],
+                yAxes: [{
+                  stacked: true,
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Value'
+                  }
+                }]
+              }
+            }
+          },
+          rgbColors: {
+            type: Array,
+            value: [
+              {red: 220, green: 220, blue: 220},
+              {red: 200, green: 200, blue: 0},
+              {red: 180, green: 180, blue: 80},
+              {red: 160, green: 60, blue: 160},
+              {red: 140, green: 140, blue: 0},
+              {red: 120, green: 120, blue: 120},
+              {red: 100, green: 100, blue: 100},
+              {red: 150, green: 30, blue: 10},
+              {red: 20, green: 200, blue: 150},  
+              {red: 1, green: 1, blue: 90},  
+              {red: 150, green: 30, blue: 10},
+              {red: 20, green: 200, blue: 150},  
+              {red: 1, green: 1, blue: 90},  
+              {red: 150, green: 30, blue: 10},
+              {red: 20, green: 200, blue: 150},  
+              {red: 1, green: 1, blue: 90},  
+            ]
+          },
+        };
+      }      
+      _getCalculatedCohortValues(calculatedChanged) {
+        var calculated = calculatedChanged.base;
+        var retainedCustomersCohorts = calculated.retainedCustomersCohorts;
+        var filteredCohortsArray = [];
+        
+        for (var i = 0; i < retainedCustomersCohorts.length; i++) {
+          filteredCohortsArray[i] = [];
+          for (var month in retainedCustomersCohorts[i]) {
+            if (Number(month) < i) filteredCohortsArray[i][Number(month)] = null;
+            if (Number(month) >= i) filteredCohortsArray[i][Number(month)] = retainedCustomersCohorts[i][month];
+          }
+        }
+        return filteredCohortsArray;
+      }
+
+      _getXAxisLabels(calculatedChanged) {
+        var calculated = calculatedChanged.base;
+        var retainedCustomersCohorts = calculated.retainedCustomersCohorts;
+        if (retainedCustomersCohorts.length == 0) return [];
+
+        var labels = ['month 1'];
+        for (var i = 0; i < retainedCustomersCohorts.length; i++) {
+          if(i>0) labels.push('month ' + (i+1).toString())
+        }
+        return labels;
+      }
+
+      _getCohortLabels(calculatedChanged) {
+        var calculated = calculatedChanged.base;
+        var retainedCustomersCohorts = calculated.retainedCustomersCohorts;
+        if (retainedCustomersCohorts.length == 0) return [];
+
+        var labels = ['cohort 1'];
+        for (var i = 0; i < retainedCustomersCohorts.length; i++) {
+          if(i>0) labels.push('cohort ' + (i+1).toString())
+        }
+        return labels;
+      }      
+    }
+
+    window.customElements.define(SumCohortGraph.is, SumCohortGraph);
+  </script>
+</dom-module>
