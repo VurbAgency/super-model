@@ -1,5 +1,5 @@
 function _calculateCustomerAmounts (input, output, monthsArray) {
-  // set defaultRetentionPercantages.
+  // set defaultRetentionPercentages.
   var defaultRetentionOffset = {
     2: 0.15,
     3: 0.06,
@@ -13,20 +13,22 @@ function _calculateCustomerAmounts (input, output, monthsArray) {
     11: -0.06,
     12: -0.07
   }
-  var defaultRetentionPercantages = [];
+  var defaultRetentionPercentages = [];
   for (var month in defaultRetentionOffset) {
     if (defaultRetentionOffset.hasOwnProperty(month)) {
       var offset = Number(defaultRetentionOffset[month])
       var base = Number(input.retentionRateSixMonths)
-      defaultRetentionPercantages.push(base + (base * offset));
+      defaultRetentionPercentages.push(base + (base * offset));
     }
   }
+
+  output['defaultRetentionPercentages'] = defaultRetentionPercentages;
 
   // get Array filled with net new customers per month
   output['netNewCustomers'] = _calculateNetNewCustomers(Number(input.netNewCustomersStart), Number(input.growthRate), monthsArray)
 
   // get Array filled with net new customers per month
-  output['retainedCustomersCohorts'] = _calculateRetainedCustomersCohorts(output.netNewCustomers, defaultRetentionPercantages, monthsArray)
+  output['retainedCustomersCohorts'] = _calculateRetainedCustomersCohorts(output.netNewCustomers, defaultRetentionPercentages, monthsArray)
 
   output['retainedCustomersTotal'] = _calculateRetainedCustomersTotal(output.retainedCustomersCohorts, monthsArray)
   output['totalCustomers'] = _combineTwoArrays(output.netNewCustomers, output.retainedCustomersTotal)
@@ -58,7 +60,7 @@ function _calculateNetNewCustomers (netNewCustomersStart, growthRate, monthsArra
 }
 
 
-function _calculateRetainedCustomersCohorts (netNewCustomers, defaultRetentionPercantages, monthsArray) {
+function _calculateRetainedCustomersCohorts (netNewCustomers, defaultRetentionPercentages, monthsArray) {
   var retainedCustomersCohorts = [];
   
   monthsArray.forEach( function(cohort) {
@@ -66,7 +68,7 @@ function _calculateRetainedCustomersCohorts (netNewCustomers, defaultRetentionPe
     monthsArray.forEach( function(month) {
       if (month < cohort) retainedCustomersCohorts[cohort][month] = 0;
       if (month === cohort)  retainedCustomersCohorts[cohort][month] = netNewCustomers[cohort];
-      if (month > cohort)  retainedCustomersCohorts[cohort][month] = netNewCustomers[cohort] * (defaultRetentionPercantages[month - cohort -1]/100);
+      if (month > cohort)  retainedCustomersCohorts[cohort][month] = netNewCustomers[cohort] * (defaultRetentionPercentages[month - cohort -1]/100);
     })    
   })  
   return retainedCustomersCohorts;

@@ -12,6 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="sum-cohort-graph.html">
 <link rel="import" href="sum-new-customers-graph.html">
+<link rel="import" href="sum-retention-rate-graph.html">
 
 <dom-module id="sum-overview">
   <template>
@@ -22,7 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 10px;
       }
 
-      sum-cohort-graph, sum-new-customers-graph {
+      sum-cohort-graph, sum-new-customers-graph,sum-retention-rate-graph {
         --graph-width: 800px;
         --graph-height: 400px;
       }      
@@ -42,6 +43,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         calculated="[[calculated]]"
       ></sum-new-customers-graph>
 
+      <sum-retention-rate-graph
+        id="retention-rate-graph"
+        calculated="[[calculated]]"
+      ></sum-retention-rate-graph>
+
     </div>
   </template>
 
@@ -52,6 +58,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return {
           calculated: {
             type: Object
+          },
+          data: {
+            type: Object            
           }
         };
       }      
