@@ -1,8 +1,30 @@
 function _calculateCustomerAmounts (input, output, monthsArray) {
+  // set defaultRetentionPercantages.
+  var defaultRetentionOffset = {
+    2: 0.15,
+    3: 0.06,
+    4: 0.03,
+    5: 0.01,
+    6: 0.0,
+    7: -0.01,
+    8: -0.03,
+    9: -0.04,
+    10: -0.05,
+    11: -0.06,
+    12: -0.07
+  }
+  var defaultRetentionPercantages = [];
+  for (var month in defaultRetentionOffset) {
+    if (defaultRetentionOffset.hasOwnProperty(month)) {
+      var offset = Number(defaultRetentionOffset[month])
+      var base = Number(input.retentionRateSixMonths)
+      defaultRetentionPercantages.push(base + (base * offset));
+    }
+  }
+
   // get Array filled with net new customers per month
   output['netNewCustomers'] = _calculateNetNewCustomers(Number(input.netNewCustomersStart), Number(input.growthRate), monthsArray)
-  
-  defaultRetentionPercantages = [ 58, 53, 52, 51, 50, 50, 49, 48, 48, 47, 47 ]
+
   // get Array filled with net new customers per month
   output['retainedCustomersCohorts'] = _calculateRetainedCustomersCohorts(output.netNewCustomers, defaultRetentionPercantages, monthsArray)
 
