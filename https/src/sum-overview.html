@@ -23,8 +23,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       sum-cohort-graph, sum-new-customers-graph {
-        width: 800px;
-        max-height: 800px;
+        --graph-width: 800px;
+        --graph-height: 400px;
       }      
 
     </style>
@@ -52,7 +52,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return {
           calculated: {
             type: Object
-          }      
+          }
         };
       }      
       constructor() {
