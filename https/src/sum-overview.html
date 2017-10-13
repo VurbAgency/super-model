@@ -10,8 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="shared-styles.html">
-
-<link rel="import" href="sum-cohort.html">
+<link rel="import" href="sum-cohort-graph.html">
 
 <dom-module id="sum-overview">
   <template>
@@ -22,18 +21,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 10px;
       }
 
+      sum-cohort-graph {
+        width: 800px;
+        height: 800px;
+
+      }      
+
     </style>
 
     <div class="card">
       <h1>Overview</h1>
-      <sum-cohort data="{{calculated.retainedCustomersCohort}}"></sum-cohort>
+
+      <sum-cohort-graph 
+        id="cohort-graph"
+        calculated="[[calculated]]"
+      ></sum-cohort-graph>
+
     </div>
   </template>
 
   <script>
     class SumOverview extends Polymer.Element {
       static get is() { return 'sum-overview'; }
+      static get properties() {
+        return {
+          calculated: {
+            type: Object
+          }      
+        };
+      }      
     }
+
 
     window.customElements.define(SumOverview.is, SumOverview);
   </script>
