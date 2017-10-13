@@ -11,6 +11,14 @@
 
 <script src="calculations.js"></script>
 
+<script src="analysis-scripts/helper-functions.js"></script>
+<script src="analysis-scripts/customer-amount-calculations.js"></script>
+<script src="analysis-scripts/price-calculations.js"></script>
+<script src="analysis-scripts/cogs-calculations.js"></script>
+<script src="analysis-scripts/LVA-calculations.js"></script>
+<script src="analysis-scripts/operating-costs-calculations.js"></script>
+<script src="analysis-scripts/refactored-calculations.js"></script>
+
 <link rel="import" href="sum-story.html">
 <link rel="import" href="sum-variables.html">
 <link rel="import" href="sum-overview.html">
@@ -115,13 +123,15 @@
           route: Object,
           routeData: Object,
           page: String,
-          subroute: Object
+          subroute: Object,
+          output: Object
         };
       }
 
       static get observers() {
         return [
           '_routePageChanged(routeData.page)',
+          '_handleInputChanged(data.*)'          
         ];
       }
 
@@ -129,6 +139,13 @@
         // If no page was found in the route data, page will be an empty string.
         // Deault to 'view1' in that case.
         this.page = page || 'story'
+      }
+
+      _handleInputChanged(inputDataChanged) {
+        var inputData = inputDataChanged.base;
+        var output = _updateCalculations(inputData, 12);
+        this.set('output', output)
+        console.log(output)
       }
 
       /**
@@ -145,9 +162,9 @@
        */
       ready() {
         super.ready();
-
+        
         Polymer.RenderStatus.afterNextRender(this, function () {
-
+          
         });
       }
 
