@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
 
 <dom-module id="sum-story">
   <template>
@@ -20,126 +21,170 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 10px;
       }
 
+      main {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      section {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+      }
+
+    
     </style>
 
-    <div class="card">
-      <h1>Story</h1>
+    <main>
+      <section>
 
-      <p>So, you’ve decided to start a subscription company selling software to consumers.</p>
+        <div class="card">
+          <h1>Let’s Begin</h1>
+          <p>So, you’ve decided to start a subscription company selling software to consumers.</p>
+          <p>Congratulations. Subscription models are favored by many for their predictable recurring revenue streams and high margins. But they operate in unique ways, and you’ll need to understand the core customer logic in order to achieve optimal financial results. </p>
+          <p>The goal of a subscription company is to retain a large percentage of subscribers.</p>          
+        </div>
 
-      <p>Congratulations. Subscription models are favored by many for their predictable recurring revenue streams and high margins. But they operate in unique ways, and you’ll need to understand the core customer logic in order to achieve optimal financial results. This simulation tool will help you understand the customer drivers behind subscription models. </p>
+        <div class="card">
+          <h1>Revenue and Customers: Pricing and Starting</h1>
+          <p>Ok, let’s start with setting the price of your product per month.</p>
+          <paper-input value="{{data.pricePerMonthT1}}" type="number" label="Price per month Tier 1"></paper-input>
+          <paper-input value="{{data.pricePerMonthT2}}" type="number" label="Price per month Tier 2"></paper-input>
+          <paper-input value="{{data.pricePerMonthT3}}" type="number" label="Price per month Tier 3"></paper-input>
+          <paper-input value="{{data.pricePercentT1}}" type="number" label="Price percent tier 1"></paper-input>
+          <paper-input value="{{data.pricePercentT2}}" type="number" label="Price percent tier 2"></paper-input>
+          <paper-input value="{{data.pricePercentT3}}" type="number" label="Price percent tier 3"></paper-input>
+          
+          <p>This is of course the foundation value in your model.  The point of a tool like this is that you can continue to In deciding how to set this price, take into consideration the market of existing competitive products and your sense for what the customer will be willing to pay.</p>
+          <p>Now, lets estimate the number of customers that you believe you can reasonably attain in the first month of your business.</p>
+          <paper-input value="{{data.netNewCustomersStart}}" type="number" label="Net New Customers first month"></paper-input>
+        </div>        
+        
+        <div class="card">
+            <h1>Revenue and Customers: Growth and Retention</h1>
+            <p>And from there, how much growth do you expect in year one, from month to month?</p>
+            <paper-input value="{{data.growthRate}}" type="number" label="Growth rate month to month"></paper-input>
+            <p>What percentage of your customers do you think will be with you after 6 months. </p>
+            <paper-input value="{{data.retentionRateSixMonths}}" type="number" label="Retention rate at 6 months"></paper-input>
+          </div>
+        <div class="card">
+            <h1>Lifetime Value per Customer</h1>
+            <p>Here’s your estimated Lifetime Value per customer:</p>
+            <p>{{_sumArrayValues(calculated.traditionalLifetimeValue)}}</p>
+            <p>We used the traditional LTV calculation for now - just to keep things simple. Lifetime value will help us figure out how valuable your model is, and why.</p>
+            <p>Here is your total revenue in year 1:</p>
+            <!-- TODO: sum array Total revenue -->
+            <!-- <p>{{_sumArrayValues(calculated.totalRevenue)}}</p> -->
+            
+        </div>
+        <div class="card">
+            <h1>Cost of Goods Sold: Human Resources</h1>
+            <p>How many employees dedicated to keep the production environment running:</p>
+            <paper-input value="{{data.staffInfrastructureHumans}}" type="number" label="staffInfrastructureHumans"></paper-input>
+            <p>Employee salary:</p>
+            <paper-input value="{{data.staffInfrastructureHumanPrice}}" type="number" label="staffInfrastructureHumanPrice"></paper-input>
+            <p>How many employees dedicated to customer support / success of the software</p>
+            <paper-input value="{{data.staffServiceHumans}}" type="number" label="staffSuccessHumans"></paper-input>
+            <p>Employee salary:</p>
+            <paper-input value="{{data.staffServiceHumansPrice}}" type="number" label="staffSuccessHumanPrice"></paper-input>
+            <p>Other employees required to deliver the ongoing service:</p>
+            <paper-input value="{{data.staffDeliveryOtherHumans}}" type="number" label="staffDeliveryOtherHumans"></paper-input>
+            <p>Employee salary:</p>
+            <paper-input value="{{data.staffDeliveryOtherHumanPrice}}" type="number" label="staffDeliveryOtherHumanPrice"></paper-input>
+          </div>
+        <div class="card">
+            <h1>Cost of Goods Sold : Material Resources</h1>
+            <p>Hosting and tech infrastructure in year 1</p>
+            <paper-input value="{{data.costInitialTech}}" type="number" label="costInitialTech"></paper-input>
+            <p>Any third-party software or data that is included in your delivered product</p>
+            <paper-input value="{{data.costMonthlyTech}}" type="number" label="costMonthlyTech"></paper-input>
+        </div>             
 
-      <p>The goal of a subscription company is to retain a large percentage of subscribers.</p>
+        <div class="card">
+            <h1>Cost of Goods, Gross Margin & Total Lifetime Value</h1>
+            <p>Total delivery employees:</p>
+            <!-- TODO -->
+            <!-- <p>{{_sumArrayValues(calculated.staffDeliveryTotalHumans)}}</p> -->
+            <p>Here are your total cost of goods sold:</p>
+            <p>{{_sumArrayValues(calculated.cogs)}}</p>
+            <p>Here is your gross margin [PROFIT] %!</p>
+            <p>{{_sumArrayValues(calculated.averageCustomerGrossMargin)}}</p>            
+            <p class="italic">((rev - COGS)/revenue)</p>
+            <p>Also here is the expected lifetime value of an average customer:</p>
+            <p>{{_sumArrayValues(calculated.traditionalLifetimeValue)}}</p>
+            <p>Your total estimated lifetime value is:</p>
+            <!-- TODO: Zelfde als hierboven? -->
+            <!-- <p>{{data.}}</p>          -->
+            <p>Based on your retention rates and total customer lifespan assumptions.</p>
+        </div>               
+        
+        <div class="card">
+            <h1>Operating Margin / EBIT : Human Resources</h1>
+            <p>How many employees will be involved in product development to keep your subscription product valuable and improving over time?</p>
+            <paper-input value="{{data.staffProductHumans}}" type="number" label="staffProductHumans"></paper-input>
+            <p>Employee salary:</p>
+            <paper-input value="{{data.staffProductHumanPrice}}" type="number" label="staffProductHumanPrice"></paper-input>
+            
+            <p>How many employees will help retain customers ?</p>
+            <paper-input value="{{data.staffSuccessHumans}}" type="number" label="staffSuccessHumans"></paper-input>
+            <p>Employee salary:</p>
+            <paper-input value="{{data.staffSuccessHumanPrice}}" type="number" label="staffSuccessHumanPrice"></paper-input>
+          </div>                
 
-      <p>We start in year one.</p>
+        <div class="card">
+            <h1>Operating Margin / EBIT : Material Resources</h1>
+            <p>What’s the price of your office space in year 1:</p>
+            <paper-input value="{{data.costOfficePerHuman}}" type="number" label="costOfficePerHuman"></paper-input>
+            <p>What other supplies or materials do you plan in year 1:</p>
+            <paper-input value="{{data.costSupplies}}" type="number" label="costSupplies"></paper-input>
+            
+            <p>Third party software for use in-house (not as part of your product)</p>
+            <paper-input value="{{data.costSoftware}}" type="number" label="costSoftware"></paper-input>
+          </div>                
+        <div class="card">
+            <h1>Operating Margin / EBIT overview</h1>
+            <p>Here are how many humans you have at the year end of your first year in business:</p>
+            <!-- TODO -->
+            <!-- <p>{{data.}}</p> -->
+            <p>OK! Let’s see your total operating costs</p>
 
-      <p>YEAR 1</p>
+            <p>{{_sumArrayValues(calculated.totalOperatingCosts)}}</p>
+            <p>Here’s your operating margin, otherwise known as EBIT:</p>
+            <p>{{_sumArrayValues(calculated.averageCustomerGrossMargin)}} %</p>            
+            
+            <p>{{_avgArrayValues(calculated.netOperatingMargin)}} %</p>            
+        </div>                        
+      </section>
+    </main>
 
-      <p>CUSTOMERS</p>
+    
 
-      <p>Start with a set number of customers in month one that you believe you can reasonably attain.</p>
-      _____. # {Number yearOneCustomers}
-
-      <p>How much growth do you expect in year one from month to month?. %</p>
-
-
-      <p>Now choose your currency.</p>
-
-      <p>(if freemium make your first tier 0)</p>
-
-      <p>Set your price per month. _____$0 {Number pricePerMonth}</p>
-
-      <p>Here’s your estimated Lifetime Value: _________ {calculated Number estimatedLTV}</p>
-      <p>We used the traditional LTV calculation for now - just to keep things simple. Lifetime value will help us figure out how valuable your model is, and how </p>
-
-      <p>Two ways to show retention rate - not in MVP there is not much variation in the cohorts in terms of retention rates. But visually may be an interesting way to show LTV.</p>
-
-      <p>See footnotes below for the formula assumptions we used: </p>
-
-      <p>Footnote: We’ve assumed a total customer lifetime of 12 months, and a gross margin total from your average customer as x. Fom spreadsheet calculation “average customer lifetime gross margin). We then multiplied by the retention rate. If m = average customer lifetime gross margin, r = the retention rate, and we assumed a 5% discount rate to reflect cost of capital. Traditional LTV is calculated as m(r/(1+5%-1). As you learn more about subscriptions, you’ll find other ways to calcuate this number for more insight.</p>
-
-
-      <p>Now let’s look at the “costs of goods sold”:</p>
-
-      <p>Estimate the cost of:</p>
-
-      <p>Hosting and tech infrastructure in year 1: $100 {Number yearOneTechInfrastructure}</p>
-      <p>Humans devoted to customer support or customer success of the software: 1 {yearOneStaffSupport}</p>
-      (can slide down to ¼ or ⅛…) Cost per human $50,000 {Number staffSupportHumanPerYear}
-
-      <p>Humans needed to keep the production environment running: 1 {Number yearOneStaffInfrastructure}</p>
-      <p>Cost per human: $80,000 {Number staffInfrastructureHumanPerYear}</p>
-
-      <p>Any third-party software or data that is included in your delivered product: $1000 </p>
-      <p>Other humans required to deliver the ongoing service: 0</p>
-
-      <p>How many total humans are in the above calculations? Total 2</p>
-      <p>(This will help us figure out what you’ll need to grow). </p>
-
-      <p>Great. </p>
-
-      <p>Here are your total cost of goods sold:______</p>
-      <p>(sum of above COGS)</p>
-
-      <p>Here is your gross margin %!________ [Ben’s voice here - “yay” if lower than 70% “nay”] </p>
-      <p>((rev - COGS)/revenue)</p>
-
-      <p>Also here is the expected lifetime value of an average customer: ________ </p>
-
-
-      <p>For now using a combination of simple and traditional LTV calculations - example from Kissmetrics:</p>
-
-      <p>Your estimated lifetime value is: ___________</p>
-      <p>Based on your retention rates and total customer lifespan assumptions.</p>
-
-      <p>Footnote describes the calculation. </p>
-
-      <p>Play with the variables a bit to see how you can affect your lifetime value and gross margin. Investors and financial types expect software subscription companies to (lorem ipsum context).</p>
-
-      <p>Next let’s move on to your operating costs. </p>
-
-
-      <p>Estimate the year 1 costs for selling, marketing and overhead: </p>
-      \
-      <p>Let’s develop an experimental budget. We’re estimating ______?????</p>
-
-      <p>Do you have humans who will help retain customers (customer success)? 1</p>
-      X $60,000
-
-
-
-      <p>If you have a tiered service, do you have humans that will help cross-sell or up-sell to higher service tier? 1</p>
-      X $80,000
-
-      <p>What is the cost of humans involved in product development to keep your subscription product valuable and improving over time? 1 human</p>
-      $100,000
-      <p>What’s your office space in year 1:________________</p>
-      <p>Humans in the office space default total x $550</p>
-      <p>What other supplies or materials do you plan in year 1: $2,000</p>
-      <p>Third party software for use in-house (not as part of your product): $1,000</p>
-
-      <p>Here are how many humans you have at the year end of your first year in business: TOTAL</p>
-
-      <p>OK! Let’s see your total operating costs:_____________ [Monument Valley Sounds]</p>
-      <p>(add operating costs from after COGS through inhouse software)</p>
-
-      <p>Here’s your operating margin, otherwise known as EBIT:___________ [Big sound from ben -maybe “mwah hah hah] </p>
-
-      <p>(Revenue - operating costs)/ revenue x 100)</p>
-
-      <p>Footnote: we’re not modeling the cost of depreciation and amortization at this stage of evaluating your business potential but click here to get our platinum version.</p>
-
-      <p>OK we know understand that first year. The goal of your simulation should focus your energies on retention rates, costs, and the tradeoffs involved. </p>
-
-      <p>Now we’re going to think through the growth phase. Once you’ve gotten to an acceptable gross margin and operating margin, move to the growth phase which for the purposes of this simulation start in year 2 and run through year 7.</p>
-
-
-    </div>
   </template>
 
   <script>
     class SumStory extends Polymer.Element {
       static get is() { return 'sum-story'; }
+      /**
+       * Object describing property-related metadata used by Polymer features
+       */
+       static get properties() {
+        return {
+          data: {
+           type: Object,
+           notify: true
+          },
+          calculated: Object
+        };
+      }      
+      _sumArrayValues(array){
+        if(array) return array.reduce((a, b) => a + b, 0);
+      }
+      _avgArrayValues(array){
+        console.log(array)
+        if(array) return array.reduce((a, b) => a + b, 0)/array.length;
+      }
     }
 
     window.customElements.define(SumStory.is, SumStory);
