@@ -124,7 +124,8 @@
           routeData: Object,
           page: String,
           subroute: Object,
-          output: Object
+          data: Object,
+          calculated: Object
         };
       }
 
@@ -143,9 +144,9 @@
 
       _handleDataChanged(dataChanged) {
         var data = dataChanged.base;
-        var calculations = _updateCalculations(data, 12);
-        this.set('calculations', calculations)
-        console.log(calculations)
+        var calculated = sumCalculations(data, 12);
+        this.set('calculated', calculated)
+        console.log(calculated)
       }
 
       /**

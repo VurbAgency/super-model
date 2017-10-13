@@ -1,7 +1,7 @@
 
 // TODO: Split up in different files? Refactor helper functions. Check different Excel & output. Check semantics / refactor a bit
 
-function _updateCalculations (input, months) {
+function sumCalculations (input, months) {
   var output = {};
 
   // mayb a bit stupid to create an array from months input
