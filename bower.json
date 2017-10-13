@@ -19,7 +19,7 @@
     "paper-button": "polymerelements/paper-button#^2.0.0",
     "paper-tabs": "polymerelements/paper-tabs#^2.0.0",
     "paper-input": "polymerelements/paper-input#^2.0.2",
-    "granite-c3": "^2.1.1"
+    "chart-elements": "https://github.com/robdodson/chart-elements.git#polymer-2.0"
   },
   "resolutions": {
     "polymer": "^2.0.0"
