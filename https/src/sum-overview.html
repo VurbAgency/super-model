@@ -11,6 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="sum-cohort-graph.html">
+<link rel="import" href="sum-new-customers-graph.html">
 
 <dom-module id="sum-overview">
   <template>
@@ -21,10 +22,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 10px;
       }
 
-      sum-cohort-graph {
+      sum-cohort-graph, sum-new-customers-graph {
         width: 800px;
-        height: 800px;
-
+        max-height: 800px;
       }      
 
     </style>
@@ -36,6 +36,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         id="cohort-graph"
         calculated="[[calculated]]"
       ></sum-cohort-graph>
+
+      <sum-new-customers-graph 
+        id="new-customers-graph"
+        calculated="[[calculated]]"
+      ></sum-new-customers-graph>
 
     </div>
   </template>
@@ -50,6 +55,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }      
         };
       }      
+      constructor() {
+        super();
+      }
     }
 
 
