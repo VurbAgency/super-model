@@ -9,7 +9,7 @@
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 
-<script src="calculations.js"></script>
+<!-- <script src="calculations.js"></script> -->
 
 <script src="analysis-scripts/helper-functions.js"></script>
 <script src="analysis-scripts/customer-amount-calculations.js"></script>
@@ -104,7 +104,7 @@
      * @polymer
      * @extends {Polymer.Element}
      */
-    class SumModel extends superModelCalculationsElementMixin(Polymer.Element) {
+    class SumModel extends Polymer.Element {
       /**
        * String providing the tag name to register the element under.
        */
@@ -131,7 +131,7 @@
       static get observers() {
         return [
           '_routePageChanged(routeData.page)',
-          '_handleInputChanged(data.*)'          
+          '_handleDataChanged(data.*)'          
         ];
       }
 
@@ -141,11 +141,11 @@
         this.page = page || 'story'
       }
 
-      _handleInputChanged(inputDataChanged) {
-        var inputData = inputDataChanged.base;
-        var output = _updateCalculations(inputData, 12);
-        this.set('output', output)
-        console.log(output)
+      _handleDataChanged(dataChanged) {
+        var data = dataChanged.base;
+        var calculations = _updateCalculations(data, 12);
+        this.set('calculations', calculations)
+        console.log(calculations)
       }
 
       /**
