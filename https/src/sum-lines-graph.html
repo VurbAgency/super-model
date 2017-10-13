@@ -40,25 +40,14 @@
        */
       static get properties() {
         return {
-          data: {
+          // Object filled with data, label & styling information
+          graphData: {
             type: Object
-          },
-          xAxisLabels: {
-            type: Array
-          },
-          legendLabels: {
-            type: Array
-          },          
+          },  
           options: {
             type: Object
-          },
-          rgbColors: {
-            type: Array
-          },
-          graphData: {
-            type: Object,
-            value: {}
-          },          
+          }
+
         };
       }
 
@@ -69,54 +58,6 @@
        */
       constructor() {
         super();
-      }
-      
-      static get observers() {
-        return [
-          '_handleGraphParametersChanged(data.*, xAxisLabels.*, legendLabels.*, rgbColors.*)',
-        ];
-      }
-
-      _handleGraphParametersChanged(dataChanged, xAxislabelsChanged, legendLabels, rgbColorsChanged) {
-        var data = dataChanged.base;
-        var xAxisLabels = this.xAxisLabels;
-        var legendLabels = this.legendLabels;
-        var rgbColors = this.rgbColors;
-        if(!data || !rgbColors) return;
-
-        var datasets = [];
-        for (var i = 0; i < data.length; i++) { 
-          if (i==0) {
-            datasets[0] = { 
-              label: legendLabels[i], 
-              data: data[i],
-              backgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",0.2)",
-              borderColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
-              borderWidth: 1,
-              pointBackgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
-              pointBorderColor: "#fff",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(" + rgbColors[i].red + ", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)"
-            };
-          }
-          else {
-            datasets.push(
-              { 
-                label: legendLabels[i], 
-                data: data[i],
-                backgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",0.2)",
-                borderColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
-                borderWidth: 1,
-                pointBackgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
-                pointBorderColor: "#fff",
-                pointHoverBackgroundColor: "#fff",
-                pointHoverBorderColor: "rgba(" + rgbColors[i].red + ", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)"      
-              }
-            )
-          }
-        }  
-        this.set('graphData.datasets', datasets)
-        this.set('graphData.labels', xAxisLabels)
       }
 
       // Library automatic resize is broken. This method calls resize whenever iron-resize is fired.

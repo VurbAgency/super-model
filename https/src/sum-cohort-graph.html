@@ -11,16 +11,13 @@
 
       sum-lines-graph {
         width: var(--graph-width, 800px);
-        height: var(--graph-height, 800px);
+        height: var(--graph-height, 400px);
       }      
     </style>
       
     <sum-lines-graph 
-      data="[[dataToPlot]]"
-      x-axis-labels="[[xAxisLabels]]"
-      legend-labels="[[cohortLabels]]"      
+      graph-data="[[graphData]]"
       options="[[options]]"
-      rgb-colors="[[rgbColors]]"
     ></sum-lines-graph>      
   
   </template>
@@ -43,6 +40,10 @@
           dataToPlot: {
             type: Array,
             computed: "_getCalculatedCohortValues(calculated.*)"
+          },
+          graphData: {
+            type: Object,
+            value: {}
           },
 
           options: {
@@ -93,6 +94,58 @@
           },
         };
       }      
+      constructor() {
+        super();
+      }      
+      static get observers() {
+        return [
+          '_handleGraphParametersChanged(dataToPlot.*, xAxisLabels.*, cohortLabels.*, rgbColors.*)',
+        ];
+      }
+
+      _handleGraphParametersChanged(dataChanged, xAxislabelsChanged, legendLabels, rgbColorsChanged) {
+        var data = dataChanged.base;
+        var xAxisLabels = this.xAxisLabels;
+        var legendLabels = this.cohortLabels;
+        var rgbColors = this.rgbColors;
+        if(!data || data.length==0 || !rgbColors) return;
+
+        var datasets = [];
+        for (var i = 0; i < data.length; i++) { 
+          if (i==0) {
+            datasets[0] = { 
+              label: legendLabels[i], 
+              data: data[i],
+              backgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",0.2)",
+              borderColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
+              borderWidth: 1,
+              pointBackgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
+              pointBorderColor: "#fff",
+              pointHoverBackgroundColor: "#fff",
+              pointHoverBorderColor: "rgba(" + rgbColors[i].red + ", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)"
+            };
+          } else {
+            datasets.push(
+              { 
+                label: legendLabels[i], 
+                data: data[i],
+                backgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",0.2)",
+                borderColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
+                borderWidth: 1,
+                pointBackgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
+                pointBorderColor: "#fff",
+                pointHoverBackgroundColor: "#fff",
+                pointHoverBorderColor: "rgba(" + rgbColors[i].red + ", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)"      
+              }
+            )
+          }
+        }  
+        
+        this.set('graphData.datasets', datasets)
+        this.set('graphData.labels', xAxisLabels)
+        console.log(this.graphData)
+      }
+
       _getCalculatedCohortValues(calculatedChanged) {
         var calculated = calculatedChanged.base;
         var retainedCustomersCohorts = calculated.retainedCustomersCohorts;
