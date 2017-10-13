@@ -27,13 +27,22 @@
 <dom-module id="sum-model">
   <template>
     <style>
-       :host {
+      :host {
         display: block
       }
 
       app-header {
-        color: #fff;
+        /* color: #fff; */
         background-color: var(--app-primary-color);
+      }
+
+      paper-tabs {
+        --paper-tabs-selection-bar-color: #F5A6C8;
+        --paper-tab-ink: #F5A6C8;
+      }
+
+      app-header h2 {
+        font-family: 'Montserrat', sans-serif;
       }
 
       app-header paper-icon-button {
@@ -63,7 +72,7 @@
         <app-toolbar>
           <div main-title>
             <!-- <img src="/images/super-model-logo.svg" alt="">  -->
-            SuperModel [[modelId]]
+            <h2>SuperModel [[modelId]]</h2>
           </div>
         </app-toolbar>
         <paper-tabs sticky selected="[[page]]" attr-for-selected="name">
@@ -132,7 +141,7 @@
       static get observers() {
         return [
           '_routePageChanged(routeData.page)',
-          '_handleDataChanged(data.*)'          
+          '_handleDataChanged(data.*)'
         ];
       }
 
@@ -163,9 +172,9 @@
        */
       ready() {
         super.ready();
-        
+
         Polymer.RenderStatus.afterNextRender(this, function () {
-          
+
         });
       }
 

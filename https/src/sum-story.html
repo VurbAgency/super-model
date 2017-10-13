@@ -11,14 +11,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../bower_components/paper-radio-button/paper-radio-button.html">
 
 <dom-module id="sum-story">
   <template>
     <style include="shared-styles">
-       :host {
+      :host {
         display: block;
-
-        padding: 10px;
+        background-color: #F5A6C8;
       }
 
       main {
@@ -27,139 +28,449 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         height: 100%;
       }
 
-      section {
+      p {
+        max-width: 30em;
+        min-width: 16rem;
+      }
+
+      p.main {
+        font-weight: 400;
+      }
+
+      .card {
+        clear: both;
+        min-height: 70vh;
+        padding: 2rem;
+        margin-bottom: 64px;
+      }
+
+      .intro,
+      .retention {
+        font-family: 'Montserrat', sans-serif;
+      }
+
+      .intro {
+        background: linear-gradient(to bottom, #EFF5F9, #C3BCD8, #F5A6C8);
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        align-items: center;
+      }
+
+      .text {
+        padding: 4rem;
+        text-align: left;
+      }
+
+      .intro h1 {
+        font-weight: 900;
+        font-size: 6rem;
+        text-transform: uppercase;
+        line-height: 1;
+        color: #2B3990;
+      }
+
+      .intro p,
+      .retention p {
+        font-size: 1.5rem;
+      }
+
+      .intro img {
+        padding: 4rem;
+      }
+
+      div.retention {
+        padding: 0 8em 0;
+        min-height: 70vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* margin-bottom: -24px; */
+        /* background: linear-gradient(to bottom, #F5A6C8, #B69CC8, rgba(0, 0, 0, 0)), linear-gradient(to right, #F5A6C8 5%, rgba(0, 0, 0, 0))15%, linear-gradient(-60deg, rgba(0, 0, 0, 0), #B69CC8, rgba(0, 0, 0, 0)); */
+        background: linear-gradient(169deg, rgba(0, 0, 0, 0) 87%, #F5A6C8 98%), linear-gradient(to bottom, #F5A6C8, #B69CC8);
+      }
+
+      div.retention h2 {
+        margin-top: 0;
+        font-weight: 900;
+        font-size: 4rem;
+        text-transform: uppercase;
+        line-height: 1;
+        color: #2B3990;
+      }
+
+      div.retention img {
+        flex: 1;
+        min-width: 70vw;
+      }
+
+      .card h2 {
+        color: #2B3990;
+        font-size: 2rem;
+        margin-top: 0;
+        font-weight: 500;
+      }
+
+      paper-input[type=number] {
+        max-width: 10rem;
+      }
+
+      div.group {
+        background: #EFF5F9;
+        /* border: 1px solid #2B3990; */
+        margin: .5em;
+        padding: 1em;
+        border-radius: 5px;
+        flex: 1;
+      }
+
+      div.group h3 {
+        text-align: center;
+        font-weight: 400;
+        margin: 1rem;
+        color: #2B3990;
+      }
+
+      div.tiers,
+      div.cats {
+        display: flex;
         flex-wrap: wrap;
       }
 
-    
+      .card.with-figure {
+        display: flex;
+      }
+
+      .card.with-figure figure {
+        flex: 1;
+        padding: 64px;
+        text-align: right;
+        align-self: center;
+      }
+
+      .card.with-figure figure img {
+        height: 100%;
+        width: 100%;
+      }
+
+      .report {
+        min-height: 70vh;
+        padding: 2rem;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        color: #2B3990;
+        background: linear-gradient(to bottom, #F5A6C8, rgba(239, 245, 249, 1) 12em, #F5A6C8);
+        overflow-y: scroll;
+      }
+
+      .report h2 {
+        color: #2B3990;
+        text-transform: uppercase;
+        margin: 2rem 0;
+      }
+
+      .report>div {
+        padding: 2rem;
+        flex: 1;
+      }
+
+      .big-number {
+        border: 2px solid rgba(239, 245, 249, 1);
+        background-color: rgba(239, 245, 249, 0.4);
+        border-radius: 4px;
+        padding: 1rem;
+        text-align: center;
+        color: #2B3990;
+        /* color: white; */
+      }
+
+      .big-number .number {
+        font-size: 4rem;
+        font-family: 'Montserrat', sans-serif;
+        margin: 1rem;
+      }
+
     </style>
 
     <main>
-      <section>
-
-        <div class="card">
-          <h1>Let’s Begin</h1>
-          <p>So, you’ve decided to start a subscription company selling software to consumers.</p>
-          <p>Congratulations. Subscription models are favored by many for their predictable recurring revenue streams and high margins. But they operate in unique ways, and you’ll need to understand the core customer logic in order to achieve optimal financial results. </p>
-          <p>The goal of a subscription company is to retain a large percentage of subscribers.</p>          
+      <div class="intro">
+        <img src="/src/hard-business.svg" alt="">
+        <div class="text">
+          <h1>Don't panic</h1>
+          <p class="main">This walkthrough can make you familliar with all the factors that go in to making your SuperModel.</p>
+          <p>Feel free to go through the guide and create your model that way or jump right in to the variables to start tweaking!</p>
         </div>
+      </div>
 
-        <div class="card">
-          <h1>Revenue and Customers: Pricing and Starting</h1>
-          <p>Ok, let’s start with setting the price of your product per month.</p>
-          <paper-input value="{{data.pricePerMonthT1}}" type="number" label="Price per month Tier 1"></paper-input>
-          <paper-input value="{{data.pricePerMonthT2}}" type="number" label="Price per month Tier 2"></paper-input>
-          <paper-input value="{{data.pricePerMonthT3}}" type="number" label="Price per month Tier 3"></paper-input>
-          <paper-input value="{{data.pricePercentT1}}" type="number" label="Price percent tier 1"></paper-input>
-          <paper-input value="{{data.pricePercentT2}}" type="number" label="Price percent tier 2"></paper-input>
-          <paper-input value="{{data.pricePercentT3}}" type="number" label="Price percent tier 3"></paper-input>
-          
-          <p>This is of course the foundation value in your model.  The point of a tool like this is that you can continue to In deciding how to set this price, take into consideration the market of existing competitive products and your sense for what the customer will be willing to pay.</p>
-          <p>Now, lets estimate the number of customers that you believe you can reasonably attain in the first month of your business.</p>
-          <paper-input value="{{data.netNewCustomersStart}}" type="number" label="Net New Customers first month"></paper-input>
-        </div>        
-        
-        <div class="card">
-            <h1>Revenue and Customers: Growth and Retention</h1>
-            <p>And from there, how much growth do you expect in year one, from month to month?</p>
-            <paper-input value="{{data.growthRate}}" type="number" label="Growth rate month to month"></paper-input>
-            <p>What percentage of your customers do you think will be with you after 6 months. </p>
-            <paper-input value="{{data.retentionRateSixMonths}}" type="number" label="Retention rate at 6 months"></paper-input>
+      <div class="card with-figure">
+        <article>
+          <h2>Product or Subscription</h2>
+          <p class="main">So, you've started a software company selling to consumers who pay:</p>
+
+          <paper-radio-group selected="subscription">
+            <paper-radio-button name="product" disabled>A one time purchase</paper-radio-button>
+            <paper-radio-button name="subscription">A monthly subscription</paper-radio-button>
+          </paper-radio-group>
+
+          <p>Congratulations! Subscription models are favored by many for their predictable recurring revenue streams and high margins. But they operate in unique ways, and you’ll need to understand the core customer logic in order to achieve optimal financial results.</p>
+
+          <p>The goal of a subscription company is to retain a large percentage of subscribers.</p>
+        </article>
+        <figure>
+          <img src="/src/products.svg" alt="Products">
+        </figure>
+      </div>
+
+      <div class="card with-figure">
+        <article>
+          <h2>Pricing</h2>
+          <p>Ok, let’s start with setting the price of your product per month. We use Simoleans (§) as the currency in this model.</p>
+          <p>This is of course the foundation value in your model. For a free tier, set one to §0.</p>
+
+          <div class="tiers">
+            <div class="group">
+              <h3>Tier 1</h3>
+              <paper-input value="{{data.pricePerMonthT1}}" type="number" label="Price per month">
+                <span slot="prefix">§</span>
+              </paper-input>
+              <paper-input value="{{data.pricePercentT1}}" type="number" label="Percentage out of total">
+                <span slot="suffix">%</span>
+              </paper-input>
+            </div>
+            <div class="group">
+              <h3>Tier 2</h3>
+              <paper-input value="{{data.pricePerMonthT2}}" type="number" label="Price per month">
+                <span slot="prefix">§</span>
+              </paper-input>
+              <paper-input value="{{data.pricePercentT2}}" type="number" label="Percentage out of total">
+                <span slot="suffix">%</span>
+              </paper-input>
+            </div>
+            <div class="group">
+              <h3>Tier 3</h3>
+              <paper-input value="{{data.pricePerMonthT3}}" type="number" label="Price per month">
+                <span slot="prefix">§</span>
+              </paper-input>
+              <paper-input value="{{data.pricePercentT3}}" type="number" label="Percentage out of total">
+                <span slot="suffix">%</span>
+              </paper-input>
+            </div>
           </div>
-        <div class="card">
-            <h1>Lifetime Value per Customer</h1>
-            <p>Here’s your estimated Lifetime Value per customer:</p>
-            <p>{{_sumArrayValues(calculated.traditionalLifetimeValue)}}</p>
-            <p>We used the traditional LTV calculation for now - just to keep things simple. Lifetime value will help us figure out how valuable your model is, and why.</p>
-            <p>Here is your total revenue in year 1:</p>
-            <!-- TODO: sum array Total revenue -->
-            <!-- <p>{{_sumArrayValues(calculated.totalRevenue)}}</p> -->
-            
+
+          <p>The point of a tool like SuperModel is that you can continue to play with these. When deciding how to set this price, take into consideration the market of existing competitive products and your sense for what the customer will be willing to pay.</p>
+        </article>
+        <figure>
+          Sam is baking a Pie (chart) 🍰
+        </figure>
+      </div>
+
+      <div class="card with-figure">
+        <article>
+          <h2>Growing</h2>
+          <p>Let's estimate the number of customers that you believe you can reasonably attain in the first month of your business.</p>
+
+          <paper-input value="{{data.netNewCustomersStart}}" type="number" label="1st Month">
+            <span slot="suffix">Customers</span>
+          </paper-input>
+
+          <p>And from there, how much growth do you expect in year one, from month to month?</p>
+          <paper-input value="{{data.growthRate}}" type="number" label="Monthly growth">
+            <span slot="suffix">%</span>
+          </paper-input>
+        </article>
+        <figure>
+          📈 new customers per month
+        </figure>
+      </div>
+
+      <div class="card with-figure">
+        <article>
+          <h2>Retention</h2>
+          <p>What percentage of your customers do you think will be with you after 6 months. </p>
+          <paper-input value="{{data.retentionRateSixMonths}}" type="number" label="Retention rate at 6 months">
+            <span slot="suffix">%</span>
+          </paper-input>
+        </article>
+        <figure>
+          📈 retention rate
+        </figure>
+      </div>
+
+      <div class="report">
+        <h2>Key Numbers</h2>
+        <div>
+          <div class="big-number">
+            <h3>LTV</h3>
+            <p class="number">
+              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.traditionalLifetimeValue)}}
+            </p>
+          </div>
+          <h3>Lifetime Value</h3>
+          <p>A key number to track, this is the value you get from an individual customer over their entire use of your product.</p>
+          <p>You can use this number when deciding on how much money you want to spend on marketing and to see when your retention rates are best.</p>
+          <p>The number we calculated is the Traditional LTV.</p>
         </div>
-        <div class="card">
-            <h1>Cost of Goods Sold: Human Resources</h1>
-            <p>How many employees dedicated to keep the production environment running:</p>
-            <paper-input value="{{data.staffInfrastructureHumans}}" type="number" label="staffInfrastructureHumans"></paper-input>
-            <p>Employee salary:</p>
-            <paper-input value="{{data.staffInfrastructureHumanPrice}}" type="number" label="staffInfrastructureHumanPrice"></paper-input>
-            <p>How many employees dedicated to customer support / success of the software</p>
-            <paper-input value="{{data.staffServiceHumans}}" type="number" label="staffSuccessHumans"></paper-input>
-            <p>Employee salary:</p>
-            <paper-input value="{{data.staffServiceHumansPrice}}" type="number" label="staffSuccessHumanPrice"></paper-input>
-            <p>Other employees required to deliver the ongoing service:</p>
-            <paper-input value="{{data.staffDeliveryOtherHumans}}" type="number" label="staffDeliveryOtherHumans"></paper-input>
-            <p>Employee salary:</p>
-            <paper-input value="{{data.staffDeliveryOtherHumanPrice}}" type="number" label="staffDeliveryOtherHumanPrice"></paper-input>
+        <div>
+          <div class="big-number">
+            <h3>Total Revenue</h3>
+            <p class="number">
+              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenue)}}
+            </p>
           </div>
-        <div class="card">
-            <h1>Cost of Goods Sold : Material Resources</h1>
-            <p>Hosting and tech infrastructure in year 1</p>
-            <paper-input value="{{data.costInitialTech}}" type="number" label="costInitialTech"></paper-input>
+          <h3>Revenue</h3>
+          <p>All the money you're going to earn with this product in year 1.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Cost Of Goods Sold</h2>
+
+        <div class="cats">
+
+          <div class="group">
+            <h3>Support & Success</h3>
+            <p>Employees dedicated to customer support of the software and customer success.</p>
+            <paper-input value="{{data.staffServiceHumans}}" type="number" label="Humans">
+              <span slot="suffix">People</span>
+            </paper-input>
+            <paper-input value="{{data.staffServiceHumansPrice}}" type="number" label="Yearly Salary">
+              <span slot="prefix">§</span>
+            </paper-input>
+          </div>
+
+          <div class="group">
+            <h3>Techies</h3>
+            <p>Employees required to keep the production environment running.</p>
+            <paper-input value="{{data.staffInfrastructureHumans}}" type="number" label="Humans">
+              <span slot="suffix">People</span>
+            </paper-input>
+            <paper-input value="{{data.staffInfrastructureHumanPrice}}" type="number" label="Yearly Salary">
+              <span slot="prefix">§</span>
+            </paper-input>
+          </div>
+
+          <div class="group">
+            <h3>Other service staff</h3>
+            <p>Employees required to deliver the ongoing service.</p>
+            <paper-input value="{{data.staffDeliveryOtherHumans}}" type="number" label="Humans">
+              <span slot="suffix">People</span>
+            </paper-input>
+            <paper-input value="{{data.staffDeliveryOtherHumanPrice}}" type="number" label="Yearly Salary">
+              <span slot="prefix">§</span>
+            </paper-input>
+          </div>
+
+          <div class="group">
+            <h3>Tech</h3>
+            <p>Hosting and tech infrastructure in the first year</p>
+            <paper-input value="{{data.costInitialTech}}" type="number" label="Tech costs">
+              <span slot="prefix">§</span>
+            </paper-input>
+
             <p>Any third-party software or data that is included in your delivered product</p>
-            <paper-input value="{{data.costMonthlyTech}}" type="number" label="costMonthlyTech"></paper-input>
-        </div>             
+            <paper-input value="{{data.costMonthlyTech}}" type="number" label="Monthly software costs">
+              <span slot="prefix">§</span>
+            </paper-input>
+          </div>
 
-        <div class="card">
-            <h1>Cost of Goods, Gross Margin & Total Lifetime Value</h1>
-            <p>Total delivery employees:</p>
-            <!-- TODO -->
-            <!-- <p>{{_sumArrayValues(calculated.staffDeliveryTotalHumans)}}</p> -->
-            <p>Here are your total cost of goods sold:</p>
-            <p>{{_sumArrayValues(calculated.cogs)}}</p>
-            <p>Here is your gross margin [PROFIT] %!</p>
-            <p>{{_sumArrayValues(calculated.averageCustomerGrossMargin)}}</p>            
-            <p class="italic">((rev - COGS)/revenue)</p>
-            <p>Also here is the expected lifetime value of an average customer:</p>
-            <p>{{_sumArrayValues(calculated.traditionalLifetimeValue)}}</p>
-            <p>Your total estimated lifetime value is:</p>
-            <!-- TODO: Zelfde als hierboven? -->
-            <!-- <p>{{data.}}</p>          -->
-            <p>Based on your retention rates and total customer lifespan assumptions.</p>
-        </div>               
-        
-        <div class="card">
-            <h1>Operating Margin / EBIT : Human Resources</h1>
-            <p>How many employees will be involved in product development to keep your subscription product valuable and improving over time?</p>
-            <paper-input value="{{data.staffProductHumans}}" type="number" label="staffProductHumans"></paper-input>
-            <p>Employee salary:</p>
-            <paper-input value="{{data.staffProductHumanPrice}}" type="number" label="staffProductHumanPrice"></paper-input>
-            
-            <p>How many employees will help retain customers ?</p>
-            <paper-input value="{{data.staffSuccessHumans}}" type="number" label="staffSuccessHumans"></paper-input>
-            <p>Employee salary:</p>
-            <paper-input value="{{data.staffSuccessHumanPrice}}" type="number" label="staffSuccessHumanPrice"></paper-input>
-          </div>                
+        </div>
 
-        <div class="card">
-            <h1>Operating Margin / EBIT : Material Resources</h1>
-            <p>What’s the price of your office space in year 1:</p>
-            <paper-input value="{{data.costOfficePerHuman}}" type="number" label="costOfficePerHuman"></paper-input>
-            <p>What other supplies or materials do you plan in year 1:</p>
-            <paper-input value="{{data.costSupplies}}" type="number" label="costSupplies"></paper-input>
-            
-            <p>Third party software for use in-house (not as part of your product)</p>
-            <paper-input value="{{data.costSoftware}}" type="number" label="costSoftware"></paper-input>
-          </div>                
-        <div class="card">
-            <h1>Operating Margin / EBIT overview</h1>
-            <p>Here are how many humans you have at the year end of your first year in business:</p>
-            <!-- TODO -->
-            <!-- <p>{{data.}}</p> -->
-            <p>OK! Let’s see your total operating costs</p>
 
-            <p>{{_sumArrayValues(calculated.totalOperatingCosts)}}</p>
-            <p>Here’s your operating margin, otherwise known as EBIT:</p>
-            <p>{{_sumArrayValues(calculated.averageCustomerGrossMargin)}} %</p>            
-            
-            <p>{{_avgArrayValues(calculated.netOperatingMargin)}} %</p>            
-        </div>                        
-      </section>
+      </div>
+
+
+
+      <div class="report">
+        <h2>Key Numbers</h2>
+
+        <div>
+          <div class="big-number">
+            <h3>Delivery Employees</h3>
+            <p class="number">{{calculated.staffDeliveryTotalHumans}}</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="big-number">
+            <h3>Total COGS</h3>
+            <p class="number">{{_sumArrayValuesRound(calculated.cogs)}}</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="big-number">
+            <h3>Gross Margin</h3>
+            <p class="number">{{_sumArrayValuesRound(calculated.averageCustomerGrossMargin)}}</p>
+          </div>
+          <p>Profit %!</p>
+        </div>
+
+        <div>
+          <div class="big-number">
+            <h3>Customer Gross Margin</h3>
+            <p class="number">{{_sumArrayValuesRound(calculated.averageCustomerGrossMargin)}}</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="big-number">
+            <h3>LTV</h3>
+            <p class="number">{{_sumArrayValuesRound(calculated.traditionalLifetimeValue)}}</p>
+          </div>
+          <p>Based on your retention rates and total customer lifespan assumptions.</p>
+        </div>
+
+      </div>
+
+      <div class="card">
+        <h2>Operating Margin / EBIT : Human Resources</h2>
+        <p>How many employees will be involved in product development to keep your subscription product valuable and improving over time?</p>
+        <paper-input value="{{data.staffProductHumans}}" type="number" label="staffProductHumans">
+          <span slot="suffix">People</span>
+        </paper-input>
+        <p>Employee salary:</p>
+        <paper-input value="{{data.staffProductHumanPrice}}" type="number" label="staffProductHumanPrice"></paper-input>
+
+        <p>How many employees will help retain customers ?</p>
+        <paper-input value="{{data.staffSuccessHumans}}" type="number" label="staffSuccessHumans">
+          <span slot="suffix">People</span>
+        </paper-input>
+        <p>Employee salary:</p>
+        <paper-input value="{{data.staffSuccessHumanPrice}}" type="number" label="staffSuccessHumanPrice"></paper-input>
+      </div>
+
+      <div class="card">
+        <h2>Operating Margin / EBIT : Material Resources</h2>
+        <p>What’s the price of your office space in year 1:</p>
+        <paper-input value="{{data.costOfficePerHuman}}" type="number" label="costOfficePerHuman"></paper-input>
+        <p>What other supplies or materials do you plan in year 1:</p>
+        <paper-input value="{{data.costSupplies}}" type="number" label="costSupplies"></paper-input>
+
+        <p>Third party software for use in-house (not as part of your product)</p>
+        <paper-input value="{{data.costSoftware}}" type="number" label="costSoftware"></paper-input>
+      </div>
+      <div class="card">
+        <h2>Operating Margin / EBIT overview</h2>
+        <p>Here are how many humans you have at the year end of your first year in business:</p>
+        <!-- TODO -->
+        <!-- <p>{{data.}}</p> -->
+        <p>OK! Let’s see your total operating costs</p>
+
+        <p>{{_sumArrayValues(calculated.totalOperatingCosts)}}</p>
+        <p>Here’s your operating margin, otherwise known as EBIT:</p>
+        <p>{{_sumArrayValues(calculated.averageCustomerGrossMargin)}} %</p>
+
+        <p>{{_avgArrayValues(calculated.netOperatingMargin)}} %</p>
+      </div>
+
+      <div class="retention">
+        <div class="text">
+          <h2>Grow Forth</h2>
+          <p class="main">Now you have all your numbers, and you know what they mean, what about opening the variables on your laptop and the overview on a big screen and play around with the numbers.</p>
+        </div>
+        <img src="/src/retention.svg" alt="You'll make new friends (and lose some too)">
+      </div>
     </main>
-
-    
 
   </template>
 
@@ -169,21 +480,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       /**
        * Object describing property-related metadata used by Polymer features
        */
-       static get properties() {
+      static get properties() {
         return {
           data: {
-           type: Object,
-           notify: true
+            type: Object,
+            notify: true
           },
           calculated: Object
         };
-      }      
-      _sumArrayValues(array){
-        if(array) return array.reduce((a, b) => a + b, 0);
       }
-      _avgArrayValues(array){
+      _sumArrayValues(array) {
+        if (array) return array.reduce((a, b) => a + b, 0);
+      }
+      _avgArrayValues(array) {
         console.log(array)
-        if(array) return array.reduce((a, b) => a + b, 0)/array.length;
+        if (array) return array.reduce((a, b) => a + b, 0) / array.length;
+      }
+      _sumArrayValuesRound(array) {
+        return Math.round(this._sumArrayValues(array))
       }
     }
 
