@@ -43,9 +43,12 @@
           data: {
             type: Object
           },
-          labels: {
+          xAxisLabels: {
             type: Array
           },
+          legendLabels: {
+            type: Array
+          },          
           options: {
             type: Object
           },
@@ -70,21 +73,22 @@
       
       static get observers() {
         return [
-          '_handleGraphParametersChanged(data.*, labels.*, rgbColors.*)',
+          '_handleGraphParametersChanged(data.*, xAxisLabels.*, legendLabels.*, rgbColors.*)',
         ];
       }
 
-      _handleGraphParametersChanged(dataChanged, labels, rgbColorsChanged) {
+      _handleGraphParametersChanged(dataChanged, xAxislabelsChanged, legendLabels, rgbColorsChanged) {
         var data = dataChanged.base;
-        var labels = this.labels;
+        var xAxisLabels = this.xAxisLabels;
+        var legendLabels = this.legendLabels;
         var rgbColors = this.rgbColors;
-        if(!labels || !data || !rgbColors) return;
+        if(!data || !rgbColors) return;
 
         var datasets = [];
         for (var i = 0; i < data.length; i++) { 
           if (i==0) {
             datasets[0] = { 
-              label: labels[i], 
+              label: legendLabels[i], 
               data: data[i],
               backgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",0.2)",
               borderColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
@@ -98,7 +102,7 @@
           else {
             datasets.push(
               { 
-                label: labels[i], 
+                label: legendLabels[i], 
                 data: data[i],
                 backgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",0.2)",
                 borderColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
@@ -112,7 +116,7 @@
           }
         }  
         this.set('graphData.datasets', datasets)
-        this.set('graphData.labels', labels)
+        this.set('graphData.labels', xAxisLabels)
       }
 
       // Library automatic resize is broken. This method calls resize whenever iron-resize is fired.
