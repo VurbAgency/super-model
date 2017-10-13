@@ -6,7 +6,7 @@ function _calculateCogsVariables (input, output) {
   output['costStaffInfrastructure'] = _calculateInfrastructureCosts(input.staffInfrastructureHumanPrice, input.staffInfrastructureHumans)
   output['costMonthlyTech'] = _calculateThirdPartySoftwareCosts(input.costMonthlyTech, output.totalCustomers, input.costThirdPartyRampUpPerUser)  
   output['costsStaffDeliveryOtherHumans'] = _calculateOtherStaffCosts(input.staffDeliveryOtherHumans, input.staffDeliveryOtherHumanPrice)
-  
+  output['staffDeliveryTotalHumans'] = _calculateStaffDeliveryTotalHumans(input.staffServiceHumans, input.staffInfrastructureHumans, input.staffDeliveryOtherHumans)
   output['cogs'] = _calculateCogs(output.costInitialTech, output.costStaffServiceHumans, output.costStaffInfrastructure, output.costMonthlyTech, output.costsStaffDeliveryOtherHumans)
   output['grossMargin'] = _calculateGrossMargin(output.totalRevenue, output.cogs)
 
@@ -41,6 +41,10 @@ function _calculateOtherStaffCosts (staffDeliveryOtherHumans, staffDeliveryOther
   staffDeliveryOtherHumans = Number(staffDeliveryOtherHumans); staffDeliveryOtherHumanPrice = Number(staffDeliveryOtherHumanPrice);
   var deviveryCosts = (staffDeliveryOtherHumans / 12) * staffDeliveryOtherHumanPrice;
   return _fillArrayWithSameNumber(deviveryCosts, 12)
+}
+
+function _calculateStaffDeliveryTotalHumans(staffServiceHumans, staffInfrastructureHumans, staffDeliveryOtherHumans) {
+  return Number(staffServiceHumans) + Number(staffInfrastructureHumans) + Number(staffDeliveryOtherHumans);
 }
 
 function _calculateCogs(staffDeliveryOtherHumans, costMonthlyTech, staffInfrastructureHumanPrice, staffServiceHumans, costInitialTech) {
