@@ -15,7 +15,7 @@
       }
     </style>
 
-    <chart-pie data="[[graphData]]" on-iron-resize="_handleResize"></chart-pie>
+    <chart-pie data="[[graphDataToPlot]]" options="[[optionsToPlot]]" on-iron-resize="_handleResize"></chart-pie>
 
   </template>
 
@@ -49,10 +49,41 @@
           options: {
             type: Object,
             value: {}
-          }
+          },
+          optionsToPlot: {
+            type: Object,
+            value: {}
+          },
+          graphDataToPlot: {
+            type: Object,
+            value: {}
+          },          
 
         };
       }
+
+      static get observers() {
+        return [
+          '_onGraphDataChanged(graphData.*)', 
+          '_onGraphOptionsChanged(options.*)'
+        ] 
+      }
+
+      // Have to create a new memory space for Object, otherwise overwrites values of other graphs.
+      _onGraphDataChanged(e) {
+        if(Object.keys(this.graphData).length === 0 ) {
+          return this.set('graphDataToPlot', {})
+        }
+        this.set('graphDataToPlot', JSON.parse(JSON.stringify(this.graphData)))
+      }
+
+      // Have to create a new memory space for Object, otherwise overwrites values of other graphs.
+      _onGraphOptionsChanged(e) {
+        if(Object.keys(this.options).length === 0 ) {
+          return this.set('optionsToPlot', {})
+        }
+        this.set('optionsToPlot', JSON.parse(JSON.stringify(this.options)))
+      }         
 
       /**
        * Instance of the element is created/upgraded. Use: initializing state,
