@@ -19,7 +19,10 @@
     "paper-button": "polymerelements/paper-button#^2.0.0",
     "paper-tabs": "polymerelements/paper-tabs#^2.0.0",
     "paper-input": "polymerelements/paper-input#^2.0.2",
-    "chart-elements": "https://github.com/robdodson/chart-elements.git#polymer-2.0"
+    "chart-elements": "https://github.com/robdodson/chart-elements.git#polymer-2.0",
+    "paper-radio-group": "PolymerElements/paper-radio-group#^2.0.0",
+    "paper-radio-button": "PolymerElements/paper-radio-button#^2.0.0"
+
   },
   "resolutions": {
     "polymer": "^2.0.0"

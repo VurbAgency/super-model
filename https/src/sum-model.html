@@ -8,9 +8,6 @@
 <link rel="import" href="../bower_components/paper-tabs/paper-tab.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
-
-<!-- <script src="calculations.js"></script> -->
-
 <script src="analysis-scripts/helper-functions.js"></script>
 <script src="analysis-scripts/customer-amount-calculations.js"></script>
 <script src="analysis-scripts/price-calculations.js"></script>
@@ -26,14 +23,23 @@
 
 <dom-module id="sum-model">
   <template>
-    <style>
-       :host {
+    <style include="shared-styles">
+      :host {
         display: block
       }
 
       app-header {
-        color: #fff;
+        /* color: #fff; */
         background-color: var(--app-primary-color);
+      }
+
+      paper-tabs {
+        --paper-tabs-selection-bar-color: #F5A6C8;
+        --paper-tab-ink: #F5A6C8;
+      }
+
+      app-header h2 {
+        font-family: 'Montserrat', sans-serif;
       }
 
       app-header paper-icon-button {
@@ -63,7 +69,7 @@
         <app-toolbar>
           <div main-title>
             <!-- <img src="/images/super-model-logo.svg" alt="">  -->
-            SuperModel [[modelId]]
+            <h2>SuperModel [[modelId]]</h2>
           </div>
         </app-toolbar>
         <paper-tabs sticky selected="[[page]]" attr-for-selected="name">
@@ -132,7 +138,7 @@
       static get observers() {
         return [
           '_routePageChanged(routeData.page)',
-          '_handleDataChanged(data.*)'          
+          '_handleDataChanged(data.*)'
         ];
       }
 
@@ -163,9 +169,9 @@
        */
       ready() {
         super.ready();
-        
+
         Polymer.RenderStatus.afterNextRender(this, function () {
-          
+
         });
       }
 
