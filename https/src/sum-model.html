@@ -7,9 +7,8 @@
 <link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../bower_components/paper-tabs/paper-tab.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
-<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
-
-<!-- <script src="calculations.js"></script> -->
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html" <!-- <script src="calculations.js">
+</script> -->
 
 <script src="analysis-scripts/helper-functions.js"></script>
 <script src="analysis-scripts/customer-amount-calculations.js"></script>
@@ -26,7 +25,7 @@
 
 <dom-module id="sum-model">
   <template>
-    <style>
+    <style include="shared-styles">
       :host {
         display: block
       }

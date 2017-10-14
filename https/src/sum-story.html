@@ -20,12 +20,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         display: block;
         background-color: #F5A6C8;
+        display: flex;
+        justify-content: center;
       }
 
       main {
         display: block;
         width: 100%;
         height: 100%;
+        max-width: 1600px;
       }
 
       p {
@@ -174,6 +177,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         flex: 1;
       }
 
+      .report>h2 {}
+
       .big-number {
         border: 2px solid rgba(239, 245, 249, 1);
         background-color: rgba(239, 245, 249, 0.4);
@@ -275,7 +280,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <p>And from there, how much growth do you expect in year one, from month to month?</p>
           <paper-input value="{{data.growthRate}}" type="number" label="Monthly growth">
-            <span slot="suffix">%</span>
+            <span slot="suffix">%/month</span>
           </paper-input>
         </article>
         <figure>
@@ -328,35 +333,38 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="cats">
 
           <div class="group">
-            <h3>Support & Success</h3>
+            <h3>Support</h3>
             <p>Employees dedicated to customer support of the software and customer success.</p>
-            <paper-input value="{{data.staffServiceHumans}}" type="number" label="Humans">
-              <span slot="suffix">People</span>
+            <paper-input value="{{data.staffServiceHumans}}" type="number" label="Employees">
+              <span slot="suffix">people</span>
             </paper-input>
-            <paper-input value="{{data.staffServiceHumansPrice}}" type="number" label="Yearly Salary">
+            <paper-input value="{{data.staffServiceHumansPrice}}" type="number" label="Wages">
               <span slot="prefix">§</span>
+              <span slot="suffix">/year</span>
             </paper-input>
           </div>
 
           <div class="group">
             <h3>Techies</h3>
             <p>Employees required to keep the production environment running.</p>
-            <paper-input value="{{data.staffInfrastructureHumans}}" type="number" label="Humans">
-              <span slot="suffix">People</span>
+            <paper-input value="{{data.staffInfrastructureHumans}}" type="number" label="Employees">
+              <span slot="suffix">people</span>
             </paper-input>
-            <paper-input value="{{data.staffInfrastructureHumanPrice}}" type="number" label="Yearly Salary">
+            <paper-input value="{{data.staffInfrastructureHumanPrice}}" type="number" label="Wages">
               <span slot="prefix">§</span>
+              <span slot="suffix">/year</span>
             </paper-input>
           </div>
 
           <div class="group">
             <h3>Other service staff</h3>
             <p>Employees required to deliver the ongoing service.</p>
-            <paper-input value="{{data.staffDeliveryOtherHumans}}" type="number" label="Humans">
-              <span slot="suffix">People</span>
+            <paper-input value="{{data.staffDeliveryOtherHumans}}" type="number" label="Employees">
+              <span slot="suffix">people</span>
             </paper-input>
-            <paper-input value="{{data.staffDeliveryOtherHumanPrice}}" type="number" label="Yearly Salary">
+            <paper-input value="{{data.staffDeliveryOtherHumanPrice}}" type="number" label="Wages">
               <span slot="prefix">§</span>
+              <span slot="suffix">/year</span>
             </paper-input>
           </div>
 
@@ -368,20 +376,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </paper-input>
 
             <p>Any third-party software or data that is included in your delivered product</p>
-            <paper-input value="{{data.costMonthlyTech}}" type="number" label="Monthly software costs">
+            <paper-input value="{{data.costMonthlyTech}}" type="number" label="Software">
               <span slot="prefix">§</span>
+              <span slot="suffix">/month</span>
             </paper-input>
           </div>
 
         </div>
 
-
       </div>
 
-
-
       <div class="report">
-        <h2>Key Numbers</h2>
+        <h2>Key Numbers</h2>
 
         <div>
           <div class="big-number">
@@ -423,44 +429,89 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
 
       <div class="card">
-        <h2>Operating Margin / EBIT : Human Resources</h2>
-        <p>How many employees will be involved in product development to keep your subscription product valuable and improving over time?</p>
-        <paper-input value="{{data.staffProductHumans}}" type="number" label="staffProductHumans">
-          <span slot="suffix">People</span>
-        </paper-input>
-        <p>Employee salary:</p>
-        <paper-input value="{{data.staffProductHumanPrice}}" type="number" label="staffProductHumanPrice"></paper-input>
+        <h2>Operating Budget</h2>
 
-        <p>How many employees will help retain customers ?</p>
-        <paper-input value="{{data.staffSuccessHumans}}" type="number" label="staffSuccessHumans">
-          <span slot="suffix">People</span>
-        </paper-input>
-        <p>Employee salary:</p>
-        <paper-input value="{{data.staffSuccessHumanPrice}}" type="number" label="staffSuccessHumanPrice"></paper-input>
+        <div class="cats">
+          <div class="group">
+            <h3>Product employees</h3>
+            <p>Employees involved in product development to keep your subscription product valuable and improving over time</p>
+            <paper-input value="{{data.staffProductHumans}}" type="number" label="Employees">
+              <span slot="suffix">people</span>
+            </paper-input>
+            <p>Employee salary:</p>
+            <paper-input value="{{data.staffProductHumanPrice}}" type="number" label="Wages">
+              <span slot="prefix">§</span>
+              <span slot="suffix">/year</span>
+            </paper-input>
+
+          </div>
+          <div class="group">
+            <h3>Customer Success</h3>
+            <p>How many employees will help retain customers ?</p>
+            <paper-input value="{{data.staffSuccessHumans}}" type="number" label="Employees">
+              <span slot="suffix">people</span>
+            </paper-input>
+            <p>Employee salary:</p>
+            <paper-input value="{{data.staffSuccessHumanPrice}}" type="number" label="Wages">
+              <span slot="prefix">§</span>
+              <span slot="suffix">/year</span>
+            </paper-input>
+
+          </div>
+          <div class="group">
+            <h3>Costs</h3>
+            <p></p>
+            <paper-input value="{{data.costOfficePerHuman}}" type="number" label="Office space">
+              <span slot="prefix">§</span>
+              <span slot="suffix">/person</span>
+            </paper-input>
+            <p>What other supplies or materials</p>
+            <paper-input value="{{data.costSupplies}}" type="number" label="Supplies">
+              <span slot="prefix">§</span>
+            </paper-input>
+            <p>Third party software for use in-house (not as part of your product)</p>
+            <paper-input value="{{data.costSoftware}}" type="number" label="Software">
+              <span slot="prefix">§</span>
+            </paper-input>
+          </div>
+
+        </div>
       </div>
 
-      <div class="card">
-        <h2>Operating Margin / EBIT : Material Resources</h2>
-        <p>What’s the price of your office space in year 1:</p>
-        <paper-input value="{{data.costOfficePerHuman}}" type="number" label="costOfficePerHuman"></paper-input>
-        <p>What other supplies or materials do you plan in year 1:</p>
-        <paper-input value="{{data.costSupplies}}" type="number" label="costSupplies"></paper-input>
 
-        <p>Third party software for use in-house (not as part of your product)</p>
-        <paper-input value="{{data.costSoftware}}" type="number" label="costSoftware"></paper-input>
-      </div>
-      <div class="card">
-        <h2>Operating Margin / EBIT overview</h2>
-        <p>Here are how many humans you have at the year end of your first year in business:</p>
-        <!-- TODO -->
-        <!-- <p>{{data.}}</p> -->
-        <p>OK! Let’s see your total operating costs</p>
+      <div class="report">
 
-        <p>{{_sumArrayValues(calculated.totalOperatingCosts)}}</p>
-        <p>Here’s your operating margin, otherwise known as EBIT:</p>
-        <p>{{_sumArrayValues(calculated.averageCustomerGrossMargin)}} %</p>
+        <h2>Key Numbers</h2>
 
-        <p>{{_avgArrayValues(calculated.netOperatingMargin)}} %</p>
+        <div>
+          <div class="big-number">
+            <h3>Operating Costs</h3>
+            <div class="number">{{_sumArrayValueRound(calculated.totalOperatingCosts)}}</div>
+            <p></p>
+          </div>
+        </div>
+        <div>
+          <div class="big-number">
+            <h3></h3>
+            <div class="number">{{_sumArrayValuesRound(calculated.averageCustomerGrossMargin)}} %</div>
+            <p></p>
+          </div>
+        </div>
+        <div>
+          <div class="big-number">
+            <h3>Total staff</h3>
+            <div class="number">{{calculated.staffOperatingTotalHumans}}</div>
+            <p></p>
+          </div>
+        </div>
+        <div>
+          <div class="big-number">
+            <h3>Operating Margin (EBIT)</h3>
+            <div class="number">{{_avgArrayValuesRound(calculated.netOperatingMargin)}} %</div>
+            <p></p>
+          </div>
+        </div>
+
       </div>
 
       <div class="retention">
@@ -498,6 +549,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
       _sumArrayValuesRound(array) {
         return Math.round(this._sumArrayValues(array))
+      }
+      _avgArrayValuesRound(array) {
+        return Math.round(this._avgArrayValues(array))
       }
     }
 

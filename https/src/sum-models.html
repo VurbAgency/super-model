@@ -6,12 +6,14 @@
 
 <dom-module id="sum-models">
   <template>
-    <style>
-       :host {
+    <style include="shared-styles">
+      :host {
         display: block
       }
 
     </style>
+
+    <h1>Yes</h1>
 
     <app-route route="{{route}}" pattern="[[rootPath]]:modelId" data="{{routeData}}" tail="{{subroute}}"></app-route>
 
@@ -86,7 +88,7 @@
         super.ready();
 
         Polymer.RenderStatus.afterNextRender(this, function () {
-
+          console.log('hello')
         });
       }
 
