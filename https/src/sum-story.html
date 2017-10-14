@@ -13,6 +13,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-radio-group/paper-radio-group.html">
 <link rel="import" href="../bower_components/paper-radio-button/paper-radio-button.html">
+<link rel="import" href="sum-customer-tiers-graph.html">
+<link rel="import" href="sum-multiple-lines-graph.html">
+<link rel="import" href="sum-one-line-graph.html">
 
 <dom-module id="sum-story">
   <template>
@@ -263,7 +266,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <p>The point of a tool like SuperModel is that you can continue to play with these. When deciding how to set this price, take into consideration the market of existing competitive products and your sense for what the customer will be willing to pay.</p>
         </article>
         <figure>
-          Sam is baking a Pie (chart) 🍰
+            <sum-customer-tiers-graph
+            id="customer-tiers-graph"
+            data="[[data]]"      
+          ></sum-customer-tiers-graph>
         </figure>
       </div>
 
@@ -282,7 +288,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </paper-input>
         </article>
         <figure>
-          📈 new customers per month
+            <sum-multiple-lines-graph
+            id="multiple-lines-graph"
+            data="[[newCustomersDataToPlot]]"      
+            legend-labels='["New", "Retained", "Total"]'
+          ></sum-multiple-lines-graph>
         </figure>
       </div>
 
@@ -295,7 +305,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </paper-input>
         </article>
         <figure>
-          📈 retention rate
+          <sum-one-line-graph
+            id="retention-rate-graph"
+            data="[[calculated.defaultRetentionPercentages]]"
+            label="Retention rate"
+            rgb-colors="[[retentionGraphColors]]"        
+          ></sum-one-line-graph>
         </figure>
       </div>
 
@@ -535,7 +550,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             type: Object,
             notify: true
           },
-          calculated: Object
+          calculated: Object,
+          newCustomersDataToPlot: {
+            type: Array,
+            computed: "_getNewCustomersData(calculated.*)"
+          }          
         };
       }
 
@@ -551,6 +570,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _avgArrayValuesRound(array) {
         return Math.round(this._avgArrayValues(array))
       }
+      _getNewCustomersData(calculatedChanged) {
+        var calculated = calculatedChanged.base;
+        return [calculated.netNewCustomers, calculated.retainedCustomersTotal, calculated.totalCustomers];
+      }      
     }
 
     window.customElements.define(SumStory.is, SumStory);
