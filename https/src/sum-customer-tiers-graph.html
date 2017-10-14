@@ -1,0 +1,107 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="sum-pie-graph.html">
+
+<dom-module id="sum-customer-tiers-graph">
+  <template>
+    <style>
+       :host {
+        display: block;
+        padding: 10px;
+      }
+
+      sum-pie-graph {
+        width: var(--graph-width, 800px);
+        height: var(--graph-height, 400px);
+      }      
+    </style>
+      
+    <sum-pie-graph 
+      id="customers-tiers-graph"  
+      graph-data="[[graphData]]"
+      options="[[options]]"
+    ></sum-pie-graph>      
+  
+  </template>
+  <script>
+    class SumCustomerTiersGraph extends Polymer.Element {
+      static get is() { return 'sum-customer-tiers-graph'; }
+      static get properties() {
+        return {
+          data: {
+            type: Object,
+            value: {}
+          },
+          legendLabels: {
+            type: Array,
+            value: ['Tier 1', 'Tier 2', 'Tier 3']
+          },          
+          dataToPlot: {
+            type: Array,
+            value: [],
+            computed: "_getDataToPlot(data.*)"
+          },
+          graphData: {
+            type: Object,
+            value: {}
+          },
+          options: {
+            type: Object,
+            value: {
+              responsive: true,
+              title:{
+                display:true,
+                text:"New customers overview"
+              },                              
+            }
+          },
+          rgbColors: {
+            type: Object,
+            value: {red: 220, green: 220, blue: 220} 
+          },
+        };
+      }     
+      constructor() {
+        super();
+      }       
+
+      static get observers() {
+        return [
+          '_handleGraphParametersChanged(dataToPlot.*, legendLabels.*, rgbColors.*)',
+        ];
+      }
+
+      _handleGraphParametersChanged(dataChanged, legendLabels, rgbColorsChanged) {
+        var data = dataChanged.base;
+        var legendLabels = legendLabels.base;
+        var rgbColors = this.rgbColors;
+        if(!data || data.length==0 || !rgbColors) return;
+
+        var datasets = [{ 
+          data: data,
+          backgroundColor: [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56"
+          ],
+          hoverBackgroundColor: [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56"
+          ]
+        }];  
+        
+        this.set('graphData.datasets', datasets)
+        this.set('graphData.labels', legendLabels)
+      }
+
+      _getDataToPlot(dataChanged) {
+        var data = dataChanged.base;
+        var tiers = [parseFloat(data.pricePercentT1), parseFloat(data.pricePercentT2), parseFloat(data.pricePercentT3)];
+        if(isNaN(tiers[0])) return [];
+        return tiers;
+      }
+    }
+
+    window.customElements.define(SumCustomerTiersGraph.is, SumCustomerTiersGraph);
+  </script>
+</dom-module>

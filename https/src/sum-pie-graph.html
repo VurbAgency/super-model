@@ -1,0 +1,74 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/chart-elements/chart-pie.html">
+
+<dom-module id="sum-pie-graph">
+  <template>
+    <style>
+       :host {
+        display: block;
+      }
+
+      chart-pie {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+
+    <chart-pie data="[[graphData]]" on-iron-resize="_handleResize"></chart-pie>
+
+  </template>
+
+  <script>
+    /**
+     * `sum-pie-graph` Description
+     *
+     * @summary ShortDescription.
+     * @customElement
+     * @polymer
+     * @extends {Polymer.Element}
+     */
+    class SumPieGraph extends Polymer.Element {
+      /**
+       * String providing the tag name to register the element under.
+       */
+      static get is() {
+        return 'sum-pie-graph';
+      }
+
+      /**
+       * Object describing property-related metadata used by Polymer features
+       */
+      static get properties() {
+        return {
+          // Object filled with data, label & styling information
+          graphData: {
+            type: Object,
+            value: {}
+          },
+          options: {
+            type: Object,
+            value: {}
+          }
+
+        };
+      }
+
+      /**
+       * Instance of the element is created/upgraded. Use: initializing state,
+       * set up event listeners, create shadow dom.
+       * @constructor
+       */
+      constructor() {
+        super();
+      }
+
+      // Library automatic resize is broken. This method calls resize whenever iron-resize is fired.
+      _handleResize(){
+        this.shadowRoot.querySelector("chart-pie").resize()
+      }
+    }
+
+    window.customElements.define(SumPieGraph.is, SumPieGraph);
+  </script>
+</dom-module>
