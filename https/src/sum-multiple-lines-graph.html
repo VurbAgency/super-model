@@ -1,0 +1,169 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="sum-lines-graph.html">
+
+<dom-module id="sum-multiple-lines-graph">
+  <template>
+    <style>
+       :host {
+        display: block;
+        padding: 10px;
+      }
+
+      sum-lines-graph {
+        width: var(--graph-width, 800px);
+        height: var(--graph-height, 400px);
+      }      
+    </style>
+      
+    <sum-lines-graph 
+      graph-data="[[graphData]]"    
+      options="[[options]]"
+    ></sum-lines-graph>      
+  
+  </template>
+  <script>
+    class SumMultipleLinesGraph extends Polymer.Element {
+      static get is() { return 'sum-multiple-lines-graph'; }
+      static get properties() {
+        return {
+          data: {
+            type: Array
+          },
+          xAxisLabels: {
+            type: Array,
+            computed: "_getXAxisLabels(data.*)"
+          },
+          legendLabels: {
+            type: Array
+          },        
+          dataToPlot: {
+            type: Array,
+            computed: "_getCalculatedCohortValues(calculated.*)"
+          },
+                      
+          graphData: {
+            type: Object,
+            value: {}
+          },
+          title:{
+            type: String,
+            observer: "_setGraphTitle"
+          },
+          yAxisLabel: {
+            type: String,
+            observer: "_setYAxisLabel"            
+          },          
+          options: {
+            type: Object,
+            value: {
+              responsive: true,      
+              scales: {
+                xAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Month'
+                  }
+                }],
+              }
+            }
+          },
+          rgbColors: {
+            type: Array,
+            value: [
+              {red: 220, green: 220, blue: 220},
+              {red: 200, green: 200, blue: 0},
+              {red: 0, green: 10, blue: 80},
+              {red: 160, green: 60, blue: 160},
+              {red: 140, green: 140, blue: 0},
+              {red: 120, green: 120, blue: 120},
+              {red: 100, green: 100, blue: 100},
+              {red: 150, green: 30, blue: 10},
+              {red: 20, green: 200, blue: 150},  
+              {red: 1, green: 1, blue: 90},  
+              {red: 150, green: 30, blue: 10},
+              {red: 20, green: 200, blue: 150},  
+              {red: 1, green: 1, blue: 90},  
+              {red: 150, green: 30, blue: 10},
+              {red: 20, green: 200, blue: 150},  
+              {red: 1, green: 1, blue: 90},  
+            ]
+          },
+        };
+      }     
+      constructor() {
+        super();
+      }       
+
+      static get observers() {
+        return [
+          '_handleGraphParametersChanged(data.*, xAxisLabels.*, legendLabels.*, rgbColors.*)',
+        ];
+      }
+
+      _setGraphTitle(title) {
+        this.set('options.title.display', true)
+        this.set('options.title.text', title)
+      }
+
+      _setYAxisLabel(label) {
+        this.set('options.scales.yAxes', [{scaleLabel:{
+          display: true,
+          labelString: label
+        }}])
+      }      
+
+      _handleGraphParametersChanged(dataChanged, xAxislabelsChanged, legendLabels, rgbColorsChanged) {
+        var data = dataChanged.base;
+        var legendLabels = legendLabels.base;
+        var rgbColors = this.rgbColors;
+        if(!data || data.length==0 || !rgbColors) return;
+
+        var datasets = [];
+        for (var i = 0; i < data.length; i++) { 
+          if (i==0) {
+            datasets[0] = { 
+              label: legendLabels[i], 
+              data: data[i],
+              backgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",0.2)",
+              borderColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
+              borderWidth: 1,
+              pointBackgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
+              pointBorderColor: "#fff",
+              pointHoverBackgroundColor: "#fff",
+              pointHoverBorderColor: "rgba(" + rgbColors[i].red + ", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)"
+            };
+          } else {
+            datasets.push(
+              { 
+                label: legendLabels[i], 
+                data: data[i],
+                backgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",0.2)",
+                borderColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
+                borderWidth: 1,
+                pointBackgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
+                pointBorderColor: "#fff",
+                pointHoverBackgroundColor: "#fff",
+                pointHoverBorderColor: "rgba(" + rgbColors[i].red + ", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)"      
+              }
+            )
+          }
+        }
+        
+        this.set('graphData.datasets', datasets)
+        this.set('graphData.labels', this.legendLabels)
+      }    
+
+      _getXAxisLabels(data) {
+        var data = data.base;
+        if (data.length == 0) return [];
+        var labels = ['month 1'];
+        for (var i = 0; i < data.length; i++) {
+          if(i>0) labels.push('month ' + (i+1).toString())
+        }
+        return labels;
+      }  
+    }
+
+    window.customElements.define(SumMultipleLinesGraph.is, SumMultipleLinesGraph);
+  </script>
+</dom-module>
