@@ -7,9 +7,9 @@ function _calculateOperatingCostsVariables(input, output) {
   
   output['staffOperatingOtherHumansRatio'] = _calculateStaffOperatingOtherHumansRatio(input.staffOperatingOtherHumanPrice, input.staffOperatingOtherHumans)
   
-  // // TODO: staffOperatingTotalHumans === 1 ?
   output['costOfficePerHuman'] = _calculateCostOfficePerHuman(1, input.costOfficePerHuman)
   
+  output['staffOperatingTotalHumans'] = _calculateStaffOperatingTotalHumans(input.staffProductHumans, input.staffOperatingOtherHumans, input.staffSuccessHumans, input.staffDeliveryOtherHumans, input.staffInfrastructureHumans, input.staffServiceHumans)
   output['costTotalOperating'] = _calculateCostTotalOperating(output.salesMarketingBudget, output.customerSuccesHumansRatio, output.staffProductPriceRatio, output.costSupplies, output.costSoftware, output.staffOperatingOtherHumansRatio, output.costOfficePerHuman)
   
   output['totalOperatingMargin'] = _calculateTotalOperatingMargin(output.totalRevenue, output.cogs, output.costTotalOperating)
@@ -41,6 +41,10 @@ function _calculateCostSoftware(costSoftware) {
   costSoftware = Number(costSoftware); 
   costSoftwarePerMonth = costSoftware / 12;
   return _fillArrayWithSameNumber(costSoftwarePerMonth, 12);     
+}
+
+function _calculateStaffOperatingTotalHumans(staffProductHumans, staffOperatingOtherHumans, staffSuccessHumans, staffDeliveryOtherHumans, staffInfrastructureHumans, staffServiceHumans) {
+  return parseFloat(staffProductHumans) + parseFloat(staffOperatingOtherHumans) + parseFloat(staffSuccessHumans) + parseFloat(staffDeliveryOtherHumans) + parseFloat(staffInfrastructureHumans) + parseFloat(staffServiceHumans);
 }
 function _calculateStaffOperatingOtherHumansRatio(staffOperatingOtherHumanPrice, staffOperatingOtherHumans) {
   staffOperatingOtherHumanPrice = Number(staffOperatingOtherHumanPrice); staffOperatingOtherHumans = Number(staffOperatingOtherHumans);
