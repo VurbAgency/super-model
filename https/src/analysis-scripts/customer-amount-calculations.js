@@ -17,7 +17,7 @@ function _calculateCustomerAmounts (input, output, monthsArray) {
   for (var month in defaultRetentionOffset) {
     if (defaultRetentionOffset.hasOwnProperty(month)) {
       var offset = Number(defaultRetentionOffset[month])
-      var base = Number(input.retentionRateSixMonths)
+      var base = Number(input.retentionRateSixMonths)/100;
       defaultRetentionPercentages.push(base + (base * offset));
     }
   }
@@ -68,7 +68,7 @@ function _calculateRetainedCustomersCohorts (netNewCustomers, defaultRetentionPe
     monthsArray.forEach( function(month) {
       if (month < cohort) retainedCustomersCohorts[cohort][month] = 0;
       if (month === cohort)  retainedCustomersCohorts[cohort][month] = netNewCustomers[cohort];
-      if (month > cohort)  retainedCustomersCohorts[cohort][month] = netNewCustomers[cohort] * (defaultRetentionPercentages[month - cohort -1]/100);
+      if (month > cohort)  retainedCustomersCohorts[cohort][month] = netNewCustomers[cohort] * (defaultRetentionPercentages[month - cohort -1]);
     })    
   })  
   return retainedCustomersCohorts;
