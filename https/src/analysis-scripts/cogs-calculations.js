@@ -4,7 +4,7 @@ function _calculateCogsVariables (input, output) {
   output['costInitialTech'] = _calculateTechCosts(input.costInitialTech, output.totalCustomers, input.costInitialCustomer)
   output['costStaffServiceHumans'] = _calculateSupportCosts(input.staffServiceHumanPrice, input.staffServiceHumans)
   output['costStaffInfrastructure'] = _calculateInfrastructureCosts(input.staffInfrastructureHumanPrice, input.staffInfrastructureHumans)
-  output['costMonthlyTech'] = _calculateThirdPartySoftwareCosts(input.costMonthlyTech, output.totalCustomers, input.costThirdPartyRampUpPerUser)  
+  output['costMonthlyTech'] = _calculateThirdPartySoftwareCosts(input.costMonthlyTech, output.totalCustomers)  
   output['costsStaffDeliveryOtherHumans'] = _calculateOtherStaffCosts(input.staffDeliveryOtherHumans, input.staffDeliveryOtherHumanPrice)
   output['staffDeliveryTotalHumans'] = _calculateStaffDeliveryTotalHumans(input.staffServiceHumans, input.staffInfrastructureHumans, input.staffDeliveryOtherHumans)
   output['cogs'] = _calculateCogs(output.costInitialTech, output.costStaffServiceHumans, output.costStaffInfrastructure, output.costMonthlyTech, output.costsStaffDeliveryOtherHumans)
@@ -19,9 +19,9 @@ function _calculateTechCosts (costInitialTech, totalCustomers, costInitialCustom
   return totalCustomers.map((a, i) => costInitialTech + (costInitialTech * a * costInitialCustomer));
 }
 
-function _calculateThirdPartySoftwareCosts (costMonthlyTech, totalCustomers, costThirdPartyRampUpPerUser) {
-  costMonthlyTech = Number(costMonthlyTech); costThirdPartyRampUpPerUser = (Number(costThirdPartyRampUpPerUser)/100);
-  return totalCustomers.map((a, i) => costMonthlyTech + (costMonthlyTech * a * costThirdPartyRampUpPerUser));
+function _calculateThirdPartySoftwareCosts (costMonthlyTech, totalCustomers) {
+  costMonthlyTech = Number(costMonthlyTech);
+  return totalCustomers.map((a, i) => costMonthlyTech + (costMonthlyTech * a * 0));
 }
 
 // A lot of the functions make the same calculation since the models are quite simplified. Decided to give each variable it's own function to facilitate quick changes when models get more complicated.
