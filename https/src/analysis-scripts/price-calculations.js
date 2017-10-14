@@ -21,6 +21,6 @@ function _calculateTotalRevenue (output) {
 }
 
 function _calculatePricePerMonth (pricePerMonth, pricePercent, netNewCustomersArray) {
-  var monthlyPricingAndRevenuePerTierNewCustomers = netNewCustomersArray.map((a, i) => pricePerMonth * a *  (pricePercent/100));
+  var monthlyPricingAndRevenuePerTierNewCustomers = netNewCustomersArray.map((a, i) => Number(pricePerMonth) * a *  (Number(pricePercent)/100));
   return monthlyPricingAndRevenuePerTierNewCustomers;
 }
