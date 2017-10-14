@@ -10,9 +10,9 @@ function _calculateOperatingCostsVariables(input, output) {
   output['costOfficePerHuman'] = _calculateCostOfficePerHuman(1, input.costOfficePerHuman)
   
   output['staffOperatingTotalHumans'] = _calculateStaffOperatingTotalHumans(input.staffProductHumans, input.staffOperatingOtherHumans, input.staffSuccessHumans, input.staffDeliveryOtherHumans, input.staffInfrastructureHumans, input.staffServiceHumans)
-  output['costTotalOperating'] = _calculateCostTotalOperating(output.salesMarketingBudget, output.customerSuccesHumansRatio, output.staffProductPriceRatio, output.costSupplies, output.costSoftware, output.staffOperatingOtherHumansRatio, output.costOfficePerHuman)
+  output['totalOperatingCosts'] = _calculateTotalOperatingCosts(output.salesMarketingBudget, output.customerSuccesHumansRatio, output.staffProductPriceRatio, output.costSupplies, output.costSoftware, output.staffOperatingOtherHumansRatio, output.costOfficePerHuman)
   
-  output['totalOperatingMargin'] = _calculateTotalOperatingMargin(output.totalRevenue, output.cogs, output.costTotalOperating)
+  output['totalOperatingMargin'] = _calculateTotalOperatingMargin(output.totalRevenue, output.cogs, output.totalOperatingCosts)
   output['netOperatingMargin'] = _calculateNetOperatingMargin(output.totalOperatingMargin, output.totalRevenue)
   
   return output;
@@ -57,11 +57,11 @@ function _calculateCostOfficePerHuman(staffOperatingTotalHumans, costOfficePerHu
   var costOfficePerHuman = staffOperatingTotalHumans * costOfficePerHuman;
   return _fillArrayWithSameNumber(costOfficePerHuman, 12);
 }
-function _calculateCostTotalOperating(costMarketingPercentage, staffSuccessHumans, staffProductHumans, costSupplies, costSoftware, staffOperatingOtherHumans, costOfficePerHuman ) {
+function _calculateTotalOperatingCosts(costMarketingPercentage, staffSuccessHumans, staffProductHumans, costSupplies, costSoftware, staffOperatingOtherHumans, costOfficePerHuman ) {
   return _combineSevenArrays(costMarketingPercentage, staffSuccessHumans, staffProductHumans, costSupplies, costSoftware, staffOperatingOtherHumans, costOfficePerHuman);
 }
-function _calculateTotalOperatingMargin(totalRevenue, cogs, costTotalOperating) {
-  return totalRevenue.map((a, i) => a - cogs[i]  - costTotalOperating[i]);
+function _calculateTotalOperatingMargin(totalRevenue, cogs, totalOperatingCosts) {
+  return totalRevenue.map((a, i) => a - cogs[i]  - totalOperatingCosts[i]);
 }
 function _calculateNetOperatingMargin(totalOperatingMargin, totalRevenue) {
   return totalOperatingMargin.map((a, i) => a / totalRevenue[i]);    
