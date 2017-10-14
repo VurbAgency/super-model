@@ -14,7 +14,7 @@
       }
     </style>
 
-    <chart-line data="[[graphData]]" options="[[options]]" on-iron-resize="_handleResize"></chart-line>
+    <chart-line data="[[graphDataToPlot]]" options="[[optionsToPlot]]" on-iron-resize="_handleResize"></chart-line>
 
   </template>
 
@@ -43,13 +43,42 @@
           // Object filled with data, label & styling information
           graphData: {
             type: Object
+          }, 
+          graphDataToPlot: {
+            type: Object,
+            value: {}
           },  
           options: {
             type: Object
+          },
+          optionsToPlot: {
+            type: Object
           }
-
         };
       }
+
+      static get observers() {
+        return [
+          '_onGraphDataChanged(graphData.*)', 
+          '_onGraphOptionsChanged(options.*)'
+        ] 
+      }
+
+      // Have to create a new memory space for Object, otherwise overwrites values of other graphs.
+      _onGraphDataChanged(e) {
+        if(Object.keys(this.graphData).length === 0 ) {
+          return this.set('graphDataToPlot', {})
+        }
+        this.set('graphDataToPlot', JSON.parse(JSON.stringify(this.graphData)))
+      }
+      
+      // Have to create a new memory space for Object, otherwise overwrites values of other graphs.
+      _onGraphOptionsChanged(e) {
+        if(Object.keys(this.options).length === 0 ) {
+          return this.set('optionsToPlot', {})
+        }
+        this.set('optionsToPlot', JSON.parse(JSON.stringify(this.options)))
+      }      
 
       /**
        * Instance of the element is created/upgraded. Use: initializing state,
