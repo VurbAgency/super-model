@@ -11,9 +11,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="sum-cohort-graph.html">
-<link rel="import" href="sum-new-customers-graph.html">
-<link rel="import" href="sum-retention-rate-graph.html">
 <link rel="import" href="sum-customer-tiers-graph.html">
+<link rel="import" href="sum-multiple-lines-graph.html">
+<link rel="import" href="sum-one-line-graph.html">
+<link rel="import" href="sum-multiple-lines-graph.html">
 
 <dom-module id="sum-overview">
   <template>
@@ -24,7 +25,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 10px;
       }
 
-      sum-cohort-graph, sum-new-customers-graph,sum-retention-rate-graph,sum-customer-tiers-graph {
+      sum-cohort-graph, sum-new-customers-graph,sum-retention-rate-graph,sum-customer-tiers-graph,sum-multiple-lines-graph {
         --graph-width: 800px;
         --graph-height: 400px;
       }      
@@ -39,20 +40,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         calculated="[[calculated]]"
       ></sum-cohort-graph>
 
-      <sum-new-customers-graph 
-        id="new-customers-graph"
-        calculated="[[calculated]]"
-      ></sum-new-customers-graph>
-
-      <sum-retention-rate-graph
-        id="retention-rate-graph"
-        calculated="[[calculated]]"
-      ></sum-retention-rate-graph>
-
       <sum-customer-tiers-graph
         id="customer-tiers-graph"
         data="[[data]]"      
       ></sum-customer-tiers-graph>
+
+      <sum-multiple-lines-graph
+        id="multiple-lines-graph"
+        data="[[newCustomersDataToPlot]]"      
+        legend-labels='["net new", "net retained", "total"]'
+      ></sum-multiple-lines-graph>      
+
+      <sum-one-line-graph
+        id="retention-rate-graph"
+        data="[[calculated.defaultRetentionPercentages]]"
+        label="Retention rate"
+        rgb-colors="[[retentionGraphColors]]"        
+      ></sum-one-line-graph>
+
+      <sum-one-line-graph
+        id="new-customers-graph"
+        data="[[calculated.netNewCustomers]]"      
+        label="Customer tiers"
+        rgb-colors="[[customerGraphColors]]"  
+        title="Net New customers"      
+        y-axis-label="Amount"
+      ></sum-one-line-graph>
 
     </div>
   </template>
@@ -67,11 +80,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           },
           data: {
             type: Object            
+          },
+          retentionGraphColors:{
+            type: Object,
+            value: {red: 120, green: 20, blue: 220} 
+          },
+          customerGraphColors:{
+            type: Object,
+            value: {red: 100, green: 20, blue: 20} 
+          },
+          newCustomersDataToPlot: {
+            type: Array,
+            computed: "_getNewCustomersData(calculated.*)"
+
           }
         };
       }      
       constructor() {
         super();
+      }
+
+      _getNewCustomersData(calculatedChanged) {
+        var calculated = calculatedChanged.base;
+        return [calculated.netNewCustomers, calculated.retainedCustomersTotal, calculated.totalCustomers];
       }
     }
 
