@@ -83,8 +83,9 @@ function _calculateRetainedCustomersTotal (retainedCustomersCohorts, monthsArray
     retainedCustomersCohortsTotal.push(
       retainedCustomersCohorts.reduce(function(sum, value) {
         if (month === 0) return 0;
+        
         return sum + value[month];
-      }, 1)
+      }, 0)
     )
   })
 
