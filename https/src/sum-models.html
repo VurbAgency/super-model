@@ -8,12 +8,36 @@
   <template>
     <style include="shared-styles">
       :host {
-        display: block
+        display: block;
+      }
+
+      main {
+        padding: 6vw 1rem;
+      }
+
+      main>h1 {
+        text-align: center;
+        text-transform: uppercase;
+        color: #B69CC8;
+        font-size: 4rem;
+      }
+
+      .card {
+        min-width: 50vw;
+        min-height: 50vh;
+      }
+
+      ul.models {
+        list-style: none;
+        padding: 0;
+      }
+
+      ul.models>li {
+        padding: 0.5rem;
+        font-family: var(--heading-font-stack);
       }
 
     </style>
-
-    <h1>Yes</h1>
 
     <app-route route="{{route}}" pattern="[[rootPath]]:modelId" data="{{routeData}}" tail="{{subroute}}"></app-route>
 
@@ -27,17 +51,25 @@
 
       <firebase-query id="modelsQuery" path="/models" data="{{models}}"></firebase-query>
 
-      No modelId, create one in the database and open it in the URL to start editing.
+      <main>
 
-      <ul>
-        <template is="dom-repeat" items="{{models}}">
+        <h1>Your SuperModels</h1>
 
-          <li>
-            <a href="[[route.prefix]]/[[item.$key]]/"> Model {{item.$key}}</a>
-          </li>
+        <div class="card">
+          <ul class="models">
+            <template is="dom-repeat" items="{{models}}">
 
-        </template>
-      </ul>
+              <li>
+                <a href="[[route.prefix]]/[[item.$key]]/">{{item.name}}</a>
+              </li>
+
+            </template>
+          </ul>
+
+          <paper-button on-tap="newModel ">New Model</paper-button>
+        </div>
+
+      </main>
 
     </template>
 
@@ -90,6 +122,46 @@
         Polymer.RenderStatus.afterNextRender(this, function () {
 
         });
+      }
+
+      newModel() {
+        const query = this.shadowRoot.querySelector('firebase-query#modelsQuery')
+        const ref = query.ref
+
+        ref.push({
+          "name": "Untitled Model",
+          "StaffOperatingOtherHumanPrice ": "0 ",
+          "averageCustomerLifespan ": "12 ",
+          "costInitialCustomer ": "0.01 ",
+          "costInitialTech ": "50 ",
+          "costMarketingPercentage ": "2 ",
+          "costMonthlyTech ": "25 ",
+          "costOfficePerHuman ": "550 ",
+          "costSoftware ": "1000 ",
+          "costSupplies ": "2000 ",
+          "discountRate ": "5 ",
+          "growthRate ": "2 ",
+          "netNewCustomersStart ": "500 ",
+          "pricePerMonthT1 ": "0 ",
+          "pricePerMonthT2 ": "10 ",
+          "pricePerMonthT3 ": "20 ",
+          "pricePercentT1 ": "60 ",
+          "pricePercentT2 ": "30 ",
+          "pricePercentT3 ": "10 ",
+          "retentionRateSixMonths ": "50 ",
+          "staffDeliveryOtherHumanPrice ": "0 ",
+          "staffDeliveryOtherHumans ": "0 ",
+          "staffInfrastructureHumanPrice ": "80000 ",
+          "staffInfrastructureHumans ": "0.25 ",
+          "staffOperatingOtherHumans ": "0 ",
+          "staffProductHumanPrice ": "80000 ",
+          "staffProductHumans ": "0.25 ",
+          "staffServiceHumanPrice ": "80000 ",
+          "staffServiceHumans ": "0 ",
+          "staffSuccessHumanPrice ": "0 ",
+          "staffSuccessHumans ": "0 "
+        }
+        )
       }
 
     }

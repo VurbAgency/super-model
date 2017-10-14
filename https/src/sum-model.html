@@ -8,6 +8,7 @@
 <link rel="import" href="../bower_components/paper-tabs/paper-tab.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
 <script src="analysis-scripts/helper-functions.js"></script>
 <script src="analysis-scripts/customer-amount-calculations.js"></script>
 <script src="analysis-scripts/price-calculations.js"></script>
@@ -67,9 +68,8 @@
     <app-header-layout>
       <app-header slot="header" condenses reveals effects="waterfall">
         <app-toolbar>
-          <div main-title>
-            <!-- <img src="/images/super-model-logo.svg" alt="">  -->
-            <h2>SuperModel [[modelId]]</h2>
+          <div>
+            <paper-input value={{data.name}} label="Model Name"></paper-input>
           </div>
         </app-toolbar>
         <paper-tabs sticky selected="[[page]]" attr-for-selected="name">
@@ -150,7 +150,7 @@
 
       _handleDataChanged(dataChanged) {
         var data = dataChanged.base;
-        if(Object.keys(data).length === 0 ) return;
+        if (Object.keys(data).length === 0) return;
         var calculated = sumCalculations(data, 12);
         this.set('calculated', calculated)
       }
