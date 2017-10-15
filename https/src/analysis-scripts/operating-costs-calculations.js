@@ -28,7 +28,7 @@ function  _calculateCustomerSuccesHumansRatio(staffSuccessHumanPrice, staffSucce
   return _fillArrayWithSameNumber(CustomerSuccesHumansRatio, 12)
 }
 function _calculateStaffProductPriceRatio(staffProductHumanPrice, staffProductHumans) {
-  staffProductHumanPrice = Number(staffProductHumanPrice); staffProductHumans = Number(staffProductHumans)/100;
+  staffProductHumanPrice = Number(staffProductHumanPrice); staffProductHumans = Number(staffProductHumans);
   var StaffProductPriceRatio = (staffProductHumanPrice / 12) * staffProductHumans;
   return _fillArrayWithSameNumber(StaffProductPriceRatio, 12)
 }
