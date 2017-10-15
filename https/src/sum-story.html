@@ -45,10 +45,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .card {
         clear: both;
-        min-height: 70vh;
         padding: 2rem;
         margin-bottom: 64px;
       }
+
+
 
       .intro,
       .retention {
@@ -58,6 +59,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .intro {
         background: linear-gradient(to bottom, #EFF5F9, #C3BCD8, #F5A6C8);
         display: flex;
+        flex-wrap: wrap;
         flex-direction: row;
         align-items: center;
       }
@@ -67,6 +69,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         text-align: left;
       }
 
+      @media screen and (max-width: 768px) {
+        .card {
+          padding: 1rem;
+          text-align:center; 
+          margin: 12px;
+        }
+      }      
+
       .intro h1 {
         font-weight: 900;
         font-size: 6rem;
@@ -75,6 +85,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: #2B3990;
       }
 
+      @media screen and (max-width: 768px) {
+        .intro h1 {
+          font-weight: 600;
+          font-size: 4rem;
+        }
+      }      
+
       .intro p,
       .retention p {
         font-size: 1.5rem;
@@ -82,6 +99,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .intro img {
         padding: 4rem;
+      }
+
+      @media screen and (max-width: 768px) {
+        figure, img {
+          padding: 0;
+          max-width: 80vw;
+          margin: auto; 
+        }      
+        .intro img {
+          padding: 1rem;
+        }
       }
 
       div.retention {
@@ -94,6 +122,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         /* background: linear-gradient(to bottom, #F5A6C8, #B69CC8, rgba(0, 0, 0, 0)), linear-gradient(to right, #F5A6C8 5%, rgba(0, 0, 0, 0))15%, linear-gradient(-60deg, rgba(0, 0, 0, 0), #B69CC8, rgba(0, 0, 0, 0)); */
         background: linear-gradient(169deg, rgba(0, 0, 0, 0) 87%, #F5A6C8 98%), linear-gradient(to bottom, #F5A6C8, #B69CC8);
       }
+      @media screen and (max-width: 768px) {
+        div.retention {
+          padding: 0 1em 0;
+          min-height: 100%;   
+        }        
+      }      
 
       div.retention h2 {
         margin-top: 0;
@@ -103,11 +137,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         line-height: 1;
         color: #2B3990;
       }
+      @media screen and (max-width: 768px) {
+
+      }      
 
       div.retention img {
         flex: 1;
         min-width: 70vw;
+        box-sizing: border-box;
       }
+
+      @media screen and (max-width: 768px) {
+        div.retention img {
+          min-width: 100%;
+          max-width: 100%;
+          margin: 10%;
+        }
+      }      
 
       .card h2 {
         color: #2B3990;
@@ -120,14 +166,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         max-width: 10rem;
       }
 
+      @media screen and (max-width: 768px) {
+        paper-input[type=number] {
+          margin: auto;
+        }        
+      }      
+
       div.group {
         background: #EFF5F9;
-        /* border: 1px solid #2B3990; */
-        margin: .5em;
-        padding: 1em;
+        padding: 1em; */
         border-radius: 5px;
         flex: 1;
       }
+
+      @media screen and (max-width: 768px) {
+        div.group {
+          min-width: 100%;
+          padding: 16px;
+          margin: 8px 0;
+          box-sizing: border-box;
+        }        
+      }      
 
       div.group h3 {
         text-align: center;
@@ -140,10 +199,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       div.cats {
         display: flex;
         flex-wrap: wrap;
+        max-width: 100%;
+        box-sizing: border-box;
       }
 
       .card.with-figure {
         display: flex;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+      }
+
+      .card.with-figure article, .card.with-figure > * {
+        flex: 1;
+        min-width: 400px;
+      }   
+      
+
+      @media screen and (max-width: 768px) {
+        .card.with-figure article, .card.with-figure figure, .card.with-figure figure img, .card.with-figure > * {
+          min-width: 100%;
+          max-width: 100%;
+          width: 100%;
+        }
+      }
+   
+
+      .card.with-figure div {
+        margin: auto;
       }
 
       .card.with-figure figure {
@@ -151,6 +233,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 64px;
         text-align: right;
         align-self: center;
+      }
+      @media screen and (max-width: 768px) {
+        .card.with-figure figure {
+          padding: 0;
+          text-align: center;
+          
+        }
       }
 
       .card.with-figure figure img {
@@ -167,6 +256,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: #2B3990;
         background: linear-gradient(to bottom, #F5A6C8, rgba(239, 245, 249, 1) 12em, #F5A6C8);
         overflow-y: scroll;
+      }
+      @media screen and (max-width: 768px) {
+        .report {
+          min-height: 100%;
+          padding: 1rem;
+        }
+      }      
+
+      sum-customer-tiers-graph, sum-multiple-lines-graph, sum-one-line-graph {
+        width:100%;
+        /* height: 100%; */
       }
 
       .report h2 {
@@ -265,12 +365,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <p>The point of a tool like SuperModel is that you can continue to play with these. When deciding how to set this price, take into consideration the market of existing competitive products and your sense for what the customer will be willing to pay.</p>
         </article>
-        <figure>
+        <div>
             <sum-customer-tiers-graph
             id="customer-tiers-graph"
             data="[[data]]"      
           ></sum-customer-tiers-graph>
-        </figure>
+        </div>
       </div>
 
       <div class="card with-figure">
@@ -287,13 +387,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <span slot="suffix">%/month</span>
           </paper-input>
         </article>
-        <figure>
+        <div>
             <sum-multiple-lines-graph
             id="multiple-lines-graph"
             data="[[newCustomersDataToPlot]]"      
             legend-labels='["New", "Retained", "Total"]'
           ></sum-multiple-lines-graph>
-        </figure>
+        </div>
       </div>
 
       <div class="card with-figure">
@@ -304,14 +404,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <span slot="suffix">%</span>
           </paper-input>
         </article>
-        <figure>
+        <div>
           <sum-one-line-graph
             id="retention-rate-graph"
             data="[[calculated.defaultRetentionPercentages]]"
             label="Retention rate"
             rgb-colors="[[retentionGraphColors]]"        
           ></sum-one-line-graph>
-        </figure>
+        </div>
       </div>
 
       <div class="report">
