@@ -115,6 +115,8 @@
       _handleGraphParametersChanged(dataChanged, xAxislabelsChanged, legendLabels, rgbColorsChanged) {
         var data = dataChanged.base;
         var legendLabels = legendLabels.base;
+        var xAxislabelsChanged = xAxislabelsChanged.base;
+        
         var rgbColors = this.rgbColors;
         if(!data || data.length==0 || !rgbColors) return;
 
@@ -150,14 +152,16 @@
         }
         
         this.set('graphData.datasets', datasets)
-        this.set('graphData.labels', this.legendLabels)
+        this.set('graphData.labels', this.xAxisLabels)
       }    
 
       _getXAxisLabels(data) {
         var data = data.base;
-        if (data.length == 0) return [];
+        var firstDataSet = data[0];
+        
+        if (firstDataSet.length == 0) return [];
         var labels = ['month 1'];
-        for (var i = 0; i < data.length; i++) {
+        for (var i = 0; i < firstDataSet.length; i++) {
           if(i>0) labels.push('month ' + (i+1).toString())
         }
         return labels;
