@@ -77,6 +77,8 @@
       }
 
       _setGraphTitle(title) {
+        this.set('options.title', {})
+        
         this.set('options.title.display', true)
         this.set('options.title.text', title)
       }
