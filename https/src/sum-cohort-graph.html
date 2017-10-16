@@ -8,11 +8,6 @@
         display: block;
         padding: 10px;
       }
-
-      sum-lines-graph {
-        max-width: var(--max-graph-width, 800px);
-        max-height: var(--max-graph-height, 400px);
-      }
     </style>
       
     <sum-lines-graph 
@@ -50,6 +45,9 @@
             type: Object,
             value: {
               responsive: true,
+              legend: {
+                display: false
+              },
               title:{
                 display:true,
                 text:"Cohorts overview"

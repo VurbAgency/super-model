@@ -8,11 +8,6 @@
         display: block;
         padding: 10px;
       }
-
-      sum-lines-graph {
-        max-width: var(--max-graph-width, 800px);
-        max-height: var(--max-graph-height, 400px);
-      }       
     </style>
       
     <sum-lines-graph 
@@ -52,10 +47,13 @@
             type: Object,
             value: {
               responsive: true,                        
+              legend: {
+                display: false
+              },              
               scales: {
                 xAxes: [{
                   scaleLabel: {
-                    display: true,
+                    display: false,
                     labelString: 'Month'
                   }
                 }]
@@ -79,6 +77,8 @@
       }
 
       _setGraphTitle(title) {
+        this.set('options.title', {})
+        
         this.set('options.title.display', true)
         this.set('options.title.text', title)
       }

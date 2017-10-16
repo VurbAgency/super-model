@@ -8,11 +8,6 @@
         display: block;
         padding: 10px;
       }
-
-      sum-lines-graph {
-        max-width: var(--max-graph-width, 800px);
-        max-height: var(--max-graph-height, 400px);
-      }      
     </style>
       
     <sum-lines-graph 
@@ -56,11 +51,14 @@
           options: {
             type: Object,
             value: {
-              responsive: true,      
+              responsive: true, 
+              legend: {
+                display: false
+              },                   
               scales: {
                 xAxes: [{
                   scaleLabel: {
-                    display: true,
+                    display: false,
                     labelString: 'Month'
                   }
                 }],
@@ -101,6 +99,7 @@
       }
 
       _setGraphTitle(title) {
+        this.set('options.title', {})
         this.set('options.title.display', true)
         this.set('options.title.text', title)
       }
@@ -115,6 +114,8 @@
       _handleGraphParametersChanged(dataChanged, xAxislabelsChanged, legendLabels, rgbColorsChanged) {
         var data = dataChanged.base;
         var legendLabels = legendLabels.base;
+        var xAxislabelsChanged = xAxislabelsChanged.base;
+        
         var rgbColors = this.rgbColors;
         if(!data || data.length==0 || !rgbColors) return;
 
@@ -150,14 +151,16 @@
         }
         
         this.set('graphData.datasets', datasets)
-        this.set('graphData.labels', this.legendLabels)
+        this.set('graphData.labels', this.xAxisLabels)
       }    
 
       _getXAxisLabels(data) {
         var data = data.base;
-        if (data.length == 0) return [];
+        var firstDataSet = data[0];
+        
+        if (firstDataSet.length == 0) return [];
         var labels = ['month 1'];
-        for (var i = 0; i < data.length; i++) {
+        for (var i = 0; i < firstDataSet.length; i++) {
           if(i>0) labels.push('month ' + (i+1).toString())
         }
         return labels;

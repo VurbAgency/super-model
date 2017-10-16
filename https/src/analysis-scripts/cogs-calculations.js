@@ -31,7 +31,7 @@ function _calculateSupportCosts (staffServiceHumanPrice, staffServiceHumans) {
   return _fillArrayWithSameNumber(supportCosts, 12)
 }
 function _calculateInfrastructureCosts (staffInfrastructureHumanPrice, staffInfrastructureHumans) {
-  staffInfrastructureHumanPrice = Number(staffInfrastructureHumanPrice); staffInfrastructureHumans = Number(staffInfrastructureHumans)/100;
+  staffInfrastructureHumanPrice = Number(staffInfrastructureHumanPrice); staffInfrastructureHumans = Number(staffInfrastructureHumans);
   var infrastructureCosts =  (staffInfrastructureHumanPrice / 12) * staffInfrastructureHumans;
   return _fillArrayWithSameNumber(infrastructureCosts, 12)
   

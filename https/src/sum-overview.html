@@ -24,10 +24,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         padding: 10px;
       }
-
-      sum-one-line-graph,sum-customer-tiers-graph,sum-multiple-lines-graph {
-        --max-graph-width: 800px;
-        --max-graph-height: 400px;
+      @media screen and (max-width: 768px) {
+        :host {
+          padding: 6px;
+        }
+        .card {
+          margin: 8px;
+          padding: 8px;
+        }
+        .card h1 {
+          margin: 0 16px
+        }
       }      
 
     </style>
@@ -47,7 +54,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <sum-multiple-lines-graph
         id="multiple-lines-graph"
-        data="[[newCustomersDataToPlot]]"      
+        data="[[newCustomersDataToPlot]]"  
+        title="New customers"              
         legend-labels='["net new", "net retained", "total"]'
       ></sum-multiple-lines-graph>      
 
@@ -55,6 +63,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         id="retention-rate-graph"
         data="[[calculated.defaultRetentionPercentages]]"
         label="Retention rate"
+        title="Retention rate"      
         rgb-colors="[[retentionGraphColors]]"        
       ></sum-one-line-graph>
 
