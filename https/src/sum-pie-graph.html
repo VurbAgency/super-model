@@ -4,14 +4,16 @@
 <dom-module id="sum-pie-graph">
   <template>
     <style>
-       :host {
+      :host {
         display: block;
+        height: var(--chart-height);
       }
 
       chart-pie {
+        height: var(--chart-height);
         width: 100%;
-        height: 100%;
       }
+
     </style>
 
     <chart-pie data="[[graphDataToPlot]]" options="[[optionsToPlot]]" on-iron-resize="_handleResize"></chart-pie>
@@ -56,21 +58,21 @@
           graphDataToPlot: {
             type: Object,
             value: {}
-          },          
+          },
 
         };
       }
 
       static get observers() {
         return [
-          '_onGraphDataChanged(graphData.*)', 
+          '_onGraphDataChanged(graphData.*)',
           '_onGraphOptionsChanged(options.*)'
-        ] 
+        ]
       }
 
       // Have to create a new memory space for Object, otherwise overwrites values of other graphs.
       _onGraphDataChanged(e) {
-        if(Object.keys(this.graphData).length === 0 ) {
+        if (Object.keys(this.graphData).length === 0) {
           return this.set('graphDataToPlot', {})
         }
         this.set('graphDataToPlot', JSON.parse(JSON.stringify(this.graphData)))
@@ -78,11 +80,11 @@
 
       // Have to create a new memory space for Object, otherwise overwrites values of other graphs.
       _onGraphOptionsChanged(e) {
-        if(Object.keys(this.options).length === 0 ) {
+        if (Object.keys(this.options).length === 0) {
           return this.set('optionsToPlot', {})
         }
         this.set('optionsToPlot', JSON.parse(JSON.stringify(this.options)))
-      }         
+      }
 
       /**
        * Instance of the element is created/upgraded. Use: initializing state,
@@ -94,7 +96,7 @@
       }
 
       // Library automatic resize is broken. This method calls resize whenever iron-resize is fired.
-      _handleResize(){
+      _handleResize() {
         this.shadowRoot.querySelector("chart-pie").resize()
       }
     }

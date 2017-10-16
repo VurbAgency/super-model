@@ -17,7 +17,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="sum-multiple-lines-graph.html">
 <link rel="import" href="sum-one-line-graph.html">
 
-<dom-module id="sum-story">
+<dom-module id="sum-guide">
   <template>
     <style include="shared-styles">
       :host {
@@ -25,18 +25,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background-color: #F5A6C8;
         display: flex;
         justify-content: center;
+
+        font-size: 1.5vw;
+      }
+
+      @media (max-width: 900px) {
+        :host {
+          font-size: 16px;
+        }
       }
 
       main {
         display: block;
         width: 100%;
         height: 100%;
-        max-width: 1600px;
+        /* max-width: 1600px; */
       }
 
       p {
         max-width: 30em;
-        min-width: 16rem;
+        min-width: 16em;
       }
 
       p.main {
@@ -69,7 +77,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .intro h1 {
         font-weight: 900;
-        font-size: 6rem;
+        font-size: 6em;
         text-transform: uppercase;
         line-height: 1;
         color: #2B3990;
@@ -77,11 +85,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .intro p,
       .retention p {
-        font-size: 1.5rem;
+        font-size: 1.5em;
       }
 
       .intro img {
-        padding: 4rem;
+        padding: 4em;
+        width: 50%;
       }
 
       div.retention {
@@ -98,7 +107,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       div.retention h2 {
         margin-top: 0;
         font-weight: 900;
-        font-size: 4rem;
+        font-size: 4em;
         text-transform: uppercase;
         line-height: 1;
         color: #2B3990;
@@ -111,7 +120,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .card h2 {
         color: #2B3990;
-        font-size: 2rem;
+        font-size: 2em;
         margin-top: 0;
         font-weight: 500;
       }
@@ -123,7 +132,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       div.group {
         background: #EFF5F9;
         /* border: 1px solid #2B3990; */
-        margin: .5em;
+        margin: .5em 1em .5em 0;
         padding: 1em;
         border-radius: 5px;
         flex: 1;
@@ -144,22 +153,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .card.with-figure {
         display: flex;
+        overflow: hidden;
+      }
+
+      .card.with-figure article {
+        max-width: 60%;
       }
 
       .card.with-figure figure {
+        display: flex;
         flex: 1;
-        padding: 64px;
+        padding: 0;
+        margin: 0;
         text-align: right;
         align-self: center;
+        max-width: 50%;
       }
 
       .card.with-figure figure img {
         height: 100%;
         width: 100%;
+        margin: 64px;
+      }
+
+      #customer-tiers-graph {
+        flex: 1;
       }
 
       .report {
-        min-height: 70vh;
+        min-height: 50vh;
         padding: 2rem;
         display: flex;
         flex-direction: row;
@@ -191,9 +213,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .big-number .number {
-        font-size: 4rem;
+        font-size: 4em;
         font-family: 'Montserrat', sans-serif;
-        margin: 1rem;
+        margin: 1em;
+        min-width: 0;
       }
 
     </style>
@@ -266,10 +289,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <p>The point of a tool like SuperModel is that you can continue to play with these. When deciding how to set this price, take into consideration the market of existing competitive products and your sense for what the customer will be willing to pay.</p>
         </article>
         <figure>
-            <sum-customer-tiers-graph
-            id="customer-tiers-graph"
-            data="[[data]]"      
-          ></sum-customer-tiers-graph>
+          <sum-customer-tiers-graph id="customer-tiers-graph" data="[[data]]"></sum-customer-tiers-graph>
         </figure>
       </div>
 
@@ -288,11 +308,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </paper-input>
         </article>
         <figure>
-            <sum-multiple-lines-graph
-            id="multiple-lines-graph"
-            data="[[newCustomersDataToPlot]]"      
-            legend-labels='["New", "Retained", "Total"]'
-          ></sum-multiple-lines-graph>
+          <sum-multiple-lines-graph id="multiple-lines-graph" data="[[newCustomersDataToPlot]]" legend-labels='["New", "Retained", "Total"]'></sum-multiple-lines-graph>
         </figure>
       </div>
 
@@ -305,17 +321,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </paper-input>
         </article>
         <figure>
-          <sum-one-line-graph
-            id="retention-rate-graph"
-            data="[[calculated.defaultRetentionPercentages]]"
-            label="Retention rate"
-            rgb-colors="[[retentionGraphColors]]"        
-          ></sum-one-line-graph>
+          <sum-one-line-graph id="retention-rate-graph" data="[[calculated.defaultRetentionPercentages]]" label="Retention rate" rgb-colors="[[retentionGraphColors]]"></sum-one-line-graph>
         </figure>
       </div>
 
       <div class="report">
-        <h2>Key Numbers</h2>
+        <h2>Key Numbers</h2>
         <div>
           <div class="big-number">
             <h3>LTV</h3>
@@ -539,8 +550,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   <script>
-    class SumStory extends Polymer.Element {
-      static get is() { return 'sum-story'; }
+    class SumGuide extends Polymer.Element {
+      static get is() { return 'sum-guide'; }
       /**
        * Object describing property-related metadata used by Polymer features
        */
@@ -554,7 +565,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           newCustomersDataToPlot: {
             type: Array,
             computed: "_getNewCustomersData(calculated.*)"
-          }          
+          }
         };
       }
 
@@ -573,9 +584,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _getNewCustomersData(calculatedChanged) {
         var calculated = calculatedChanged.base;
         return [calculated.netNewCustomers, calculated.retainedCustomersTotal, calculated.totalCustomers];
-      }      
+      }
     }
 
-    window.customElements.define(SumStory.is, SumStory);
+    window.customElements.define(SumGuide.is, SumGuide);
   </script>
 </dom-module>

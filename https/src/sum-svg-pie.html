@@ -1,0 +1,124 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="sum-svg-pie">
+  <template>
+    <style>
+      :host {
+        display: block
+      }
+
+      svg {
+        height: 100%;
+        width: 100%;
+      }
+
+    </style>
+
+    <svg id="svg" viewBox="-1 -1 2 2"></svg>
+
+  </template>
+
+  <script>
+    /**
+     * `sum-svg-pie` A pie chart made out of SVG (pronounced suvij)
+     *
+     * @summary ShortDescription.
+     * @customElement
+     * @polymer
+     * @extends {Polymer.Element}
+     */
+    class SumSvgPie extends Polymer.Element {
+      /**
+       * String providing the tag name to register the element under.
+       */
+      static get is() {
+        return 'sum-svg-pie';
+      }
+
+      /**
+       * Object describing property-related metadata used by Polymer features
+       */
+      static get properties() {
+        return {
+          slices: {
+            type: Array,
+            value: function () {
+              return [
+              ]
+            }
+          }
+        };
+      }
+
+      static get observers() {
+        return ['_draw(slices.*, slices)']
+      }
+
+      _draw(e, slices) {
+        const svgEl = this.$.svg
+        while (svgEl.firstChild) {
+          svgEl.removeChild(svgEl.firstChild);
+        }
+
+        let cumulativePercent = 0;
+
+        function getCoordinatesForPercent(percent) {
+          const x = Math.cos(2 * Math.PI * percent);
+          const y = Math.sin(2 * Math.PI * percent);
+          return [x, y];
+        }
+
+        slices.forEach(slice => {
+          // destructuring assignment sets the two variables at once
+          const [startX, startY] = getCoordinatesForPercent(cumulativePercent);
+
+          // each slice starts where the last slice ended, so keep a cumulative percent
+          cumulativePercent += slice.percent;
+
+          const [endX, endY] = getCoordinatesForPercent(cumulativePercent);
+
+          // if the slice is more than 50%, take the large arc (the long way around)
+          const largeArcFlag = slice.percent > .5 ? 1 : 0;
+
+          // create an array and join it just for code readability
+          const pathData = [
+            `M ${startX} ${startY}`, // Move
+            `A 1 1 0 ${largeArcFlag} 1 ${endX} ${endY}`, // Arc
+            `L 0 0`, // Line
+          ].join(' ');
+
+          // create a <path> and append it to the <svg> element
+          const pathEl = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          pathEl.setAttribute('d', pathData);
+          pathEl.setAttribute('fill', slice.color);
+          svgEl.appendChild(pathEl);
+
+          console.log(cumulativePercent)
+        });
+      }
+
+      /**
+       * Instance of the element is created/upgraded. Use: initializing state,
+       * set up event listeners, create shadow dom.
+       * @constructor
+       */
+      constructor() {
+        super();
+      }
+
+      /**
+       * Use for one-time configuration of your component after local DOM is initialized. 
+       */
+      ready() {
+        super.ready();
+
+        Polymer.RenderStatus.afterNextRender(this, function () {
+
+        });
+      }
+
+    }
+
+    window.customElements.define(SumSvgPie.is, SumSvgPie);
+  </script>
+</dom-module>

@@ -10,6 +10,7 @@
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <script src="analysis-scripts/helper-functions.js"></script>
 <script src="analysis-scripts/customer-amount-calculations.js"></script>
 <script src="analysis-scripts/price-calculations.js"></script>
@@ -18,16 +19,17 @@
 <script src="analysis-scripts/operating-costs-calculations.js"></script>
 <script src="analysis-scripts/refactored-calculations.js"></script>
 
-<link rel="import" href="sum-story.html">
+<link rel="import" href="sum-guide.html">
 <link rel="import" href="sum-variables.html">
 <link rel="import" href="sum-overview.html">
-<link rel="import" href="sum-calculated.html">
 
 <dom-module id="sum-model">
   <template>
     <style include="shared-styles">
       :host {
-        display: block
+        display: block;
+        max-width: 100%;
+        overflow-x: hidden;
       }
 
       app-header {
@@ -60,6 +62,24 @@
         text-transform: uppercase;
       }
 
+      paper-tab>a:link {
+        text-decoration: none;
+      }
+
+      .loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.8);
+        z-index: 1;
+      }
+
+      [hidden] {
+        display: none;
+      }
+
     </style>
 
     <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
@@ -69,22 +89,24 @@
     <app-header-layout>
       <app-header slot="header" condenses reveals effects="waterfall">
         <app-toolbar>
+          <div main-title>
+            <h1>{{data.name}} </h1>
+          </div>
           <div>
             <paper-input value={{data.name}} label="Model Name"></paper-input>
           </div>
           <div>
-            <paper-icon-button></paper-icon-button>
+            <a target="_blank" href="{{subroute.prefix}}">
+              <paper-icon-button icon="open-in-new"></paper-icon-button>
+            </a>
           </div>
         </app-toolbar>
         <paper-tabs sticky selected="[[page]]" attr-for-selected="name">
-          <paper-tab name="story" link>
-            <a href="[[route.prefix]]/story">Story</a>
+          <paper-tab name="guide" link>
+            <a href="[[route.prefix]]/guide">Guide</a>
           </paper-tab>
           <paper-tab name="variables" link>
             <a href="[[route.prefix]]/variables">Variables</a>
-          </paper-tab>
-          <paper-tab name="calculated" link>
-            <a href="[[route.prefix]]/calculated">Calculated</a>
           </paper-tab>
           <paper-tab name="overview" link>
             <a href="[[route.prefix]]/overview">Overview</a>
@@ -94,10 +116,9 @@
       <div>
 
         <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
-          <sum-story name="story" data="{{data}}" calculated="[[calculated]]"></sum-story>
+          <sum-guide name="guide" data="{{data}}" calculated="[[calculated]]"></sum-guide>
           <sum-variables name="variables" data="{{data}}" calculated="[[calculated]]"></sum-variables>
           <sum-overview name="overview" data="{{data}}" calculated="[[calculated]]"></sum-overview>
-          <sum-calculated name="calculated" data="{{data}}" calculated="[[calculated]]"></sum-calculated>
         </iron-pages>
 
       </div>
@@ -149,7 +170,7 @@
       _routePageChanged(page) {
         // If no page was found in the route data, page will be an empty string.
         // Deault to 'view1' in that case.
-        this.page = page || 'story'
+        this.page = page || 'guide'
       }
 
       _handleDataChanged(dataChanged) {
