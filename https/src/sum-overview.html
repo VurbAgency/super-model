@@ -19,64 +19,62 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="sum-overview">
   <template>
     <style include="shared-styles">
-       :host {
+      :host {
         display: block;
-
         padding: 10px;
       }
-      @media screen and (max-width: 768px) {
-        :host {
-          padding: 6px;
-        }
-        .card {
-          margin: 8px;
-          padding: 8px;
-        }
-        .card h1 {
-          margin: 0 16px
-        }
-      }      
+
+      main {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+
+      main>* {
+        flex-basis: 20rem;
+        flex-grow: 1;
+      }
+
+      h2 {
+        font-size: 1em;
+        text-transform: uppercase;
+        color: var(--primary-color);
+        text-align: center;
+      }
+
+      sum-customer-tiers-graph {
+        max-width: 16rem;
+        margin: auto auto;
+      }
 
     </style>
 
-    <div class="card">
-      <h1>Overview</h1>
+    <main>
 
-      <sum-cohort-graph 
-        id="cohort-graph"
-        calculated="[[calculated]]"
-      ></sum-cohort-graph>
 
-      <sum-customer-tiers-graph
-        id="customer-tiers-graph"
-        data="[[data]]"      
-      ></sum-customer-tiers-graph>
+      <div class="card">
+        <h2>Customer tiers</h2>
+        <sum-customer-tiers-graph id="customer-tiers-graph" data="[[data]]"></sum-customer-tiers-graph>
+      </div>
 
-      <sum-multiple-lines-graph
-        id="multiple-lines-graph"
-        data="[[newCustomersDataToPlot]]"  
-        title="New customers"              
-        legend-labels='["net new", "net retained", "total"]'
-      ></sum-multiple-lines-graph>      
+      <div class="card">
+        <sum-multiple-lines-graph id="multiple-lines-graph" data="[[newCustomersDataToPlot]]" title="New customers" legend-labels='["net new", "net retained", "total"]'></sum-multiple-lines-graph>
+      </div>
 
-      <sum-one-line-graph
-        id="retention-rate-graph"
-        data="[[calculated.defaultRetentionPercentages]]"
-        label="Retention rate"
-        title="Retention rate"      
-        rgb-colors="[[retentionGraphColors]]"        
-      ></sum-one-line-graph>
+      <div class="card">
+        <sum-one-line-graph id="retention-rate-graph" data="[[calculated.defaultRetentionPercentages]]" label="Retention rate" title="Retention rate" rgb-colors="[[retentionGraphColors]]"></sum-one-line-graph>
+      </div>
 
-      <sum-one-line-graph
-        id="new-customers-graph"
-        data="[[calculated.netNewCustomers]]"      
-        label="Customer tiers"
-        rgb-colors="[[customerGraphColors]]"  
-        title="Net New customers"      
-        y-axis-label="Amount"
-      ></sum-one-line-graph>
+      <div class="card">
+        <sum-one-line-graph id="new-customers-graph" data="[[calculated.netNewCustomers]]" label="Customer tiers" rgb-colors="[[customerGraphColors]]" title="Net New customers" y-axis-label="Amount"></sum-one-line-graph>
+      </div>
 
-    </div>
+      <div class="card">
+        <sum-cohort-graph id="cohort-graph" calculated="[[calculated]]"></sum-cohort-graph>
+      </div>
+    </main>
+
   </template>
 
   <script>
@@ -88,15 +86,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             type: Object
           },
           data: {
-            type: Object            
+            type: Object
           },
-          retentionGraphColors:{
+          retentionGraphColors: {
             type: Object,
-            value: {red: 120, green: 20, blue: 220} 
+            value: { red: 120, green: 20, blue: 220 }
           },
-          customerGraphColors:{
+          customerGraphColors: {
             type: Object,
-            value: {red: 100, green: 20, blue: 20} 
+            value: { red: 100, green: 20, blue: 20 }
           },
           newCustomersDataToPlot: {
             type: Array,
@@ -104,7 +102,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           }
         };
-      }      
+      }
       constructor() {
         super();
       }
