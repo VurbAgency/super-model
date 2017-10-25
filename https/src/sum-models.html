@@ -1,5 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-query.html">
 
 <link rel="import" href="sum-model.html">
@@ -12,7 +14,10 @@
       }
 
       main {
-        padding: 6vw 1rem;
+        padding: 10vw 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
 
       main>h1 {
@@ -23,18 +28,34 @@
       }
 
       .card {
-        min-width: 50vw;
-        min-height: 50vh;
+        min-width: 60vw;
+        max-width: 40rem;
+        display: flex;
+        flex-direction: column;
       }
 
       ul.models {
         list-style: none;
         padding: 0;
+        margin: 0;
       }
 
       ul.models>li {
         padding: 0.5rem;
         font-family: var(--heading-font-stack);
+        display: flex;
+        align-items: center;
+        background: linear-gradient(to bottom, #F5A6C8, #EFF5F9);
+        padding: .5rem 1rem;
+        color: #2B3990;
+        margin-top: .5rem;
+        border-radius: 3px;
+      }
+
+      ul.models>li>a {
+        flex: 1;
+        /* line-height: 3em; */
+        color: inherit;
       }
 
     </style>
@@ -56,17 +77,22 @@
         <h1>Your SuperModels</h1>
 
         <div class="card">
+          <paper-button on-tap="newModel">
+            <iron-icon icon="icons:create"></iron-icon> New Model
+          </paper-button>
+
           <ul class="models">
             <template is="dom-repeat" items="{{models}}">
 
               <li>
                 <a href="[[route.prefix]]/[[item.$key]]/">{{item.name}}</a>
+                <paper-icon-button icon="content-copy" on-tap="duplicateItem"></paper-icon-button>
+                <paper-icon-button icon="delete" on-tap="deleteItem"></paper-icon-button>
               </li>
 
             </template>
           </ul>
 
-          <paper-button on-tap="newModel">New Model</paper-button>
         </div>
 
       </main>
@@ -162,6 +188,25 @@
           "staffSuccessHumans": "0"
         }
         )
+      }
+
+      duplicateItem(e) {
+        const key = e.model.item.$key
+        var item = JSON.parse(JSON.stringify(e.model.item))
+        delete item.$key
+        item.name = item.name + ' (copy)'
+        console.log('Duplicating: ' + key, item)
+        const query = this.shadowRoot.querySelector('firebase-query#modelsQuery')
+        const ref = query.ref
+        ref.push(item)
+      }
+
+      deleteItem(e) {
+        console.log('Deleting: ' + e.model.item.$key)
+        const key = e.model.item.$key
+        const query = this.shadowRoot.querySelector('firebase-query#modelsQuery')
+        const ref = query.ref.child(key)
+        ref.set(null)
       }
 
     }
