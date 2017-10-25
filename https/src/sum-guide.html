@@ -174,49 +174,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         font-weight: 500;
       }
 
-      paper-input[type=number] {
-        max-width: 10rem;
-      }
-
-      @media screen and (max-width: 768px) {
-        paper-input[type=number] {
-          margin: auto;
-        }
-      }
-
-      div.group {
-        background: #EFF5F9;
-        /* border: 1px solid #2B3990; */
-        margin: .5em 1em .5em 0;
-        padding: 1em;
-        border-radius: 5px;
-        flex: 1;
-      }
-
-      @media screen and (max-width: 768px) {
-        div.group {
-          min-width: 100%;
-          padding: 16px;
-          margin: 8px 0;
-          box-sizing: border-box;
-        }
-      }
-
-      div.group h3 {
-        text-align: center;
-        font-weight: 400;
-        margin: 1rem;
-        color: #2B3990;
-      }
-
-      div.tiers,
-      div.cats {
-        display: flex;
-        flex-wrap: wrap;
-        max-width: 100%;
-        box-sizing: border-box;
-      }
-
       .card.with-figure {
         display: flex;
         overflow: hidden;
@@ -538,14 +495,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <h3>Total COGS</h3>
             <p class="number">{{_sumArrayValuesRound(calculated.cogs)}}</p>
           </div>
+          <p>The 'Cost Of Goods Sold' — often lovingly referred to as COGS — is the amount it costs in order for you to deliver your product.</p>
+          <p>The main reason you'll want to keep an eye on cost of goods sold is that it is linked in an important way to your company's profit. It goes without saying that profit is important to growing your business and assessing your company's overall financial health—and the cost of goods sold is a piece of that profit picture.</p>
         </div>
 
         <div>
           <div class="big-number">
             <h3>Gross Margin</h3>
-            <p class="number">{{_sumArrayValuesRound(calculated.averageCustomerGrossMargin)}}</p>
+            <p class="number">{{_sumArrayValuesRound(calculated.grossMargin)}}%
+            </p>
           </div>
-          <p>Profit %!</p>
+          <p>Gross profit margin is the percentage of revenue you retain after accounting for costs of goods sold. ... For instance, gross profit of $400,000 on $1 million in revenue equals 0.4 or 40 percent. Gross margin is important because it shows whether your sales are sufficient to cover your costs. </p>
         </div>
 
         <div>
@@ -624,29 +584,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <div class="big-number">
             <h3>Operating Costs</h3>
             <div class="number">{{_sumArrayValuesRound(calculated.totalOperatingCosts)}}</div>
-            <p></p>
           </div>
+          <p>Operating costs are expenses associated with the maintenance and administration of a business on a day-to-day basis. The operating cost is a component of operating income and is usually reflected on a company’s income statement. While operating costs generally do not include capital outlays, they can include many components of operating a business.</p>
         </div>
         <div>
           <div class="big-number">
             <h3>Customer Gross Margin</h3>
             <div class="number">{{_avgArrayValuesRound(calculated.averageCustomerGrossMargin)}}%</div>
-            <p></p>
           </div>
+          <p>Gross profit margin is the percentage of revenue you retain after accounting for costs of goods sold. ... Gross margin is important because it shows whether your sales are sufficient to cover your costs.
+          </p>
         </div>
         <div>
           <div class="big-number">
             <h3>Total staff</h3>
             <div class="number">{{calculated.staffOperatingTotalHumans}}</div>
-            <p></p>
           </div>
+          <p></p>
         </div>
         <div>
           <div class="big-number">
             <h3>Operating Margin (EBIT)</h3>
-            <div class="number">{{_avgArrayValuesRound(calculated.netOperatingMargin)}} %</div>
-            <p></p>
+            <div class="number">{{_avgArrayValuesRound(calculated.netOperatingMargin)}}%</div>
           </div>
+          <p>In accounting and finance, earnings before interest and taxes (EBIT), is a measure of a firm's profit that includes all expenses except interest and income tax expenses. It is the difference between operating revenues and operating expenses.</p>
         </div>
 
       </div>
@@ -689,10 +650,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (array) return array.reduce((a, b) => a + b, 0) / array.length;
       }
       _sumArrayValuesRound(array) {
-        return Math.round(this._sumArrayValues(array))
+        var val = Math.round(this._sumArrayValues(array))
+        if (!isNaN(val)) {
+          return val
+        }
+        console.info(val, array, isNaN(val))
+        return '?'
       }
       _avgArrayValuesRound(array) {
-        return Math.round(this._avgArrayValues(array))
+        var val = Math.round(this._avgArrayValues(array))
+        if (!isNaN(val)) {
+          return val
+        }
+        console.info(val, array, isNaN(val))
+        return '?'
       }
       _getNewCustomersData(calculatedChanged) {
         var calculated = calculatedChanged.base;
