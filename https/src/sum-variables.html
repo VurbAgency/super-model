@@ -5,27 +5,26 @@
 <dom-module id="sum-variables">
   <template>
     <style include="shared-styles">
-       :host {
-        display: block
+      :host {
+        display: block;
       }
 
-      section {
-        margin: 1em;
-        padding: 2em;
+      main {
+        display: flex;
+        flex-direction: row;
+
+        flex-wrap: wrap;
       }
 
-      h3 {
+      main>* {
+        flex-basis: 20rem;
+        flex-grow: 1;
+      }
+
+      h2 {
         font-size: 1em;
         text-transform: uppercase;
         color: var(--primary-color);
-      }
-
-      paper-input,
-      div.number {
-        display: inline-block;
-        width: 12rem;
-        max-height: 12rem;
-        overflow: scroll;
       }
 
       div.number h4 {
@@ -34,61 +33,161 @@
 
     </style>
 
-    <section class="card">
-      <h1>All the variables</h1>
-      <p>Tweak these and see the models change</p>
 
-      <h3>Growth</h3>
-      <paper-input value="{{data.netNewCustomersStart}}" type="number" label="Net New Customers first month"></paper-input>
+    <main>
 
-      <paper-input value="{{data.growthRate}}" type="number" label="Growth rate month to month"></paper-input>
-      <paper-input value="{{data.retentionRateSixMonths}}" type="number" label="Retention rate at 6 months"></paper-input>
+      <div class="card">
+        <h2>Pricing</h2>
+
+        <paper-radio-group selected="subscription">
+          <paper-radio-button name="product" disabled>A one time purchase</paper-radio-button>
+          <paper-radio-button name="subscription">A monthly subscription</paper-radio-button>
+        </paper-radio-group>
+
+        <div class="tiers">
+          <div class="group">
+            <h3>Tier 1</h3>
+            <paper-input value="{{data.pricePerMonthT1}}" type="number" label="Price per month">
+              <span slot="prefix">§</span>
+            </paper-input>
+            <paper-input value="{{data.pricePercentT1}}" type="number" label="Percentage out of total">
+              <span slot="suffix">%</span>
+            </paper-input>
+          </div>
+          <div class="group">
+            <h3>Tier 2</h3>
+            <paper-input value="{{data.pricePerMonthT2}}" type="number" label="Price per month">
+              <span slot="prefix">§</span>
+            </paper-input>
+            <paper-input value="{{data.pricePercentT2}}" type="number" label="Percentage out of total">
+              <span slot="suffix">%</span>
+            </paper-input>
+          </div>
+          <div class="group">
+            <h3>Tier 3</h3>
+            <paper-input value="{{data.pricePerMonthT3}}" type="number" label="Price per month">
+              <span slot="prefix">§</span>
+            </paper-input>
+            <paper-input value="{{data.pricePercentT3}}" type="number" label="Percentage out of total">
+              <span slot="suffix">%</span>
+            </paper-input>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card">
+        <h2>Growing & Retaining</h2>
+        <paper-input value="{{data.netNewCustomersStart}}" type="number" label="1st Month">
+          <span slot="suffix">Customers</span>
+        </paper-input>
+        <paper-input value="{{data.growthRate}}" type="number" label="Monthly growth">
+          <span slot="suffix">%/month</span>
+        </paper-input>
+        <paper-input value="{{data.retentionRateSixMonths}}" type="number" label="Retention rate at 6 months">
+          <span slot="suffix">%</span>
+        </paper-input>
+      </div>
+
+      <div class="card">
+        <h2>Cost Of Goods Sold</h2>
+
+        <div class="cats">
+
+          <div class="group">
+            <h3>Support</h3>
+            <paper-input value="{{data.staffServiceHumans}}" type="number" label="Employees">
+              <span slot="suffix">people</span>
+            </paper-input>
+            <paper-input value="{{data.staffServiceHumansPrice}}" type="number" label="Wages">
+              <span slot="prefix">§</span>
+              <span slot="suffix">/year</span>
+            </paper-input>
+          </div>
+
+          <div class="group">
+            <h3>Techies</h3>
+            <paper-input value="{{data.staffInfrastructureHumans}}" type="number" label="Employees">
+              <span slot="suffix">people</span>
+            </paper-input>
+            <paper-input value="{{data.staffInfrastructureHumanPrice}}" type="number" label="Wages">
+              <span slot="prefix">§</span>
+              <span slot="suffix">/year</span>
+            </paper-input>
+          </div>
+
+          <div class="group">
+            <h3>Other service staff</h3>
+            <paper-input value="{{data.staffDeliveryOtherHumans}}" type="number" label="Employees">
+              <span slot="suffix">people</span>
+            </paper-input>
+            <paper-input value="{{data.staffDeliveryOtherHumanPrice}}" type="number" label="Wages">
+              <span slot="prefix">§</span>
+              <span slot="suffix">/year</span>
+            </paper-input>
+          </div>
+
+          <div class="group">
+            <h3>Tech</h3>
+            <paper-input value="{{data.costInitialTech}}" type="number" label="Tech costs">
+              <span slot="prefix">§</span>
+            </paper-input>
+            <paper-input value="{{data.costMonthlyTech}}" type="number" label="Software">
+              <span slot="prefix">§</span>
+              <span slot="suffix">/month</span>
+            </paper-input>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="card">
+        <h2>Operating Budget</h2>
+
+        <div class="cats">
+          <div class="group">
+            <h3>Product employees</h3>
+            <paper-input value="{{data.staffProductHumans}}" type="number" label="Employees">
+              <span slot="suffix">people</span>
+            </paper-input>
+            <paper-input value="{{data.staffProductHumanPrice}}" type="number" label="Wages">
+              <span slot="prefix">§</span>
+              <span slot="suffix">/year</span>
+            </paper-input>
+
+          </div>
+          <div class="group">
+            <h3>Customer Success</h3>
+            <paper-input value="{{data.staffSuccessHumans}}" type="number" label="Employees">
+              <span slot="suffix">people</span>
+            </paper-input>
+            <paper-input value="{{data.staffSuccessHumanPrice}}" type="number" label="Wages">
+              <span slot="prefix">§</span>
+              <span slot="suffix">/year</span>
+            </paper-input>
+
+          </div>
+          <div class="group">
+            <h3>Costs</h3>
+            <paper-input value="{{data.costOfficePerHuman}}" type="number" label="Office space">
+              <span slot="prefix">§</span>
+              <span slot="suffix">/person</span>
+            </paper-input>
+            <paper-input value="{{data.costSupplies}}" type="number" label="Supplies">
+              <span slot="prefix">§</span>
+            </paper-input>
+            <paper-input value="{{data.costSoftware}}" type="number" label="Software">
+              <span slot="prefix">§</span>
+            </paper-input>
+          </div>
+
+        </div>
+      </div>
 
 
+    </main>
 
-      <h3>Revenue</h3>
-      <paper-input value="{{data.pricePerMonthT1}}" type="number" label="Price per month Tier 1"></paper-input>
-      <paper-input value="{{data.pricePerMonthT2}}" type="number" label="Price per month Tier 2"></paper-input>
-      <paper-input value="{{data.pricePerMonthT3}}" type="number" label="Price per month Tier 3"></paper-input>
-      <paper-input value="{{data.pricePercentT1}}" type="number" label="Price percent tier 1"></paper-input>
-      <paper-input value="{{data.pricePercentT2}}" type="number" label="Price percent tier 2"></paper-input>
-      <paper-input value="{{data.pricePercentT3}}" type="number" label="Price percent tier 3"></paper-input>
-
-
-      <h3>LTV analysis</h3>
-      <paper-input value="{{data.discountRate}}" type="number" label="discountRate"></paper-input>
-
-
-      <h3>Cost of goods sold</h3>
-      <paper-input value="{{data.costInitialTech}}" type="number" label="costInitialTech"></paper-input>
-      <paper-input value="{{data.costInitialCustomer}}" type="number" label="costInitialCustomer"></paper-input>
-      <paper-input value="{{data.staffServiceHumans}}" type="number" label="staffServiceHumans"></paper-input>
-      <paper-input value="{{data.staffServiceHumanPrice}}" type="number" label="staffServiceHumanPrice"></paper-input>
-      <paper-input value="{{data.staffInfrastructureHumans}}" type="number" label="staffInfrastructureHumans"></paper-input>
-      <paper-input value="{{data.staffInfrastructureHumanPrice}}" type="number" label="staffInfrastructureHumanPrice"></paper-input>
-      <paper-input value="{{data.costMonthlyTech}}" type="number" label="costMonthlyTech"></paper-input>
-      <paper-input value="{{data.staffDeliveryOtherHumans}}" type="number" label="staffDeliveryOtherHumans"></paper-input>
-      <paper-input value="{{data.staffDeliveryOtherHumanPrice}}" type="number" label="staffDeliveryOtherHumanPrice"></paper-input>
-
-
-      <h3>Operating costs</h3>
-      <paper-input value="{{data.costMarketingPercentage}}" type="number" label="costMarketingPercentage"></paper-input>
-      <paper-input value="{{data.staffSuccessHumans}}" type="number" label="staffSuccessHumans"></paper-input>
-      <paper-input value="{{data.staffSuccessHumanPrice}}" type="number" label="staffSuccessHumanPrice"></paper-input>
-      <paper-input value="{{data.staffProductHumans}}" type="number" label="staffProductHumans"></paper-input>
-      <paper-input value="{{data.staffProductHumanPrice}}" type="number" label="staffProductHumanPrice"></paper-input>
-      <paper-input value="{{data.costSupplies}}" type="number" label="costSupplies"></paper-input>
-      <paper-input value="{{data.costSoftware}}" type="number" label="costSoftware"></paper-input>
-      <paper-input value="{{data.staffOperatingOtherHumans}}" type="number" label="staffOperatingOtherHumans"></paper-input>
-      <paper-input value="{{data.StaffOperatingOtherHumanPrice}}" type="number" label="StaffOperatingOtherHumanPrice"></paper-input>
-      <paper-input value="{{data.costOfficePerHuman}}" type="number" label="costOfficePerHuman"></paper-input>
-
-    </section>
-
-    <!-- <section>
-      <h3>The data is raw JSON</h3>
-      <pre>{{printJson(data)}}</pre>
-    </section> -->
 
   </template>
 
