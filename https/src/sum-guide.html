@@ -254,6 +254,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       }
 
+      .graph-in-report {
+        min-width: 400px;
+      }
+
       sum-customer-tiers-graph,
       sum-multiple-lines-graph,
       sum-one-line-graph {
@@ -423,47 +427,48 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div>
           <sum-cohort-graph id="cohort-graph" calculated="[[calculated]]"></sum-cohort-graph>
         </div>
-      </div>
-
-      <div class="card with-figure">
-        <article>
-          <h2>Revenue</h2>
-          <div class="small-number">
-            <h3>Total Revenue</h3>
-            <p class="number">
-              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenue)}}
-            </p>
-          </div>   
-          <div class="small-number">
-            <h3>Total Tier 1</h3>
-            <p class="number">
-              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier1)}}
-            </p>
-          </div>   
-          
-          <div class="small-number">
-            <h3>Total Tier 2</h3>
-            <p class="number">
-              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier2)}}
-            </p>
-          </div>   
-          
-          <div class="small-number">
-            <h3>Total Tier 3</h3>
-            <p class="number">
-              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier3)}}
-            </p>
-          </div>             
-          
-        </article>
-        <div>
-          <sum-multiple-lines-graph data="[[revenueTiersDataToPlot]]"  title="Revenue per month" legend-labels='["Tier 1", "Tier 2", "Tier 3"]'></sum-multiple-lines-graph>
-        </div>
-      </div>     
+      </div> 
 
       <div class="report">
         <h2>Topline Numbers</h2>
         <div>
+          <div class="graph-in-report">
+            <sum-multiple-lines-graph data="[[revenueTiersDataToPlot]]"  title="Revenue per month" legend-labels='["Tier 1", "Tier 2", "Tier 3"]'></sum-multiple-lines-graph>
+          </div>
+        </div>
+        <div>
+          <div class="big-number">
+            <h3>Total Revenue</h3>
+            <p class="number">
+              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenue)}}
+            </p>
+          </div>  
+        </div>
+        <div>                  
+          <div class="big-number">
+            <h3>Total Tier 1</h3>
+            <p class="number">
+              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier1)}}
+            </p>
+          </div> 
+        </div>
+        <div>                   
+          <div class="big-number">
+              <h3>Total Tier 2</h3>
+            <p class="number">
+              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier2)}}
+            </p>
+          </div>     
+        </div>
+        <div>               
+          <div class="big-number">
+            <h3>Total Tier 3</h3>
+            <p class="number">
+              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier3)}}
+            </p>
+          </div>                                              
+        </div>
+        <div>        
           <div class="big-number">
             <h3>LTV</h3>
             <p class="number">
