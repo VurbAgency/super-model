@@ -39,6 +39,10 @@
             type: Object,
             value: {}
           },
+          suggestedYMax: {
+            type: String,
+            observer: "_suggestedYMaxChanged"
+          },
           title:{
             type: String,
             observer: "_setGraphTitle"
@@ -119,7 +123,22 @@
           if(i>0) labels.push('month ' + (i+1).toString())
         }
         return labels;
-      }  
+      }
+
+      _suggestedYMaxChanged(suggestedYMax) {
+        if(!suggestedYMax || suggestedYMax == '') return;
+        if(!this.options.scales.yAxes) this.options.yAxes = [{}];
+        var yAxesOptions = [{
+              display: true,
+              ticks: {
+                  suggestedMin: 0,
+                  suggestedMax: suggestedYMax 
+              }                  
+            }];
+
+        this.set('options.scales.yAxes', yAxesOptions)
+      }
+
     }
 
     window.customElements.define(SumOneLineGraph.is, SumOneLineGraph);
