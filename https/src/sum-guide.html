@@ -254,6 +254,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       }
 
+      .graph-in-report {
+        min-width: 400px;
+      }
+
       sum-customer-tiers-graph,
       sum-multiple-lines-graph,
       sum-one-line-graph {
@@ -423,47 +427,49 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div>
           <sum-cohort-graph id="cohort-graph" calculated="[[calculated]]"></sum-cohort-graph>
         </div>
-      </div>
-
-      <div class="card with-figure">
-        <article>
-          <h2>Revenue</h2>
-          <div class="small-number">
-            <h3>Total Revenue</h3>
-            <p class="number">
-              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenue)}}
-            </p>
-          </div>   
-          <div class="small-number">
-            <h3>Total Tier 1</h3>
-            <p class="number">
-              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier1)}}
-            </p>
-          </div>   
-          
-          <div class="small-number">
-            <h3>Total Tier 2</h3>
-            <p class="number">
-              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier2)}}
-            </p>
-          </div>   
-          
-          <div class="small-number">
-            <h3>Total Tier 3</h3>
-            <p class="number">
-              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier3)}}
-            </p>
-          </div>             
-          
-        </article>
-        <div>
-          <sum-multiple-lines-graph data="[[revenueTiersDataToPlot]]"  title="Revenue per month" legend-labels='["Tier 1", "Tier 2", "Tier 3"]'></sum-multiple-lines-graph>
-        </div>
-      </div>     
+      </div> 
 
       <div class="report">
         <h2>Topline Numbers</h2>
         <div>
+          <div class="graph-in-report big-number">
+            <h3>Revenue per month</h3>
+            <sum-multiple-lines-graph data="[[revenueTiersDataToPlot]]"  title="" legend-labels='["Tier 1", "Tier 2", "Tier 3"]'></sum-multiple-lines-graph>
+          </div>
+        </div>
+        <div>
+          <div class="big-number">
+            <h3>Total Revenue</h3>
+            <p class="number">
+              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenue)}}
+            </p>
+          </div>  
+        </div>
+        <div>                  
+          <div class="big-number">
+            <h3>Total Tier 1</h3>
+            <p class="number">
+              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier1)}}
+            </p>
+          </div> 
+        </div>
+        <div>                   
+          <div class="big-number">
+              <h3>Total Tier 2</h3>
+            <p class="number">
+              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier2)}}
+            </p>
+          </div>     
+        </div>
+        <div>               
+          <div class="big-number">
+            <h3>Total Tier 3</h3>
+            <p class="number">
+              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier3)}}
+            </p>
+          </div>                                              
+        </div>
+        <div>        
           <div class="big-number">
             <h3>LTV</h3>
             <p class="number">
@@ -538,7 +544,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <div class="report">
         <h2>Cost and Gross Margin Numbers</h2>
-
+        <div>
+          <div class="graph-in-report big-number">
+              <h3>COGS VS REVENUE</h3>
+            <sum-multiple-lines-graph data="[[cogsAndRevenueDataToPlot]]"  title="" legend-labels='["COGS", "Revenue"]'></sum-multiple-lines-graph>
+          </div>
+        </div>
         <div>
           <div class="big-number">
             <h3>Humans in COGS</h3>
@@ -685,7 +696,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           revenueTiersDataToPlot: {
             type: Array,
             computed: "_getRevenueTiersData(calculated.*)"
-          },          
+          },      
+          cogsAndRevenueDataToPlot: {
+            type: Array,
+            computed: "_getCogsVsRevenueData(calculated.*)"
+          }    
         };
       }
 
@@ -719,6 +734,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _getRevenueTiersData(calculatedChanged) {
         var calculated = calculatedChanged.base;
         return [calculated.totalRevenueTier1, calculated.totalRevenueTier2, calculated.totalRevenueTier3];
+      }
+
+      _getCogsVsRevenueData(calculatedChanged) {
+        var calculated = calculatedChanged.base;
+        return [calculated.cogs, calculated.totalRevenue];
       }
     }
 
