@@ -1,10 +1,12 @@
 function _calculateCogsVariables (input, output) {
   
   // A lot of the functions make the same calculation since the models are quite simplified. Decided to give each variable it's own function to facilitate quick changes when models get more complicated.
-  output['costInitialTech'] = _calculateTechCosts(input.costInitialTech, output.totalCustomers, input.costInitialCustomer)
+  output['costInitialTech'] = _calculateInitialTechCosts(input.costInitialTech, output.totalCustomers, input.costInitialCustomer)
   output['costStaffServiceHumans'] = _calculateSupportCosts(input.staffServiceHumanPrice, input.staffServiceHumans)
   output['costStaffInfrastructure'] = _calculateInfrastructureCosts(input.staffInfrastructureHumanPrice, input.staffInfrastructureHumans)
   output['costMonthlyTech'] = _calculateThirdPartySoftwareCosts(input.costMonthlyTech, output.totalCustomers)  
+  output['costTech'] = _calculateTechCosts(output.costInitialTech, output.costMonthlyTech)  
+  
   output['costsStaffDeliveryOtherHumans'] = _calculateOtherStaffCosts(input.staffDeliveryOtherHumans, input.staffDeliveryOtherHumanPrice)
   output['staffDeliveryTotalHumans'] = _calculateStaffDeliveryTotalHumans(input.staffServiceHumans, input.staffInfrastructureHumans, input.staffDeliveryOtherHumans)
   output['cogs'] = _calculateCogs(output.costInitialTech, output.costStaffServiceHumans, output.costStaffInfrastructure, output.costMonthlyTech, output.costsStaffDeliveryOtherHumans)
@@ -14,9 +16,13 @@ function _calculateCogsVariables (input, output) {
 }
 
 // BEGIN cogs functions
-function _calculateTechCosts (costInitialTech, totalCustomers, costInitialCustomer) {
+function _calculateInitialTechCosts (costInitialTech, totalCustomers, costInitialCustomer) {
   costInitialTech = Number(costInitialTech); costInitialCustomer = Number(costInitialCustomer);
   return totalCustomers.map((a, i) => costInitialTech + (costInitialTech * a * costInitialCustomer));
+}
+
+function _calculateTechCosts (costInitialTech, costMonthlyTech) {
+  return _combineTwoArrays(costInitialTech, costMonthlyTech);
 }
 
 function _calculateThirdPartySoftwareCosts (costMonthlyTech, totalCustomers) {

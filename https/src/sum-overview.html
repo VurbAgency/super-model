@@ -129,10 +129,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .number-details-container {
         padding: 4px;
       }
-
-      .bottom-border {
-        border-bottom:1px solid black;
-        width: 100%;
+      .number-details-container:not(:last-child) {
+        border-bottom:1px solid rgba(0,0,0,0.5);
       }
     </style>
 
@@ -200,10 +198,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <div class="number-details-container">
               <p>Revenue<span class="prefix align-text-right">[[_sumArrayValuesRound(calculated.totalRevenue)]]§</span></p>
               <p>COGS<span class="prefix align-text-right">[[_sumArrayValuesRound(calculated.cogs)]]§</span></p>
-              <p>Gross profit<span class="prefix align-text-right">§</span></p>
-              <div class="bottom-border"></div>
+              <p>OPEX<span class="prefix align-text-right">[[_sumArrayValuesRound(calculated.totalOperatingCosts)]]§</span></p>
+              <p>Total operating margin<span class="prefix align-text-right">[[_sumArrayValuesRound(calculated.totalOperatingMargin)]]§</span></p>
+              <p>Net operating margin<span class="prefix align-text-right">[[_sumArrayValuesRound(calculated.netOperatingMargin)]]%</span></p>
+              <p>Average customer gross margin<span class="prefix align-text-right">[[_avgArrayValuesRound(calculated.averageCustomerGrossMargin)]]§</span></p>
+              <p>Traditional life time value<span class="prefix align-text-right">[[_sumArrayValuesRound(calculated.traditionalLifetimeValue)]]§</span></p>              
             </div>
 
+            <h3>COGS</h3>
+            <div class="number-details-container">
+              <p>Total personal<span class="prefix align-text-right">[[calculated.staffDeliveryTotalHumans]] persons</span></p>
+              <p>Customer support<span class="prefix align-text-right">[[_sumArrayValuesRound(calculated.costStaffServiceHumans)]]§</span></p>
+              <p>Infrastructure<span class="prefix align-text-right">[[_sumArrayValuesRound(calculated.costStaffInfrastructure)]]§</span></p>
+              <p>Tech (monthly & initial)<span class="prefix align-text-right">[[_sumArrayValuesRound(calculated.costTech)]]§</span></p>
+              <p>Other personal costs<span class="prefix align-text-right">[[_sumArrayValuesRound(calculated.costsStaffDeliveryOtherHumans)]]§</span></p>
+            </div>
+
+            <h3>OPEX</h3>
+            <div class="number-details-container">
+              <p>% Year 1 Sales Marketing Budget <span class="prefix align-text-right">[[_sumArrayValuesRound(calculated.salesMarketingBudget)]]§</span></p>
+              <p>Customer success humans<span class="prefix align-text-right">[[_sumArrayValuesRound(calculated.customerSuccesHumansRatio)]]§</span></p>
+              <p>Product development<span class="prefix align-text-right">[[_sumArrayValuesRound(calculated.staffProductPriceRatio)]]§</span></p>
+              <p>Supplies & Material<span class="prefix align-text-right">[[_sumArrayValuesRound(calculated.costSupplies)]]§</span></p>
+              <p>Third party software (in house)<span class="prefix align-text-right">[[_sumArrayValuesRound(calculated.costSoftware)]]§</span></p>
+              <p>Operation<span class="prefix align-text-right">[[_sumArrayValuesRound(calculated.staffOperatingOtherHumansRatio)]]§</span></p>
+              <p>Office costs<span class="prefix align-text-right">[[_sumArrayValuesRound(calculated.costOfficePerHuman)]]§</span></p>
+            </div>
 
           </div>
         </div>
