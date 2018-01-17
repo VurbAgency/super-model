@@ -542,7 +542,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div>
           <div class="big-number">
             <h3>Humans in COGS</h3>
-            <p class="number"><iron-icon icon="icons:supervisor-account"></iron-icon>{{calculated.staffDeliveryTotalHumans}}</p>
+            <p class="number">{{calculated.staffDeliveryTotalHumans}}</p>
           </div>
         </div>
 
@@ -571,14 +571,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </div>
         </div>
 
-        <div>
-          <div class="big-number">
-            <h3>LTV</h3>
-            <p class="number">{{_sumArrayValuesRound(calculated.traditionalLifetimeValue)}}</p>
-          </div>
-          <p>Based on your retention rates and total customer lifespan assumptions.</p>
-        </div>
-
       </div>
 
       <div class="card">
@@ -591,7 +583,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <paper-input value="{{data.staffProductHumans}}" type="number" label="Employees">
               <span slot="suffix">people</span>
             </paper-input>
-            <p>Employee salary:</p>
+            <p>Product employee cost:</p>
             <paper-input value="{{data.staffProductHumanPrice}}" type="number" label="Average">
               <span slot="prefix">§</span>
               <span slot="suffix">/ year</span>
@@ -599,12 +591,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           </div>
           <div class="group">
-            <h3>Customer Success</h3>
-            <p>How many employees will help retain customers ?</p>
+            <h3>Marketing Staff</h3>
+            <p>How many staff members will help get, keep and grow customers?</p>
             <paper-input value="{{data.staffSuccessHumans}}" type="number" label="Employees">
               <span slot="suffix">people</span>
             </paper-input>
-            <p>Employee salary:</p>
+            <p>Employee cost:</p>
             <paper-input value="{{data.staffSuccessHumanPrice}}" type="number" label="Average">
               <span slot="prefix">§</span>
               <span slot="suffix">/ year</span>
@@ -616,7 +608,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <p></p>
             <paper-input value="{{data.costOfficePerHuman}}" type="number" label="Office space">
               <span slot="prefix">§</span>
-              <span slot="suffix">/person</span>
+              <span slot="suffix">/ person</span>
             </paper-input>
             <p>What other supplies or materials</p>
             <paper-input value="{{data.costSupplies}}" type="number" label="Supplies">
@@ -671,7 +663,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="retention">
         <div class="text">
           <h2>Grow Forth</h2>
-          <p class="main">Now you have all your numbers, and you know what they mean, what about opening the variables on your laptop and the overview on a big screen and play around with the numbers.</p>
+          <p class="main">Now you have all your numbers, and you know what they mean, what about opening the <a href="[[route.prefix]]/variables">Controls</a><a target="_blank" href="[[route.prefix]]/variables"><paper-icon-button icon="open-in-new"></paper-icon-button></a> on your laptop and the <a href="[[route.prefix]]/overview">Overview</a><a target="_blank" href="[[route.prefix]]/overview"><paper-icon-button icon="open-in-new"></paper-icon-button></a> on a big screen and play around with the numbers.</p>
         </div>
         <img src="/src/retention.svg" alt="You'll make new friends (and lose some too)">
       </div>
@@ -692,6 +684,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             notify: true
           },
           calculated: Object,
+          route: Object,
           newCustomersDataToPlot: {
             type: Array,
             computed: "_getNewCustomersData(calculated.*)"
