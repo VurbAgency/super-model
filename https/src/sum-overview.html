@@ -56,8 +56,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .big-number {
-        border: 1px solid rgba(239, 245, 249, 1);
-        border-radius: 4px;
+        margin: 0;
         padding: 0 1rem;
         text-align: center;
         color: white;
@@ -80,15 +79,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       #GPM-card {
-        background-color: rgba(79, 184, 234, 1);
+        background-color: #F5A6C8;
       }
 
       #OPEX-card {
-        background-color: rgba(81, 213, 190, 1);        
+        background-color: #B69CC8;        
       }
 
       #EBIT-card {
-        background-color: rgba(134, 220, 173, 1);        
+        background-color: #2B3990;        
       }      
 
       #main-section {
@@ -114,7 +113,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         border: 1px solid rgba(239, 245, 249, 1);
         border-radius: 4px;        
         width: 100%;
-        padding: 8px;
+        padding: 1em;
+        margin: 0;
       }
 
       .align-text-right {
@@ -137,21 +137,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <main>
 
       <section id="top-cards-section">
-        <div class="big-number" id="GPM-card">
+        <div class="big-number card" id="GPM-card">
           <h3 class="capitalized">gross profit margin</h3>
           <p class="number">
             [[_sumArrayValuesRound(calculated.grossMargin)]]<span class="prefix">%</span>
           </p>
         </div>  
 
-        <div class="big-number" id="OPEX-card">
+        <div class="big-number card" id="OPEX-card">
           <h3 class="capitalized">opex ratio</h3>
           <p class="number">
             [[calculated.opexRatio]]<span class="prefix">%</span>
           </p>
         </div>
         
-        <div class="big-number" id="EBIT-card">
+        <div class="big-number card" id="EBIT-card">
           <h3 class="capitalized">ebit margin</h3>
           <p class="number">
             [[_avgArrayValuesRound(calculated.netOperatingMargin)]]<span class="prefix">%</span>
@@ -167,33 +167,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <sum-multiple-lines-graph data="[[revenueTiersDataToPlot]]" title="" legend-labels='["Tier 1", "Tier 2", "Tier 3"]'></sum-multiple-lines-graph>
               </div>      
 
-              <div class="card">
+              <!-- <div class="card">
                 <h2>Customer tiers</h2>
                 <sum-customer-tiers-graph id="customer-tiers-graph" title="" data="[[data]]"></sum-customer-tiers-graph>
-              </div>
-        
+              </div> -->
+
               <div class="card">
                 <h2>Customer growth</h2>
                 <sum-multiple-lines-graph id="multiple-lines-graph" title="" data="[[newCustomersDataToPlot]]" legend-labels='["Net Retained", "Total"]'></sum-multiple-lines-graph>
               </div>
-        
+
               <div class="card">
                 <h2>Retention rate</h2>
                 <sum-one-line-graph id="retention-rate-graph" title="" data="[[calculated.defaultRetentionPercentages]]" label="Retention rate" rgb-colors="[[retentionGraphColors]]" suggested-y-max="1"></sum-one-line-graph>
               </div>
-        
-              <div class="card">
-                <h2>Net New customers</h2>                
-                <sum-one-line-graph id="new-customers-graph" title="" data="[[calculated.netNewCustomers]]" rgb-colors="[[customerGraphColors]]" y-axis-label="Amount"></sum-one-line-graph>
-              </div>
-        
+
               <div class="card">
                 <h2>Customer growth in cohorts</h2>
                 <sum-cohort-graph id="cohort-graph" title="" calculated="[[calculated]]"></sum-cohort-graph>
               </div>
+
+              <!-- <div class="card">
+                <h2>Net New customers</h2>                
+                <sum-one-line-graph id="new-customers-graph" title="" data="[[calculated.netNewCustomers]]" rgb-colors="[[customerGraphColors]]" y-axis-label="Amount"></sum-one-line-graph>
+              </div> -->
+        
+              
         </div>
         <div class="numbers-container">
-          <div id="numbers-card">
+          <div id="numbers-card" class="card">
             <h3>Income statement</h3>
             <div class="number-details-container">
               <p>Revenue<span class="prefix align-text-right">[[_sumArrayValuesRound(calculated.totalRevenue)]]§</span></p>
