@@ -620,6 +620,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div>
           <div class="big-number">
             <h3>Operating Costs</h3>
+            <sum-one-line-graph data="[[calculated.totalOperatingCosts]]" label="Operating costs" rgb-colors="[[operatingCostsGraphColors]]"></sum-one-line-graph>
             <div class="number">§{{_sumArrayValuesRound(calculated.totalOperatingCosts)}}</div>
           </div>
           <p>Operating costs are expenses associated with the maintenance and administration of a business on a day-to-day basis. The operating cost is a component of operating income and is usually reflected on a company’s income statement. While operating costs generally do not include capital outlays, they can include many components of operating a business.</p>
@@ -627,6 +628,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div>
           <div class="big-number">
             <h3>Customer Gross Margin</h3>
+            <sum-one-line-graph data="[[calculated.averageCustomerGrossMargin]]" label="Customer growth margin" rgb-colors="[[growthMarginGraphColors]]"></sum-one-line-graph>            
             <div class="number">{{_avgArrayValuesRound(calculated.averageCustomerGrossMargin)}}%</div>
           </div>
           <p>Gross profit margin is the percentage of revenue you retain after accounting for costs of goods sold. ... Gross margin is important because it shows whether your sales are sufficient to cover your costs.
@@ -640,13 +642,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <p></p>
         </div>
         <div>
-          <div class="big-number">
+          <div class="graph-in-report big-number">
             <h3>Operating Margin (EBIT)</h3>
-            <div class="number">{{_avgArrayValuesRound(calculated.netOperatingMargin)}}%</div>
+            <sum-one-line-graph data="[[calculated.netOperatingMargin]]" label="Net operating margin" rgb-colors="[[operatingMarginGraphColors]]"></sum-one-line-graph>
+            <div class="number">Avg: {{_avgArrayValuesRound(calculated.netOperatingMargin)}}%</div>
           </div>
           <p>In accounting and finance, earnings before interest and taxes (EBIT), is a measure of a firm's profit that includes all expenses except interest and income tax expenses. It is the difference between operating revenues and operating expenses.</p>
         </div>
-
       </div>
 
       <div class="retention">
@@ -685,7 +687,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           cogsAndRevenueDataToPlot: {
             type: Array,
             computed: "_getCogsVsRevenueData(calculated.*)"
-          }    
+          },
+          retentionGraphColors: {
+            type: Object,
+            value: { red: 120, green: 20, blue: 220 }
+          },
+          growthMarginGraphColors: {
+            type: Object,
+            value: { red: 190, green: 30, blue: 120 }
+          },
+          operatingCostsGraphColors: {
+            type: Object,
+            value: { red: 190, green: 200, blue: 0 }
+          },
+          operatingMarginGraphColors: {
+            type: Object,
+            value: { red: 220, green: 88, blue: 88 }
+          }
         };
       }
 
