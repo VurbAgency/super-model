@@ -99,6 +99,11 @@
       }
 
       _setGraphTitle(title) {
+        if(!title || title == '') {
+          this.set('options.title', {})        
+          return this.set('options.title.display', false)
+        }
+
         this.set('options.title', {})
         this.set('options.title.display', true)
         this.set('options.title.text', title)
