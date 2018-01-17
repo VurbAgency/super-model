@@ -165,30 +165,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="graphs-container">
 
               <div class="card">
-                <sum-multiple-lines-graph data="[[revenueTiersDataToPlot]]"  title="Revenue per month" legend-labels='["Tier 1", "Tier 2", "Tier 3"]'></sum-multiple-lines-graph>
+                <h2>Revenue per month</h2>
+                <sum-multiple-lines-graph data="[[revenueTiersDataToPlot]]" title="" legend-labels='["Tier 1", "Tier 2", "Tier 3"]'></sum-multiple-lines-graph>
               </div>      
 
               <div class="card">
                 <h2>Customer tiers</h2>
-                <sum-customer-tiers-graph id="customer-tiers-graph" data="[[data]]"></sum-customer-tiers-graph>
+                <sum-customer-tiers-graph id="customer-tiers-graph" title="" data="[[data]]"></sum-customer-tiers-graph>
               </div>
         
               <div class="card">
-                <sum-multiple-lines-graph id="multiple-lines-graph" data="[[newCustomersDataToPlot]]" title="Customer growth" legend-labels='["Net Retained", "Total"]'></sum-multiple-lines-graph>
+                <h2>Customer growth</h2>
+                <sum-multiple-lines-graph id="multiple-lines-graph" title="" data="[[newCustomersDataToPlot]]" legend-labels='["Net Retained", "Total"]'></sum-multiple-lines-graph>
               </div>
         
               <div class="card">
-                <sum-one-line-graph id="retention-rate-graph" data="[[calculated.defaultRetentionPercentages]]" label="Retention rate" title="Retention rate" rgb-colors="[[retentionGraphColors]]" suggested-y-max="1"></sum-one-line-graph>
+                <h2>Retention rate</h2>
+                <sum-one-line-graph id="retention-rate-graph" title="" data="[[calculated.defaultRetentionPercentages]]" label="Retention rate" rgb-colors="[[retentionGraphColors]]" suggested-y-max="1"></sum-one-line-graph>
               </div>
         
               <div class="card">
-                <sum-one-line-graph id="new-customers-graph" data="[[calculated.netNewCustomers]]" label="Customer tiers" rgb-colors="[[customerGraphColors]]" title="Net New customers" y-axis-label="Amount"></sum-one-line-graph>
+                <h2>Net New customers</h2>                
+                <sum-one-line-graph id="new-customers-graph" title="" data="[[calculated.netNewCustomers]]" rgb-colors="[[customerGraphColors]]" y-axis-label="Amount"></sum-one-line-graph>
               </div>
         
-
-        
               <div class="card">
-                <sum-cohort-graph id="cohort-graph" calculated="[[calculated]]"></sum-cohort-graph>
+                <h2>Customer growth in cohorts</h2>
+                <sum-cohort-graph id="cohort-graph" title="" calculated="[[calculated]]"></sum-cohort-graph>
               </div>
         </div>
         <div class="numbers-container">
