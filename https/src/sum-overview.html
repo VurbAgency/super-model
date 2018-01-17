@@ -69,6 +69,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
 
       <div class="card">
+        <sum-multiple-lines-graph data="[[revenueTiersDataToPlot]]"  title="Revenue per month" legend-labels='["Tier 1", "Tier 2", "Tier 3"]'></sum-multiple-lines-graph>
+      </div>      
+
+      <div class="card">
         <sum-cohort-graph id="cohort-graph" calculated="[[calculated]]"></sum-cohort-graph>
       </div>
     </main>
@@ -97,8 +101,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           newCustomersDataToPlot: {
             type: Array,
             computed: "_getNewCustomersData(calculated.*)"
-
-          }
+          },
+          revenueTiersDataToPlot: {
+            type: Array,
+            computed: "_getRevenueTiersData(calculated.*)"
+          }          
         };
       }
       constructor() {
@@ -109,6 +116,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var calculated = calculatedChanged.base;
         return [calculated.retainedCustomersTotal, calculated.totalCustomers];
       }
+
+      _getRevenueTiersData(calculatedChanged) {
+        var calculated = calculatedChanged.base;
+        return [calculated.totalRevenueTier1, calculated.totalRevenueTier2, calculated.totalRevenueTier3];
+      }      
     }
 
 
