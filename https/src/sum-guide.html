@@ -388,7 +388,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <p>And from there, how much growth do you expect in year one, from month to month?</p>
           <paper-input value="{{data.growthRate}}" type="number" label="Monthly growth">
-            <span slot="suffix">%/month</span>
+            <span slot="suffix">%/ month</span>
           </paper-input>
         </article>
         <div>
@@ -414,7 +414,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <h2>Cohorts</h2>
           <p>Another way to look at growth is with a Cohorts graph. In this graph you see the new users per month as a new layer in the graph. In this way you can easily see the impact of month-on-month growth and retention.</p>
           <paper-input value="{{data.growthRate}}" type="number" label="Monthly growth">
-            <span slot="suffix">%/month</span>
+            <span slot="suffix">%/ month</span>
           </paper-input>
           <paper-input value="{{data.retentionRateSixMonths}}" type="number" label="Retention rate at 6 months">
             <span slot="suffix">%</span>
@@ -488,9 +488,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <paper-input value="{{data.staffServiceHumans}}" type="number" label="Employees">
               <span slot="suffix">people</span>
             </paper-input>
-            <paper-input value="{{data.staffServiceHumansPrice}}" type="number" label="Wages">
+            <paper-input value="{{data.staffServiceHumansPrice}}" type="number" label="Average">
               <span slot="prefix">§</span>
-              <span slot="suffix">/year</span>
+              <span slot="suffix">/ year</span>
             </paper-input>
           </div>
 
@@ -500,9 +500,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <paper-input value="{{data.staffInfrastructureHumans}}" type="number" label="Employees">
               <span slot="suffix">people</span>
             </paper-input>
-            <paper-input value="{{data.staffInfrastructureHumanPrice}}" type="number" label="Wages">
+            <paper-input value="{{data.staffInfrastructureHumanPrice}}" type="number" label="Average">
               <span slot="prefix">§</span>
-              <span slot="suffix">/year</span>
+              <span slot="suffix">/ year</span>
             </paper-input>
           </div>
 
@@ -512,9 +512,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <paper-input value="{{data.staffDeliveryOtherHumans}}" type="number" label="Employees">
               <span slot="suffix">people</span>
             </paper-input>
-            <paper-input value="{{data.staffDeliveryOtherHumanPrice}}" type="number" label="Wages">
+            <paper-input value="{{data.staffDeliveryOtherHumanPrice}}" type="number" label="Average">
               <span slot="prefix">§</span>
-              <span slot="suffix">/year</span>
+              <span slot="suffix">/ year</span>
             </paper-input>
           </div>
 
@@ -528,7 +528,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <p>Any third-party software or data that is included in your delivered product</p>
             <paper-input value="{{data.costMonthlyTech}}" type="number" label="Software">
               <span slot="prefix">§</span>
-              <span slot="suffix">/month</span>
+              <span slot="suffix">/ month</span>
             </paper-input>
           </div>
 
@@ -541,8 +541,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <div>
           <div class="big-number">
-            <h3>Delivery Employees</h3>
-            <p class="number">{{calculated.staffDeliveryTotalHumans}}</p>
+            <h3>Humans in COGS</h3>
+            <p class="number"><iron-icon icon="icons:supervisor-account"></iron-icon>{{calculated.staffDeliveryTotalHumans}}</p>
           </div>
         </div>
 
@@ -592,9 +592,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <span slot="suffix">people</span>
             </paper-input>
             <p>Employee salary:</p>
-            <paper-input value="{{data.staffProductHumanPrice}}" type="number" label="Wages">
+            <paper-input value="{{data.staffProductHumanPrice}}" type="number" label="Average">
               <span slot="prefix">§</span>
-              <span slot="suffix">/year</span>
+              <span slot="suffix">/ year</span>
             </paper-input>
 
           </div>
@@ -605,9 +605,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <span slot="suffix">people</span>
             </paper-input>
             <p>Employee salary:</p>
-            <paper-input value="{{data.staffSuccessHumanPrice}}" type="number" label="Wages">
+            <paper-input value="{{data.staffSuccessHumanPrice}}" type="number" label="Average">
               <span slot="prefix">§</span>
-              <span slot="suffix">/year</span>
+              <span slot="suffix">/ year</span>
             </paper-input>
 
           </div>
