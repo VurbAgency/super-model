@@ -57,7 +57,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
 
       <div class="card">
-        <sum-multiple-lines-graph id="multiple-lines-graph" data="[[newCustomersDataToPlot]]" title="New customers" legend-labels='["net new", "net retained", "total"]'></sum-multiple-lines-graph>
+        <sum-multiple-lines-graph id="multiple-lines-graph" data="[[newCustomersDataToPlot]]" title="Customer growth" legend-labels='["Net Retained", "Total"]'></sum-multiple-lines-graph>
       </div>
 
       <div class="card">
@@ -107,7 +107,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _getNewCustomersData(calculatedChanged) {
         var calculated = calculatedChanged.base;
-        return [calculated.netNewCustomers, calculated.retainedCustomersTotal, calculated.totalCustomers];
+        return [calculated.retainedCustomersTotal, calculated.totalCustomers];
       }
     }
 
