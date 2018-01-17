@@ -289,6 +289,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         min-width: 0;
       }
 
+      .small-number {
+        border: 1px solid rgba(239, 245, 249, 1);
+        background-color: rgba(239, 245, 249, 0.4);
+        border-radius: 4px;
+        text-align: center;
+        color: #2B3990;
+      }
+
+      .small-number .number {
+        font-size: 1.5em;
+        font-family: 'Montserrat', sans-serif;
+        margin: 0.5em;
+        min-width: 0;
+      }
     </style>
 
     <main>
@@ -380,7 +394,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div>
           <sum-multiple-lines-graph id="multiple-lines-graph" data="[[newCustomersDataToPlot]]"  title="Customer growth" legend-labels='["Net Retained", "Total"]'></sum-multiple-lines-graph>
         </div>
-      </div>
+      </div>      
 
       <div class="card with-figure">
         <article>
@@ -411,6 +425,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </div>
       </div>
 
+      <div class="card with-figure">
+        <article>
+          <h2>Revenue</h2>
+          <div class="small-number">
+            <h3>Total Revenue</h3>
+            <p class="number">
+              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenue)}}
+            </p>
+          </div>   
+          <div class="small-number">
+            <h3>Total Tier 1</h3>
+            <p class="number">
+              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier1)}}
+            </p>
+          </div>   
+          
+          <div class="small-number">
+            <h3>Total Tier 2</h3>
+            <p class="number">
+              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier2)}}
+            </p>
+          </div>   
+          
+          <div class="small-number">
+            <h3>Total Tier 3</h3>
+            <p class="number">
+              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier3)}}
+            </p>
+          </div>             
+          
+        </article>
+        <div>
+          <sum-multiple-lines-graph data="[[revenueTiersDataToPlot]]"  title="Revenue per month" legend-labels='["Tier 1", "Tier 2", "Tier 3"]'></sum-multiple-lines-graph>
+        </div>
+      </div>     
+
       <div class="report">
         <h2>Topline Numbers</h2>
         <div>
@@ -424,16 +474,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <p>A key number to track, this is the value you get from an individual customer over their entire use of your product.</p>
           <p>You can use this number when deciding on how much money you want to spend on marketing and to see when your retention rates are best.</p>
           <p>The number we calculated is the Traditional LTV.</p>
-        </div>
-        <div>
-          <div class="big-number">
-            <h3>Total Revenue</h3>
-            <p class="number">
-              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenue)}}
-            </p>
-          </div>
-          <h3>Revenue</h3>
-          <p>All the money you're going to earn with this product in year 1.</p>
         </div>
       </div>
 
