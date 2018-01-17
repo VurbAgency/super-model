@@ -25,15 +25,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       main {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-around;
+        padding: 2rem;
       }
 
-      main>* {
-        flex-basis: 20rem;
-        flex-grow: 1;
+      .card {
+        margin: 24px 0;
       }
 
       h2 {
@@ -48,33 +44,168 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: auto auto;
       }
 
+      section { 
+        width: 100%;    
+      }
+
+      #top-cards-section {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+
+      .big-number {
+        border: 1px solid rgba(239, 245, 249, 1);
+        border-radius: 4px;
+        padding: 0 1rem;
+        text-align: center;
+        color: white;
+        min-width: 260px;
+      }
+
+      .big-number h3 {
+        margin-bottom: 0;
+      }
+
+      .big-number .number {
+        font-size: 2em;
+        font-family: 'Montserrat', sans-serif;
+        margin: 0.2em;
+        min-width: 0;
+      }
+
+      .capitalized {
+        text-transform: uppercase;
+      }
+
+      #GPM-card {
+        background-color: rgba(79, 184, 234, 1);
+      }
+
+      #OPEX-card {
+        background-color: rgba(81, 213, 190, 1);        
+      }
+
+      #EBIT-card {
+        background-color: rgba(134, 220, 173, 1);        
+      }      
+
+      #main-section {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+
+      #main-section .graphs-container {
+        flex: 1;
+      }
+
+      #main-section .numbers-container {
+        flex: 0;
+        min-width: 300px;
+        margin: 24px;
+
+      }      
+
+      #numbers-card {
+        background-color: white;
+        border: 1px solid rgba(239, 245, 249, 1);
+        border-radius: 4px;        
+        width: 100%;
+        padding: 8px;
+      }
+
+      .align-text-right {
+        float: right;
+      }
+
+      #numbers-card p{
+        width: 100%;
+        text-align:left;
+      }
+      
+      .number-details-container {
+        padding: 4px;
+      }
+
+      .bottom-border {
+        border-bottom:1px solid black;
+        width: 100%;
+      }
     </style>
 
     <main>
-      <div class="card">
-        <h2>Customer tiers</h2>
-        <sum-customer-tiers-graph id="customer-tiers-graph" data="[[data]]"></sum-customer-tiers-graph>
-      </div>
 
-      <div class="card">
-        <sum-multiple-lines-graph id="multiple-lines-graph" data="[[newCustomersDataToPlot]]" title="Customer growth" legend-labels='["Net Retained", "Total"]'></sum-multiple-lines-graph>
-      </div>
+      <section id="top-cards-section">
+        <div class="big-number" id="GPM-card">
+          <h3 class="capitalized">gross profit margin</h3>
+          <p class="number">
+            [[_sumArrayValuesRound(calculated.grossMargin)]]<span class="prefix">%</span>
+          </p>
+        </div>  
 
-      <div class="card">
-        <sum-one-line-graph id="retention-rate-graph" data="[[calculated.defaultRetentionPercentages]]" label="Retention rate" title="Retention rate" rgb-colors="[[retentionGraphColors]]" suggested-y-max="1"></sum-one-line-graph>
-      </div>
+        <div class="big-number" id="OPEX-card">
+          <h3 class="capitalized">opex ratio</h3>
+          <p class="number">
+            [[calculated.opexRatio]]<span class="prefix">%</span>
+          </p>
+        </div>
+        
+        <div class="big-number" id="EBIT-card">
+          <h3 class="capitalized">ebit margin</h3>
+          <p class="number">
+            [[_avgArrayValuesRound(calculated.netOperatingMargin)]]<span class="prefix">%</span>
+          </p>
+        </div>      
+      </section>
 
-      <div class="card">
-        <sum-one-line-graph id="new-customers-graph" data="[[calculated.netNewCustomers]]" label="Customer tiers" rgb-colors="[[customerGraphColors]]" title="Net New customers" y-axis-label="Amount"></sum-one-line-graph>
-      </div>
+      <section id="main-section">
+        <div class="graphs-container">
 
-      <div class="card">
-        <sum-multiple-lines-graph data="[[revenueTiersDataToPlot]]"  title="Revenue per month" legend-labels='["Tier 1", "Tier 2", "Tier 3"]'></sum-multiple-lines-graph>
-      </div>      
+              <div class="card">
+                <sum-multiple-lines-graph data="[[revenueTiersDataToPlot]]"  title="Revenue per month" legend-labels='["Tier 1", "Tier 2", "Tier 3"]'></sum-multiple-lines-graph>
+              </div>      
 
-      <div class="card">
-        <sum-cohort-graph id="cohort-graph" calculated="[[calculated]]"></sum-cohort-graph>
-      </div>
+              <div class="card">
+                <h2>Customer tiers</h2>
+                <sum-customer-tiers-graph id="customer-tiers-graph" data="[[data]]"></sum-customer-tiers-graph>
+              </div>
+        
+              <div class="card">
+                <sum-multiple-lines-graph id="multiple-lines-graph" data="[[newCustomersDataToPlot]]" title="Customer growth" legend-labels='["Net Retained", "Total"]'></sum-multiple-lines-graph>
+              </div>
+        
+              <div class="card">
+                <sum-one-line-graph id="retention-rate-graph" data="[[calculated.defaultRetentionPercentages]]" label="Retention rate" title="Retention rate" rgb-colors="[[retentionGraphColors]]" suggested-y-max="1"></sum-one-line-graph>
+              </div>
+        
+              <div class="card">
+                <sum-one-line-graph id="new-customers-graph" data="[[calculated.netNewCustomers]]" label="Customer tiers" rgb-colors="[[customerGraphColors]]" title="Net New customers" y-axis-label="Amount"></sum-one-line-graph>
+              </div>
+        
+
+        
+              <div class="card">
+                <sum-cohort-graph id="cohort-graph" calculated="[[calculated]]"></sum-cohort-graph>
+              </div>
+        </div>
+        <div class="numbers-container">
+          <div id="numbers-card">
+            <h3>Income statement</h3>
+            <div class="number-details-container">
+              <p>Revenue<span class="prefix align-text-right">[[_sumArrayValuesRound(calculated.totalRevenue)]]§</span></p>
+              <p>COGS<span class="prefix align-text-right">[[_sumArrayValuesRound(calculated.cogs)]]§</span></p>
+              <p>Gross profit<span class="prefix align-text-right">§</span></p>
+              <div class="bottom-border"></div>
+            </div>
+
+
+          </div>
+        </div>
+      </section>      
+
     </main>
 
   </template>
@@ -120,6 +251,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _getRevenueTiersData(calculatedChanged) {
         var calculated = calculatedChanged.base;
         return [calculated.totalRevenueTier1, calculated.totalRevenueTier2, calculated.totalRevenueTier3];
+      }     
+      
+      _sumArrayValues(array) {
+        if (array) return array.reduce((a, b) => a + b, 0);
+      }
+ 
+      _sumArrayValuesRound(array) {
+        var val = Math.round(this._sumArrayValues(array))
+        if (!isNaN(val)) {
+          return val
+        }
+        return '?'
+      }
+
+      _avgArrayValues(array) {
+        if (array) return array.reduce((a, b) => a + b, 0) / array.length;
+      }
+
+      _avgArrayValuesRound(array) {
+        var val = Math.round(this._avgArrayValues(array))
+        if (!isNaN(val)) {
+          return val
+        }
+        return '?'
       }      
     }
 
