@@ -68,8 +68,9 @@
           rgbColors: {
             type: Array,
             value: [
-              {red: 120, green: 180, blue: 120},
-              {red: 50, green: 100, blue: 10},
+              {red: 200, green: 0, blue: 0},
+              {red: 0, green: 200, blue: 0},
+              {red: 0, green: 0, blue: 200},
               {red: 160, green: 60, blue: 160},
               {red: 140, green: 140, blue: 0},
               {red: 0, green: 10, blue: 80},
@@ -130,7 +131,7 @@
             datasets[0] = { 
               label: legendLabels[i], 
               data: data[i],
-              backgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",0.5)",
+              backgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",0.3)",
               borderColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
               borderWidth: 1,
               pointBackgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
@@ -143,7 +144,7 @@
               { 
                 label: legendLabels[i], 
                 data: data[i],
-                backgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",0.5)",
+                backgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",0.3)",
                 borderColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
                 borderWidth: 1,
                 pointBackgroundColor: "rgba(" + rgbColors[i].red  +", " + rgbColors[i].green + ", " + rgbColors[i].blue + ",1)",
