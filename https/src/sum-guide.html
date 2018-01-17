@@ -544,6 +544,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="report">
         <h2>Cost and Gross Margin Numbers</h2>
 
+            <sum-multiple-lines-graph data="[[cogsAndRevenueDataToPlot]]"  title="" legend-labels='["COGS", "Revenue"]'></sum-multiple-lines-graph>
         <div>
           <div class="big-number">
             <h3>Humans in COGS</h3>
@@ -690,7 +691,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           revenueTiersDataToPlot: {
             type: Array,
             computed: "_getRevenueTiersData(calculated.*)"
-          },          
+          },      
+          cogsAndRevenueDataToPlot: {
+            type: Array,
+            computed: "_getCogsVsRevenueData(calculated.*)"
+          }    
         };
       }
 
@@ -724,6 +729,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _getRevenueTiersData(calculatedChanged) {
         var calculated = calculatedChanged.base;
         return [calculated.totalRevenueTier1, calculated.totalRevenueTier2, calculated.totalRevenueTier3];
+      }
+
+      _getCogsVsRevenueData(calculatedChanged) {
+        var calculated = calculatedChanged.base;
+        return [calculated.cogs, calculated.totalRevenue];
       }
     }
 
