@@ -655,7 +655,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           newCustomersDataToPlot: {
             type: Array,
             computed: "_getNewCustomersData(calculated.*)"
-          }
+          },
+          revenueTiersDataToPlot: {
+            type: Array,
+            computed: "_getRevenueTiersData(calculated.*)"
+          },          
         };
       }
 
@@ -684,6 +688,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _getNewCustomersData(calculatedChanged) {
         var calculated = calculatedChanged.base;
         return [calculated.retainedCustomersTotal, calculated.totalCustomers];
+      }
+
+      _getRevenueTiersData(calculatedChanged) {
+        var calculated = calculatedChanged.base;
+        return [calculated.totalRevenueTier1, calculated.totalRevenueTier2, calculated.totalRevenueTier3];
       }
     }
 
