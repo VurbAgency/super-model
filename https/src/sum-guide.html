@@ -356,7 +356,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </div>
           </div>
 
-          <p>The point of a tool like SuperModel is that you can continue to play with these. When deciding how to set this price, take into consideration the market of existing competitive products and your sense for what the customer will be willing to pay.</p>
+          <p>The point of a tool like SuperModel is that you can continue to play with these assumptions. When deciding how to set prices and tiers, take into consideration your value relative to revenues gained or costs saved, or the market of existing competitive products and your sense for what the customer will be willing to pay.</p>
         </article>
         <div>
           <sum-customer-tiers-graph id="customer-tiers-graph" data="[[data]]"></sum-customer-tiers-graph>
@@ -395,8 +395,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </div>
       </div>
 
+      <div class="card with-figure">
+        <article>
+          <h2>Cohorts</h2>
+          <p>Another way to look at growth is with a Cohorts graph. In this graph you see the new users per month as a new layer in the graph. In this way you can easily see the impact of month-on-month growth and retention.</p>
+          <paper-input value="{{data.growthRate}}" type="number" label="Monthly growth">
+            <span slot="suffix">%/month</span>
+          </paper-input>
+          <paper-input value="{{data.retentionRateSixMonths}}" type="number" label="Retention rate at 6 months">
+            <span slot="suffix">%</span>
+          </paper-input>
+        </article>
+        <div>
+          <sum-cohort-graph id="cohort-graph" calculated="[[calculated]]"></sum-cohort-graph>
+        </div>
+      </div>
+
       <div class="report">
-        <h2>Key Numbers</h2>
+        <h2>Topline Numbers</h2>
         <div>
           <div class="big-number">
             <h3>LTV</h3>
@@ -481,7 +497,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
 
       <div class="report">
-        <h2>Key Numbers</h2>
+        <h2>Cost and Gross Margin Numbers</h2>
 
         <div>
           <div class="big-number">
@@ -578,7 +594,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <div class="report">
 
-        <h2>Key Numbers</h2>
+        <h2>Operating Numbers</h2>
 
         <div>
           <div class="big-number">

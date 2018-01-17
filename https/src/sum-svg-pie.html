@@ -60,7 +60,16 @@
           svgEl.removeChild(svgEl.firstChild);
         }
 
-        let cumulativePercent = 0;
+        let total = slices.reduce((accumulator, currentValue,currentIndex) => {
+          return accumulator + currentValue.percent
+        }, 0)
+
+        if(!total) return
+
+        slices = slices.map(v => {
+          v.fraction = v.percent / total
+          return v
+        })
 
         function getCoordinatesForPercent(percent) {
           const x = Math.cos(2 * Math.PI * percent);
@@ -68,17 +77,19 @@
           return [x, y];
         }
 
+        let cumulativePercent = 0;
+
         slices.forEach(slice => {
           // destructuring assignment sets the two variables at once
           const [startX, startY] = getCoordinatesForPercent(cumulativePercent);
 
           // each slice starts where the last slice ended, so keep a cumulative percent
-          cumulativePercent += slice.percent;
+          cumulativePercent += slice.fraction;
 
           const [endX, endY] = getCoordinatesForPercent(cumulativePercent);
 
           // if the slice is more than 50%, take the large arc (the long way around)
-          const largeArcFlag = slice.percent > .5 ? 1 : 0;
+          const largeArcFlag = slice.fraction > .5 ? 1 : 0;
 
           // create an array and join it just for code readability
           const pathData = [
