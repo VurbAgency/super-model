@@ -70,7 +70,6 @@
         ]
 
         let total = slices.reduce((accumulator, value, index) => {
-          console.log(accumulator, value, index)
           return accumulator + value.percent
         }, 0) * 100
         total = Math.round(total)
