@@ -14,6 +14,7 @@ function _calculateOperatingCostsVariables(input, output) {
   
   output['totalOperatingMargin'] = _calculateTotalOperatingMargin(output.totalRevenue, output.cogs, output.totalOperatingCosts)
   output['netOperatingMargin'] = _calculateNetOperatingMargin(output.totalOperatingMargin, output.totalRevenue)
+  output['opexRatio'] = _calculateOpexRatio(output.totalRevenue, output.totalOperatingCosts);
   
   return output;
 }
@@ -65,5 +66,11 @@ function _calculateTotalOperatingMargin(totalRevenue, cogs, totalOperatingCosts)
 }
 function _calculateNetOperatingMargin(totalOperatingMargin, totalRevenue) {
   return totalOperatingMargin.map((a, i) => a / totalRevenue[i]);    
+}
+
+function _calculateOpexRatio(totalRevenue, totalOperatingCosts) {
+  var totalRevenueSum = totalRevenue.reduce((a, b) => a + b, 0);
+  var totalOperatingCostsSum = totalOperatingCosts.reduce((a, b) => a + b, 0);
+  return (totalOperatingCostsSum/totalRevenueSum).toPrecision(2);
 }
 // END Operating costs
