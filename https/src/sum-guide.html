@@ -432,8 +432,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="report">
         <h2>Topline Numbers</h2>
         <div>
-          <div class="graph-in-report">
-            <sum-multiple-lines-graph data="[[revenueTiersDataToPlot]]"  title="Revenue per month" legend-labels='["Tier 1", "Tier 2", "Tier 3"]'></sum-multiple-lines-graph>
+          <div class="graph-in-report big-number">
+            <h3>Revenue per month</h3>
+            <sum-multiple-lines-graph data="[[revenueTiersDataToPlot]]"  title="" legend-labels='["Tier 1", "Tier 2", "Tier 3"]'></sum-multiple-lines-graph>
           </div>
         </div>
         <div>
@@ -543,8 +544,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <div class="report">
         <h2>Cost and Gross Margin Numbers</h2>
-
+        <div>
+          <div class="graph-in-report big-number">
+              <h3>COGS VS REVENUE</h3>
             <sum-multiple-lines-graph data="[[cogsAndRevenueDataToPlot]]"  title="" legend-labels='["COGS", "Revenue"]'></sum-multiple-lines-graph>
+          </div>
+        </div>
         <div>
           <div class="big-number">
             <h3>Humans in COGS</h3>
