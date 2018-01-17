@@ -436,7 +436,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <h3>Revenue per month</h3>
             <sum-multiple-lines-graph data="[[revenueTiersDataToPlot]]"  title="" legend-labels='["Tier 1", "Tier 2", "Tier 3"]'></sum-multiple-lines-graph>
           </div>
-        </div>
+        </div>      
+        <div>
+          <div class="big-number">
+            <h3>Total Revenue</h3>
+            <p class="number">
+              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenue)}}
+            </p>
+          </div>  
+          <p>
+            Tier 1: <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier1)}}
+          </p>
+          <p>
+            Tier 2: <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier2)}}
+          </p>
+          <p>
+            Tier 3: <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier3)}}
+          </p>
+        </div>        
         <div>        
           <div class="big-number">
             <h3>LTV</h3>
@@ -448,38 +465,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <p>A key number to track, this is the value you get from an individual customer over their entire use of your product.</p>
           <p>You can use this number when deciding on how much money you want to spend on marketing and to see when your retention rates are best.</p>
           <p>The number we calculated is the Traditional LTV.</p>
-        </div>        
-        <div>
-          <div class="big-number">
-            <h3>Total Revenue</h3>
-            <p class="number">
-              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenue)}}
-            </p>
-          </div>  
-        </div>
-        <div>                  
-          <div class="big-number">
-            <h3>Revenue Tier 1</h3>
-            <p class="number">
-              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier1)}}
-            </p>
-          </div> 
-        </div>
-        <div>                   
-          <div class="big-number">
-              <h3>Revenue Tier 2</h3>
-            <p class="number">
-              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier2)}}
-            </p>
-          </div>     
-        </div>
-        <div>               
-          <div class="big-number">
-            <h3>Revenue Tier 3</h3>
-            <p class="number">
-              <span class="prefix">§</span>{{_sumArrayValuesRound(calculated.totalRevenueTier3)}}
-            </p>
-          </div>                                              
         </div>
       </div>
 
@@ -560,7 +545,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div>
           <div class="big-number">
             <h3>Total COGS</h3>
-            <p class="number">{{_sumArrayValuesRound(calculated.cogs)}}</p>
+            <p class="number">§{{_sumArrayValuesRound(calculated.cogs)}}</p>
           </div>
           <p>The 'Cost Of Goods Sold' — often lovingly referred to as COGS — is the amount it costs in order for you to deliver your product.</p>
           <p>The main reason you'll want to keep an eye on cost of goods sold is that it is linked in an important way to your company's profit. It goes without saying that profit is important to growing your business and assessing your company's overall financial health—and the cost of goods sold is a piece of that profit picture.</p>
@@ -636,7 +621,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <div class="big-number">
             <h3>Operating Costs</h3>
             <sum-one-line-graph data="[[calculated.totalOperatingCosts]]" label="Operating costs" rgb-colors="[[operatingCostsGraphColors]]"></sum-one-line-graph>
-            <div class="number">{{_sumArrayValuesRound(calculated.totalOperatingCosts)}}</div>
+            <div class="number">§{{_sumArrayValuesRound(calculated.totalOperatingCosts)}}</div>
           </div>
           <p>Operating costs are expenses associated with the maintenance and administration of a business on a day-to-day basis. The operating cost is a component of operating income and is usually reflected on a company’s income statement. While operating costs generally do not include capital outlays, they can include many components of operating a business.</p>
         </div>
