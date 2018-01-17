@@ -64,6 +64,8 @@
           return accumulator + currentValue.percent
         }, 0)
 
+        if(!total) return
+
         slices = slices.map(v => {
           v.fraction = v.percent / total
           return v

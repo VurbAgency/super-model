@@ -8,9 +8,20 @@
         display: block;
       }
 
+      p {
+        padding: 1em;
+        text-align: center;
+      }
+
+      [data-invalid] {
+        color: red;
+      }
+
       sum-pie-graph {}
 
     </style>
+
+    <p data-invalid$={{notFull}}>Total: {{total}}%</p>
 
     <sum-svg-pie slices="{{slices}}"></sum-svg-pie>
 
@@ -24,6 +35,8 @@
             type: Object,
             value: {}
           },
+          total: Number,
+          notFull: Boolean,
           slices: {
             type: Array,
             value: function () {
@@ -56,6 +69,14 @@
           { percent: (data.pricePercentT3 / 100), color: '#2B3990' },
         ]
 
+        let total = slices.reduce((accumulator, value, index) => {
+          console.log(accumulator, value, index)
+          return accumulator + value.percent
+        }, 0) * 100
+        total = Math.round(total)
+
+        this.set('notFull', total !== 100)
+        this.set('total', total)
         return this.set('slices', slices)
       }
 
