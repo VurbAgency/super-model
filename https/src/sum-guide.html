@@ -395,6 +395,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </div>
       </div>
 
+      <div class="card with-figure">
+        <article>
+          <h2>Cohorts</h2>
+          <p>Another way to look at growth is with a Cohorts graph. In this graph you see the new users per month as a new layer in the graph. In this way you can easily see the impact of month-on-month growth and retention.</p>
+          <paper-input value="{{data.growthRate}}" type="number" label="Monthly growth">
+            <span slot="suffix">%/month</span>
+          </paper-input>
+          <paper-input value="{{data.retentionRateSixMonths}}" type="number" label="Retention rate at 6 months">
+            <span slot="suffix">%</span>
+          </paper-input>
+        </article>
+        <div>
+          <sum-cohort-graph id="cohort-graph" calculated="[[calculated]]"></sum-cohort-graph>
+        </div>
+      </div>
+
       <div class="report">
         <h2>Key Numbers</h2>
         <div>
